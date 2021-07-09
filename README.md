@@ -3,6 +3,45 @@ Uma biblioteca minimalista em desenvolvimento criada para interagir com a API v9
 
 Com o foco em simplicidade e performance. Para que qualquer um sem muitos conhecimentos consiga criar um bot ou self bot decente para o Discord.
 
+# Exemplo
+```js
+const DenkyJS = require('./index');
+const client = new DenkyJS.Client({
+    token: 'Token do seu bot',
+    shards: 1,
+    intents: ['GUILDS', 'GUILD_MESSAGES'],
+    
+    // Você pode desabilitar o cache de certas coisas para diminuir o consumo de memória.
+    // Desabilitar alguns itens, poderá fazer com que algumas propriedades não estejam disponíveis sem fetch.
+    caches: {
+        guilds: true, // Pode quebrar o bot, não recomendável desabilitar.
+        channels: true, // Caso desativado, não será possível ver propriedades e permissões de um canal.
+        roles: true, // Caso desativado, não será possível ver propriedades, permissões e permissões de membros.
+        members: true, // Caso desativado, não será possível obter algumas informações de membros.
+        emojis: true // Caso desativado, não será possível procurar emojis.
+    }
+});
+
+client.login();
+client.once('READY', () => {
+    console.log('O bot foi iniciado com sucesso!');
+});
+
+client.on('MESSAGE_CREATE', (msg) => {
+   if (msg.content === '!ping') message.channel.send(`Pong! ${client.ping}ms.`);
+   if (msg.content === '!say') message.channel.send(`${message.content.slice(4)}`);
+   if (msg.content === '!servidores') message.channel.send(`Estou em ${client.guilds.cache.size} servidores!`);
+});
+
+client.on('INTERACTION_CREATE', async (interaction) => {
+   if (interaction.type !== 'APPLICATION_COMMAND') return;
+   await interaction.deferUpdate()
+   if (interaction.commandName === 'ping') interaction.editReply(`Pong! ${client.ping}ms.`);
+   if (interaction.commandName === 'say') interaction.editReply(`${interaction.options[0].value ?? 'Nenhum texto inserido!'}`);
+});
+
+```
+
 # To-Do
  - [] Gateway
     - [x] Heartbeat
