@@ -3,6 +3,8 @@ Uma biblioteca minimalista em desenvolvimento criada para interagir com a API v9
 
 Com o foco em simplicidade e performance. Para que qualquer um sem muitos conhecimentos consiga criar um bot ou self bot decente para o Discord.
 
+O código ainda não está disponível publicamente pois a biblioteca está incompleta.
+
 # Exemplo
 ```js
 const DenkyJS = require('./index');
@@ -42,14 +44,16 @@ client.on('INTERACTION_CREATE', async (interaction) => {
 
 ```
 
-# To-Do
- - [] Gateway
+## To-Do
+ - [ ] Gateway
     - [x] Heartbeat
     - [x] Hello
     - [x] Ready
+    - [ ] Reconexão
     - [ ] Resumir sessão
     - [ ] Reconectar
     - [ ] Rate Limits
+        - [ ] Rate limits por shards
  - [x] Intents
     - [x] Bitfield
     - [x] Gerar intents
@@ -58,7 +62,6 @@ client.on('INTERACTION_CREATE', async (interaction) => {
     - [x] Shards internas
     - [ ] Shards por processos
     - [ ] Max Concurrency
-    - [ ] Ratelimits
  - [ ] Cache
     - [x] Cache de canais
     - [x] Cache de servidores
@@ -68,7 +71,11 @@ client.on('INTERACTION_CREATE', async (interaction) => {
     - [ ] Cache de usuários
     - [ ] Cache customizavél
  - [ ] Compactação
- - [ ] Reconexão com o Gateway
+ - [ ] Geradores
+     - [ ] Embeds
+     - [ ] Botões
+     - [ ] Menus
+     - [ ] Anexos
  - [ ] Suportes
      - [ ] Threads
      - [ ] Interações
@@ -82,13 +89,12 @@ client.on('INTERACTION_CREATE', async (interaction) => {
      - [ ] Voz
      - [ ] Permissões
 
-# Eventos suportados
+## Eventos suportados
  - [x] MESSAGE_CREATE
  - [x] GUILD_CREATE
  - [x] GUILD_DELETE
  - [x] READY
  - [x] HELLO
- - [x] ERROR
  - [ ] GUILD_UPDATE
  - [ ] GUILD_BAN_ADD
  - [ ] GUILD_BAN_REMOVE
