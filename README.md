@@ -10,6 +10,11 @@ O código ainda não está disponível publicamente pois a biblioteca está inco
 const DenkyJS = require('./index');
 const client = new DenkyJS.Client({
     token: 'Token do seu bot',
+    
+    // Desabilitar alguns eventos podem melhorar a performance de bots grandes
+    // Lista de eventos: https://discord.com/developers/docs/topics/gateway#commands-and-events-gateway-events
+    disabledEvents: ['TYPING_START'],
+    
     shards: 1,
     intents: ['GUILDS', 'GUILD_MESSAGES'],
     
@@ -25,6 +30,8 @@ const client = new DenkyJS.Client({
 });
 
 client.login();
+
+
 client.once('READY', () => {
     console.log('O bot foi iniciado com sucesso!');
 });
@@ -51,9 +58,8 @@ client.on('INTERACTION_CREATE', async (interaction) => {
     - [x] Ready
     - [ ] Reconexão
     - [ ] Resumir sessão
-    - [ ] Reconectar
     - [ ] Rate Limits
-        - [ ] Rate limits por shards
+        - [ ] Rate Limits por shards
  - [x] Intents
     - [x] Bitfield
     - [x] Gerar intents
