@@ -38,7 +38,7 @@ client.once('READY', () => {
 
 client.on('MESSAGE_CREATE', (msg) => {
    if (msg.content === '!ping') msg.channel.send(`Pong! ${client.ping}ms.`);
-   if (msg.content === '!say') msg.channel.send(message.content.slice(4));
+   if (msg.content === '!say') msg.channel.send(msg.content.slice(4));
    if (msg.content === '!servidores') msg.channel.send(`Estou em ${client.guilds.cache.size} servidores!`);
 });
 
