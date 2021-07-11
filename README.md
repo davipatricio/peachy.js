@@ -37,9 +37,9 @@ client.once('READY', () => {
 });
 
 client.on('MESSAGE_CREATE', (msg) => {
-   if (msg.content === '!ping') msg.channel.send(`Pong! ${client.ping}ms.`);
-   if (msg.content === '!say') msg.channel.send(msg.content.slice(4));
-   if (msg.content === '!servidores') msg.channel.send(`Estou em ${client.guilds.cache.size} servidores!`);
+   if (msg.content === '!ping') message.channel.send(`Pong! ${client.ping}ms.`);
+   if (msg.content === '!say') message.channel.send(message.content.slice(4));
+   if (msg.content === '!servidores') message.channel.send(`Estou em ${client.guilds.cache.size} servidores!`);
 });
 
 client.on('INTERACTION_CREATE', async (interaction) => {
