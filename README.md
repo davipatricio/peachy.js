@@ -18,37 +18,38 @@ const client = new DenkyJS.Client({
     shards: 1,
     intents: ['GUILDS', 'GUILD_MESSAGES'],
     
-    // Você pode desabilitar o cache de certas coisas para diminuir o consumo de memória.
-    // Desabilitar alguns itens, poderá fazer com que algumas propriedades não estejam disponíveis sem fetch.
+    // Você pode limitar o cache de certas coisas para diminuir o consumo de memória.
+    // Deixar alguns itens em 0 ou em um valor baixo, poderá fazer com que algumas propriedades não estejam disponíveis sem o metódo fetch.
     caches: {
-        guilds: true, // Pode quebrar o bot, não recomendável desabilitar.
-        channels: true, // Caso desativado, não será possível ver propriedades e permissões de um canal.
-        roles: true, // Caso desativado, não será possível ver propriedades, permissões e permissões de membros.
-        members: true, // Caso desativado, não será possível obter algumas informações de membros.
-        emojis: true // Caso desativado, não será possível procurar emojis.
+        guilds: Infinity, // Pode quebrar o bot, não recomendável desabilitar.
+        channels: 0, // Caso desativado, não será possível ver propriedades e permissões de um canal através do cache.
+        roles: 2500, // Caso desativado, não será possível ver propriedades, permissões e permissões de membros através do cache.
+        users: 100, // Caso desativado, não será possível obter algumas informações de usuários através do cache.
+        membersPerGuild: 1000, // Caso desativado, não será possível obter algumas informações de membros através do cache.
+        emojis: 0 // Caso desativado, não será possível procurar emojis através do cache.
     }
 });
 
 client.login();
 
-
-client.once('READY', () => {
-    console.log('O bot foi iniciado com sucesso!');
-});
-
-client.on('MESSAGE_CREATE', (msg) => {
+client.on('MESSAGE_CREATE', async (msg) => {
    if (msg.content === '!ping') msg.channel.send(`Pong! ${client.ping}ms.`);
-   if (msg.content === '!say') msg.channel.send(msg.content.slice(4));
+   if (msg.content === '!say') {
+    await msg.delete();
+    msg.channel.send(msg.content.slice(4));
+   }
    if (msg.content === '!servidores') msg.channel.send(`Estou em ${client.guilds.cache.size} servidores!`);
 });
 
 client.on('INTERACTION_CREATE', async (interaction) => {
-   if (interaction.type !== 'APPLICATION_COMMAND') return;
+   if (interaction.type !== 'CHAT_COMMAND') return;
    await interaction.deferUpdate()
    if (interaction.commandName === 'ping') interaction.editReply(`Pong! ${client.ping}ms.`);
-   if (interaction.commandName === 'say') interaction.editReply(`${interaction.options[0].value ?? 'Nenhum texto inserido!'}`);
+   if (interaction.commandName === 'say') interaction.editReply(`> ${interaction.options.getString('texto')}`);
 });
 
+
+client.once('READY', () => console.log('O bot foi iniciado com sucesso!'));
 ```
 
 ## To-Do
