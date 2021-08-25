@@ -1,5 +1,5 @@
 # peachy.js
-A minimalist library in development designed to interact with discord's v9 API.
+A minimalist and perfomance-focused library in development designed to interact with Discord API.
 
 With a focus on simplicity and performance. So that anyone without much knowledge can create a decent bot for Discord.
 
