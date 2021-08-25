@@ -5,7 +5,7 @@ With a focus on simplicity and performance. So that anyone without much knowledg
 
 # Example
 ```js
-const DenkyJS = require('./index');
+const Peachy = require('./index');
 const client = new Peachy.Client({
     // Disabling some events can eventually improve performance on bots on many servers in combination with intents
     // Event list: https://discord.com/developers/docs/topics/gateway#commands-and-events-gateway-events
