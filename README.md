@@ -14,6 +14,11 @@ const client = new Peachy.Client({
     shards: 1,
     intents: ['GUILDS', 'GUILD_MESSAGES'],
     
+    // Store cache to disk to decrease memory consumption. (Slower, Not recommended on HDDs)
+    data: {
+        file: './diskCache.json'
+    },
+    
     // You can limit the caching of certain items to decrease memory consumption.
     // Leaving some items at 0 or at a very low value may cause some properties not to be available without the 'fetch' method.
     caches: {
