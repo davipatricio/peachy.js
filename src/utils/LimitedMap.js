@@ -5,10 +5,10 @@ class LimitedMap extends Map {
 	}
 
 	set (key, value) {
+		if (this.limit <= 0) return;
 		if (this.size >= this.limit) {
 			this.delete(this.keys().next().value);
 		}
-
 		super.set(key, value);
 	}
 }
