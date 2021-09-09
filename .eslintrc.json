@@ -9,10 +9,6 @@
       "ecmaVersion": 11,
       "sourceType": "script"
     },
-    "globals": {
-      "client": true,
-      "manager": true
-    },
     "extends": ["eslint:recommended","google"],
     "rules": {
       "no-unused-vars": "error",
