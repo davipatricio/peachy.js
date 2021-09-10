@@ -56,6 +56,13 @@ class Client extends EventEmitter {
 		return this.ws.connect();
 	}
 
+	async disconnect () {
+		if (!this.ws.connection) return;
+		if (this.api.heartbeat_timer) clearInterval(this.api.heartbeat_timer);
+		this.api.sequence = null;
+		this.ws.connection.close();
+	}
+
 	_verifyOptions () {
 		// Type checking
 		if (!Array.isArray(this.options.disabledEvents)) throw new Error('The disabledEvents option must be an array.');

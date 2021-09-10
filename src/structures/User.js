@@ -1,4 +1,3 @@
-const Requester = require('../utils/Requester');
 const Constants = require('../constants/DiscordEndpoints');
 
 class User {
