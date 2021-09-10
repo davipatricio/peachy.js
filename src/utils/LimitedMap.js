@@ -9,7 +9,16 @@ class LimitedMap extends Map {
 		if (this.size >= this.limit) {
 			this.delete(this.keys().next().value);
 		}
+
 		super.set(key, value);
+	}
+
+	keyArray () {
+		return [...this.keys()];
+	}
+
+	valueArray () {
+		return [...this.values()];
 	}
 }
 
