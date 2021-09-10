@@ -1,6 +1,6 @@
 {
   "name": "peachy.js",
-  "version": "1.0.0-a",
+  "version": "1.0.0-b",
   "description": "A powerful library for interacting with the Discord API",
   "main": "./index.js",
   "repository": {
@@ -10,9 +10,9 @@
   "author": "Davi Patricio <davipatricio@pm.me>",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "ttps://github.com/DenkyLabs/peachy.js/issues"
+    "url": "https://github.com/DenkyLabs/peachy.js/issues"
   },
-  "homepage": "ttps://github.com/DenkyLabs/peachy.js#readme",
+  "homepage": "https://github.com/DenkyLabs/peachy.js#readme",
   "dependencies": {
     "eslint": "^7.32.0",
     "eslint-config-google": "^0.14.0",
