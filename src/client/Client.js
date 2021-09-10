@@ -1,28 +1,32 @@
 const os = require('os');
 const EventEmitter = require('events');
 const LimitedMap = require('../utils/LimitedMap');
-const Websocket = require('./ws/Websocket');
+const WebsocketManager = require('./ws/Websocket');
 const ActionManager = require('../actions/ActionManager');
 const Intents = require('../utils/Intents');
 
 class Client extends EventEmitter {
 	constructor (options = {}) {
 		super();
+
+		this.ready = false;
 		this.api = {};
 
 		this.options = Object.assign({
 			disabledEvents: [],
 			shardId: 0,
 			shardCount: 1,
+
 			intents: [],
 			large_threshold: 50,
+
 			properties: {
 				'$os': os.platform(),
 				'$browser': 'peachy.js',
 				'$device': 'peachy.js',
 			},
 
-			// By default, all caches are enabled
+			// By default, all caches are enabled without any limit
 			caches: {
 				guilds: Infinity,
 				channels: Infinity,
@@ -33,8 +37,12 @@ class Client extends EventEmitter {
 			},
 		}, options);
 
+		// Verify if custom options are valid
 		this._verifyOptions();
-		this.options.intents = Intents(this.options.intents);
+
+		// Get bitfield from intent array
+		this.options.intents = Intents.parse(this.options.intents);
+
 		this.caches = {
 			guilds: new LimitedMap(this.options.caches.guilds),
 			channels: new LimitedMap(this.options.caches.channels),
@@ -44,13 +52,13 @@ class Client extends EventEmitter {
 			emojis: new LimitedMap(this.options.caches.emojis),
 		};
 
-		this.ws = new Websocket(this);
+		this.ws = new WebsocketManager(this);
 		this.actions = new ActionManager(this);
 	}
 
 	async login (token) {
-		this.token = token ?? process.env.DISCORD_TOKEN ?? process.env.BOT_TOKEN ?? process.env.TOKEN;
-		if (!this.token || typeof this.token !== 'string') throw new Error('No token was provided.');
+		this.token = token ?? process.env.DISCORD_TOKEN;
+		if (!this.token || typeof this.token !== 'string') throw new Error('No valid token was provided.');
 
 		this.emit('debug', 'Login method was called. Preparing to connect to the Discord Gateway.');
 		return this.ws.connect();
@@ -58,6 +66,7 @@ class Client extends EventEmitter {
 
 	async disconnect () {
 		if (!this.ws.connection) return;
+
 		if (this.api.heartbeat_timer) clearInterval(this.api.heartbeat_timer);
 		this.api.sequence = null;
 		this.ws.connection.close();
