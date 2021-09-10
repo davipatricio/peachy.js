@@ -20,6 +20,10 @@ class LimitedMap extends Map {
 	valueArray () {
 		return [...this.values()];
 	}
+
+	random () {
+		return this.valueArray()[Math.floor(Math.random() * this.size)];
+	}
 }
 
 module.exports = LimitedMap;
