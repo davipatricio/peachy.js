@@ -5,7 +5,7 @@ module.exports.handle = function(client, { user }) {
 	client.caches.users.set(client.user.id, client.user);
 
 	setTimeout(() => {
-		client.emit('ready');
+		client.emit('ready', client.user);
 		client.ready = true;
 	}, 5000).unref();
 };
