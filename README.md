@@ -3,21 +3,44 @@ A minimalist and perfomance-focused library in development designed to interact 
 
 With a focus on simplicity and performance. So that anyone without much knowledge can create a decent bot for Discord.
 
-# Example
+# Installation
+
+##### Node.js 16.0.0 or newer is required.
+
+```sh-session
+npm install peachy.js
+yarn add peachy.js
+pnpm add peachy.js
+```
+
+### Optional packages
+- [bufferutil](https://www.npmjs.com/package/bufferutil) for a much faster WebSocket connection (`npm install bufferutil`)
+- [utf-8-validate](https://www.npmjs.com/package/utf-8-validate) in combination with `bufferutil` for much faster WebSocket processing (`npm install utf-8-validate`)
+
+# Simple example
 ```js
-const Peachy = require('./index');
+const Peachy = require('peachy.js');
+const client = new Peachy.Client();
+
+client.on('MESSAGE_CREATE', async (msg) => {
+   if (msg.content === '!ping') msg.channel.send(`Pong! ${client.ping}ms.`);
+});
+
+client.login('Bot token');
+```
+
+## Advanced example
+```js
+const Peachy = require('peachy.js');
 const client = new Peachy.Client({
     // Disabling some events can eventually improve performance on bots on many servers in combination with intents
     // Event list: https://discord.com/developers/docs/topics/gateway#commands-and-events-gateway-events
     disabledEvents: ['TYPING_START'],
     
-    shards: 1,
+    shardId: 0, // Should start at 0. Useful for large bots in multiple machines
+    shardCount: 1 // How many shards spawn
+
     intents: ['GUILDS', 'GUILD_MESSAGES'],
-    
-    // Store cache to disk to decrease memory consumption. (Slower, Not recommended on HDDs)
-    data: {
-        file: './diskCache.json'
-    },
     
     // You can limit the caching of certain items to decrease memory consumption.
     // Leaving some items at 0 or at a very low value may cause some properties not to be available without the 'fetch' method.
@@ -39,7 +62,7 @@ client.on('MESSAGE_CREATE', async (msg) => {
     await msg.delete();
     msg.channel.send(msg.content.slice(4));
    }
-   if (msg.content === '!servidores') msg.channel.send(`I'm in ${client.guilds.cache.size} guilds!`);
+   if (msg.content === '!servers') msg.channel.send(`I'm in ${client.guilds.cache.size} guilds!`);
 });
 
 client.on('INTERACTION_CREATE', async (interaction) => {
