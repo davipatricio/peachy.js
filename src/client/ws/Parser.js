@@ -29,11 +29,6 @@ function message (client, message) {
 	}
 }
 
-async function open () {
-	console.log('open');
-}
-
 module.exports = {
 	message,
-	open,
 };

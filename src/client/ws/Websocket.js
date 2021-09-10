@@ -14,9 +14,6 @@ class WebSocket {
 
 	prepareEvents () {
 		this.connection.on('message', (message) => Parser.message(this.client, message));
-		this.connection.on('close', (code) => Parser.close(this.client, code));
-		this.connection.on('error', (error) => Parser.error(this.client, error));
-		this.connection.on('open', () => Parser.open(this.client));
 	}
 };
 
