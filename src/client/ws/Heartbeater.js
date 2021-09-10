@@ -11,7 +11,7 @@ async function start (client, data) {
 	}, client.api.heartbeat_interval).unref();
 }
 
-async function stop () {
+async function stop (client) {
 	if (client.api.heartbeat_timer) clearInterval(client.api.heartbeat_timer);
 }
 
