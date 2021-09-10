@@ -17,6 +17,8 @@ pnpm add peachy.js
 - [bufferutil](https://www.npmjs.com/package/bufferutil) for a much faster WebSocket connection (`npm install bufferutil`)
 - [utf-8-validate](https://www.npmjs.com/package/utf-8-validate) in combination with `bufferutil` for much faster WebSocket processing (`npm install utf-8-validate`)
 
+---
+
 # Simple example
 ```js
 const Peachy = require('peachy.js');
@@ -28,6 +30,7 @@ client.on('MESSAGE_CREATE', async (msg) => {
 
 client.login('Bot token');
 ```
+---
 
 ## Advanced example
 ```js
