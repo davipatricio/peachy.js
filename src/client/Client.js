@@ -10,9 +10,6 @@ class Client extends EventEmitter {
 		super();
 		this.api = {};
 
-		this.ws = new Websocket(this);
-		this.actions = new ActionManager(this);
-
 		this.options = Object.assign({
 			disabledEvents: [],
 			shardId: 0,
@@ -46,6 +43,9 @@ class Client extends EventEmitter {
 			membersPerGuild: new LimitedMap(this.options.caches.membersPerGuild),
 			emojis: new LimitedMap(this.options.caches.emojis),
 		};
+
+		this.ws = new Websocket(this);
+		this.actions = new ActionManager(this);
 	}
 
 	async login (token) {

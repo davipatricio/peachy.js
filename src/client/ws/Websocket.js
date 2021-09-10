@@ -1,6 +1,6 @@
 const WS = require('ws');
 const Endpoints = require('../../constants/DiscordEndpoints');
-const Parser = require('./parser');
+const Parser = require('./Parser');
 
 class WebSocket {
 	constructor (client) {
