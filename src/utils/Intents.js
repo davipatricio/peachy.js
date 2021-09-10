@@ -1,4 +1,6 @@
 module.exports = (intents) => {
+	if (typeof intents === 'number') return intents;
+
 	let finalIntents = 0;
 	for (const intent of intents) {
 		switch (intent) {
