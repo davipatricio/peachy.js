@@ -12,7 +12,7 @@ function message (client, message) {
 	switch (opcode) {
 		// General Gateway Events
 		case 0:
-			client.actions.loaded[eventName]?.handle(client, eventName, eventData);
+			client.actions.loaded[eventName]?.handle(client, eventData);
 			break;
 		// Gateway HELLO event
 		case 10:
