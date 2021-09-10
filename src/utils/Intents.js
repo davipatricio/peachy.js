@@ -1,4 +1,4 @@
-module.exports = (intents) => {
+module.exports.parse = (intents) => {
 	if (typeof intents === 'number') return intents;
 
 	let finalIntents = 0;
