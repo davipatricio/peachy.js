@@ -19,7 +19,7 @@ class User {
 		this.id = data.id;
 		this.username = data.username;
 		this.discriminator = data.discriminator;
-		this.tag = data.tag;
+		this.tag = `${this.username}#${this.discriminator}`;
 		this.bot = data.bot;
 
 		// Avatar and banners
