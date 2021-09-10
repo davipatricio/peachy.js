@@ -1,7 +1,7 @@
-const fetch = import('node-fetch');
+const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const { apiUrl } = require('../constants/DiscordEndpoints');
 
-module.exports.create = (client, endpoint, method = 'GET', parseHeaders = true, data = '', headers = {}) => {
+module.exports.create = async (client, endpoint, method = 'GET', parseHeaders = true, data = '', headers = {}) => {
 	if (parseHeaders) {
 		headers = Object.assign({
 			'Authorization': `Bot ${client.token}`,
@@ -9,10 +9,11 @@ module.exports.create = (client, endpoint, method = 'GET', parseHeaders = true, 
 			'User-Agent': 'DiscordBot (https://github.com/DenkyLabs/peachy.js/, 0.0.1)',
 		}, headers);
 	}
+	const body = typeof data === 'object' ? JSON.stringify(data) : data;
 
-	return fetch(`${apiUrl}/${endpoint}`, {
+	return fetch(`${apiUrl(9)}${endpoint}`, {
 		method,
 		headers,
-		body: typeof data === 'string' && data.length ? JSON.stringify(data) : data,
+		body,
 	});
 };
