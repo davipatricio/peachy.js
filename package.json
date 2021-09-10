@@ -14,10 +14,12 @@
   },
   "homepage": "https://github.com/DenkyLabs/peachy.js#readme",
   "dependencies": {
-    "eslint": "^7.32.0",
-    "eslint-config-google": "^0.14.0",
     "node-fetch": "^3.0.0",
     "ws": "^8.2.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-google": "^0.14.0"
   },
   "engines": {
     "node": ">=16.6.0",
