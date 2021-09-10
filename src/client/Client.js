@@ -17,6 +17,8 @@ class Client extends EventEmitter {
 			shardId: 0,
 			shardCount: 1,
 
+			apiVersion: 9,
+
 			intents: [],
 			large_threshold: 50,
 
@@ -81,6 +83,7 @@ class Client extends EventEmitter {
 		if (typeof this.options.caches !== 'object') throw new Error('The properties option must be an object.');
 
 		if (typeof this.options.shardId !== 'number') throw new Error('The shardId option must be a number.');
+		if (typeof this.options.apiVersion !== 'number') throw new Error('The apiVersion option must be a number.');
 		if (typeof this.options.shardCount !== 'number') throw new Error('The shardCount option must be a number.');
 		if (typeof this.options.large_threshold !== 'number') throw new Error('The large_threshold option must be a number.');
 

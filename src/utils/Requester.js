@@ -11,7 +11,7 @@ module.exports.create = async (client, endpoint, method = 'GET', parseHeaders = 
 	}
 	const body = typeof data === 'object' ? JSON.stringify(data) : data;
 
-	return fetch(`${apiUrl(9)}${endpoint}`, {
+	return fetch(`${apiUrl(client.apiVersion)}${endpoint}`, {
 		method,
 		headers,
 		body,
