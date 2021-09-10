@@ -1,8 +1,9 @@
 {
   "name": "peachy.js",
-  "version": "1.0.0-b",
+  "version": "1.0.0-c",
   "description": "A powerful library for interacting with the Discord API",
   "main": "./index.js",
+  "keywords": ["discord", "api", "bot", "client", "node", "wrapper", "discordapp", "peachy.js"],
   "repository": {
     "type": "git",
     "url": "https://github.com/DenkyLabs/peachy.js.git"
