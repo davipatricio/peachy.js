@@ -6,13 +6,13 @@ class User {
 		this.parseData(data);
 	}
 
-	displayBannerURL (options = { format: 'png', size: 2096 }) {
+	displayBannerURL (options = { format: 'png', size: 2048 }) {
 		if (!this.banner_hash) return null;
 		return Constants.userBanner(this.id, this.banner_hash, options.size, options.format);
 	}
 
-	displayAvatarURL (options = { format: 'png', size: 2096 }) {
-		return Constants.userAvatar(this.id, this.banner_hash, options.size, options.format);
+	displayAvatarURL (options = { format: 'png', size: 2048 }) {
+		return Constants.userAvatar(this.id, this.avatar_hash, options.size, options.format);
 	}
 
 	parseData (data) {
