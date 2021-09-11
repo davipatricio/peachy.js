@@ -15,5 +15,8 @@ module.exports.create = async (client, endpoint, method = 'GET', parseHeaders = 
 		method,
 		headers,
 		body,
+	}).then((response) => {
+		if (response.status === 403) throw new Error('Missing Permissions');
+		return response;
 	});
 };

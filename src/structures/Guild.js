@@ -6,11 +6,27 @@ class Guild {
 		this.parseData(data);
 	}
 
-	setName (name) {
-		return Requester.create(this.client, `/guilds/${this.id}`, 'PATCH', true, { name });
+	async setName (name) {
+		const baseData = await Requester.create(this.client, `/guilds/${this.id}`, 'PATCH', true, { name });
+
+		const newGuild = await baseData.json();
+		return this.client.caches.set(this.id, new Guild(this.client, newGuild));
 	}
 
-	delete () {
+	async setOwner (id) {
+		const baseData = await Requester.create(this.client, `/guilds/${this.id}`, 'PATCH', true, { owner_id: id });
+
+		const newGuild = await baseData.json();
+		return this.client.caches.set(this.id, new Guild(this.client, newGuild));
+	}
+
+
+	async leave () {
+		if (this.ownerId === this.client.user.id) throw new Error('Bot is the guild owner');
+		return Requester.create(this.client, `/users/@me/guilds/${this.id}`, 'DELETE', true);
+	}
+
+	async delete () {
 		return Requester.create(this.client, `/guilds/${this.id}`, 'DELETE', true);
 	}
 
@@ -21,6 +37,8 @@ class Guild {
 	}
 
 	parseData (data) {
+		if (!data.id) return;
+
 		if (this.unavailable) {
 			this.id = data.id;
 			this.unavailable = true;
