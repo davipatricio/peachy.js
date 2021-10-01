@@ -6,10 +6,11 @@ const ActionManager = require('../actions/ActionManager');
 const Intents = require('../utils/Intents');
 
 class Client extends EventEmitter {
-	constructor (options = {}) {
+	constructor(options = {}) {
 		super();
 
 		this.ready = false;
+		this.user = null;
 		this.api = {};
 
 		this.options = Object.assign({
@@ -58,7 +59,7 @@ class Client extends EventEmitter {
 		this.actions = new ActionManager(this);
 	}
 
-	async login (token) {
+	async login(token) {
 		this.token = token ?? process.env.DISCORD_TOKEN;
 		if (!this.token || typeof this.token !== 'string') throw new Error('No valid token was provided.');
 
@@ -66,15 +67,18 @@ class Client extends EventEmitter {
 		return this.ws.connect();
 	}
 
-	async disconnect () {
+	async disconnect() {
 		if (!this.ws.connection) return;
 
 		if (this.api.heartbeat_timer) clearInterval(this.api.heartbeat_timer);
 		this.api.sequence = null;
 		this.ws.connection.close();
+		this.ready = false;
+		this.user = null;
+		this.api = {};
 	}
 
-	_verifyOptions () {
+	_verifyOptions() {
 		// Type checking
 		if (!Array.isArray(this.options.disabledEvents)) throw new Error('The disabledEvents option must be an array.');
 		if (!Array.isArray(this.options.intents)) throw new Error('The intents option must be an array.');

@@ -1,19 +1,22 @@
 const Requester = require('../utils/Requester');
+const LimitedMap = require('../utils/LimitedMap');
+const TextChannel = require('./TextChannel');
 
 class Guild {
-	constructor (client, data) {
+	constructor(client, data) {
 		this.client = client;
+		this.channels = new LimitedMap(this.client.options.caches.channels);
 		this.parseData(data);
 	}
 
-	async setName (name) {
+	async setName(name) {
 		const baseData = await Requester.create(this.client, `/guilds/${this.id}`, 'PATCH', true, { name });
 
 		const newGuild = await baseData.json();
 		return this.client.caches.set(this.id, new Guild(this.client, newGuild));
 	}
 
-	async setOwner (id) {
+	async setOwner(id) {
 		const baseData = await Requester.create(this.client, `/guilds/${this.id}`, 'PATCH', true, { owner_id: id });
 
 		const newGuild = await baseData.json();
@@ -21,49 +24,60 @@ class Guild {
 	}
 
 
-	async leave () {
+	async leave() {
 		if (this.ownerId === this.client.user.id) throw new Error('Bot is the guild owner');
 		return Requester.create(this.client, `/users/@me/guilds/${this.id}`, 'DELETE', true);
 	}
 
-	async delete () {
+	async delete() {
 		return Requester.create(this.client, `/guilds/${this.id}`, 'DELETE', true);
 	}
 
-	async fetch () {
+	async fetch() {
 		let data = await Requester.create(this.client, `/guilds/${this.id}?with_counts=true`, 'GET', true);
 		data = data.json();
 		return this.client.caches.set(this.id, new Guild(this.client, data));
 	}
 
-	parseData (data) {
+	parseData(data) {
 		if (!data.id) return;
 
 		if (this.unavailable) {
 			this.id = data.id;
 			this.unavailable = true;
+			return;
 		}
-		else {
-			this.id = data.id;
-			this.name = data.name;
-			this.icon = data.icon;
-			this.splash = data.splash;
-			this.discoverySplash = data.discovery_splash;
-			this.ownerId = data.owner_id;
-			this.afkChannelId = data.afk_channel_id;
-			this.afkTimeout = data.afk_timeout;
-			this.widgetEnabled = data.widget_enabled;
-			this.widgetChannelId = data.widget_channel_id;
-			this.verificationLevel = data.verification_level;
-			this.defaultMessageNotifications = data.default_message_notifications;
-			this.explicitContentFilter = data.explicit_content_filter;
-			this.features = data.features;
-			this.mfaLevel = data.mfa_level;
-			this.large = data.large;
-			this.memberCount = data.member_count;
+		this.id = data.id;
+		this.name = data.name;
+		this.icon = data.icon;
+		this.splash = data.splash;
+		this.discoverySplash = data.discovery_splash;
+		this.ownerId = data.owner_id;
+		this.afkChannelId = data.afk_channel_id;
+		this.afkTimeout = data.afk_timeout;
+		this.widgetEnabled = data.widget_enabled;
+		this.widgetChannelId = data.widget_channel_id;
+		this.verificationLevel = data.verification_level;
+		this.defaultMessageNotifications = data.default_message_notifications;
+		this.explicitContentFilter = data.explicit_content_filter;
+		this.features = data.features;
+		this.mfaLevel = data.mfa_level;
+		this.large = data.large;
+		this.memberCount = data.member_count;
 
-			this.joinedAt = new Date(data.joined_at);
-			this.joinedTimestamp = data.joined_at;
+		this.joinedAt = new Date(data.joined_at);
+		this.joinedTimestamp = data.joined_at;
+
+		if (data.channels) {
+			for (const channel of data.channels) {
+
+				switch (channel.type) {
+					// Text channels
+					case 0:
+						this.channels.set(channel.id, new TextChannel(this, channel));
+						break;
+				}
+			}
 		}
 	}
 }
