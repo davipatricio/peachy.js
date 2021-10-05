@@ -81,7 +81,6 @@ class Client extends EventEmitter {
 	_verifyOptions () {
 		// Type checking
 		if (!Array.isArray(this.options.disabledEvents)) throw new Error('The disabledEvents option must be an array.');
-		if (!Array.isArray(this.options.intents)) throw new Error('The intents option must be an array.');
 
 		if (typeof this.options.properties !== 'object') throw new Error('The properties option must be an object.');
 		if (typeof this.options.caches !== 'object') throw new Error('The properties option must be an object.');
