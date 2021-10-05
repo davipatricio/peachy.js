@@ -17,7 +17,15 @@ module.exports.create = async (client, endpoint, method = 'GET', parseHeaders = 
 		headers,
 		body,
 	}).then(async (response) => {
-		const json = await response.json();
+		let json;
+		try {
+			json = await response.json();
+		}
+		catch {
+			verifyForStatusCode(`${apiUrl(client.options.apiVersion)}${endpoint}`, data, response.status);
+			return response;
+		}
+
 		if (json.code) verifyForJSONStatusCode(json, `${apiUrl(client.options.apiVersion)}${endpoint}`, data);
 		verifyForStatusCode(`${apiUrl(client.options.apiVersion)}${endpoint}`, data, response.status);
 		return json;
