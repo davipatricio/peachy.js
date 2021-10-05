@@ -34,6 +34,10 @@ class Guild {
 		return this.client.caches.guilds.set(this.id, new Guild(this.client, data));
 	}
 
+	toString () {
+		return this.name;
+	}
+
 	parseData (data) {
 		if (!data.id) return;
 

@@ -11,6 +11,10 @@ class TextChannel {
 		return Requester.create(this.client, `/channels/${this.id}`, 'DELETE', true);
 	}
 
+	toString () {
+		return `<#${this.id}>`;
+	}
+
 	parseData (data) {
 		if (!data) return;
 

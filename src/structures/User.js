@@ -15,6 +15,10 @@ class User {
 		return Constants.userAvatar(this.id, this.avatar_hash, options.size, options.format);
 	}
 
+	toString () {
+		return `<@!${this.id}>`;
+	}
+
 	parseData (data) {
 		this.id = data.id;
 		this.username = data.username;
