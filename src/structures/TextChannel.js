@@ -1,10 +1,43 @@
 const Requester = require('../utils/Requester');
+const Message = require('./Message');
+const MakeAPIMessage = require('../utils/MakeAPIMessage');
 
 class TextChannel {
 	constructor (client, data, guild) {
 		this.client = client;
 		this.guild = guild;
 		this.parseData(data);
+	}
+
+	async send (content) {
+		if (typeof content === 'string') {
+			const data = await Requester.create(this.client, `/channels/${this.channelId}/messages`, 'POST', true, {
+				content,
+				embeds: [],
+				tts: false,
+				sticker_ids: [],
+				components: [],
+				allowed_mentions: {
+					parse: this.client.options.allowedMentions.parse,
+					replied_user: this.client.options.allowedMentions.replied_user,
+					users: this.client.options.allowedMentions.users,
+					roles: this.client.options.allowedMentions.roles,
+				},
+			});
+			return new Message(this.client, data);
+		}
+
+		if (!content.allowed_mentions) {
+			content.allowed_mentions = {
+				parse: this.client.options.allowedMentions.parse,
+				replied_user: this.client.options.allowedMentions.replied_user,
+				users: this.client.options.allowedMentions.users,
+				roles: this.client.options.allowedMentions.roles,
+			};
+		}
+
+		const data = await Requester.create(this.client, `/channels/${this.channelId}/messages`, 'POST', true, MakeAPIMessage.transform(content));
+		return new Message(this.client, data);
 	}
 
 	setName (name) {

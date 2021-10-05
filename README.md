@@ -59,20 +59,13 @@ const client = new Peachy.Client({
 
 client.login('Bot token');
 
-client.on('MESSAGE_CREATE', async (msg) => {
+client.on('messageCreate', async (msg) => {
    if (msg.content === '!ping') msg.channel.send(`Pong! ${client.ping}ms.`);
    if (msg.content === '!say') {
     await msg.delete();
     msg.channel.send(msg.content.slice(4));
    }
    if (msg.content === '!servers') msg.channel.send(`I'm in ${client.caches.guilds.size} guilds!`);
-});
-
-client.on('INTERACTION_CREATE', async (interaction) => {
-   if (interaction.type !== 'CHAT_COMMAND') return;
-   await interaction.deferUpdate()
-   if (interaction.commandName === 'ping') interaction.editReply(`Pong! ${client.ping}ms.`);
-   if (interaction.commandName === 'say') interaction.editReply(`> ${interaction.options.getString('text')}`);
 });
 
 
