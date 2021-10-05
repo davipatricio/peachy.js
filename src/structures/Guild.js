@@ -11,16 +11,12 @@ class Guild {
 
 	async setName (name) {
 		const baseData = await Requester.create(this.client, `/guilds/${this.id}`, 'PATCH', true, { name });
-
-		const newGuild = await baseData.json();
-		return this.client.caches.set(this.id, new Guild(this.client, newGuild));
+		return this.client.caches.guilds.set(this.id, new Guild(this.client, baseData));
 	}
 
 	async setOwner (id) {
 		const baseData = await Requester.create(this.client, `/guilds/${this.id}`, 'PATCH', true, { owner_id: id });
-
-		const newGuild = await baseData.json();
-		return this.client.caches.set(this.id, new Guild(this.client, newGuild));
+		return this.client.caches.guilds.set(this.id, new Guild(this.client, baseData));
 	}
 
 
@@ -34,9 +30,8 @@ class Guild {
 	}
 
 	async fetch () {
-		let data = await Requester.create(this.client, `/guilds/${this.id}?with_counts=true`, 'GET', true);
-		data = data.json();
-		return this.client.caches.set(this.id, new Guild(this.client, data));
+		const data = await Requester.create(this.client, `/guilds/${this.id}?with_counts=true`, 'GET', true);
+		return this.client.caches.guilds.set(this.id, new Guild(this.client, data));
 	}
 
 	parseData (data) {
