@@ -14,7 +14,10 @@ class Client extends EventEmitter {
 		this.api = {};
 
 		this.options = Object.assign({
+			// Which events should be disabled and not processed
 			disabledEvents: [],
+
+			// Sent in IDENTIFY payload
 			shardId: 0,
 			shardCount: 1,
 
@@ -37,6 +40,16 @@ class Client extends EventEmitter {
 				users: Infinity,
 				membersPerGuild: Infinity,
 				emojis: Infinity,
+			},
+
+			// Default message options
+
+			failIfNotExists: false,
+			allowedMentions: {
+				parse: ['users', 'roles', 'everyone'],
+				replied_user: true,
+				users: [],
+				roles: [],
 			},
 		}, options);
 
