@@ -1,21 +1,21 @@
 const Constants = require('../constants/DiscordEndpoints');
 
 class User {
-	constructor(client, data) {
+	constructor (client, data) {
 		this.client = client;
 		this.parseData(data);
 	}
 
-	displayBannerURL(options = { format: 'png', size: 2048 }) {
+	displayBannerURL (options = { format: 'png', size: 2048 }) {
 		if (!this.banner_hash) return null;
 		return Constants.userBanner(this.id, this.banner_hash, options.size, options.format);
 	}
 
-	displayAvatarURL(options = { format: 'png', size: 2048 }) {
+	displayAvatarURL (options = { format: 'png', size: 2048 }) {
 		return Constants.userAvatar(this.id, this.avatar_hash, options.size, options.format);
 	}
 
-	parseData(data) {
+	parseData (data) {
 		this.id = data.id;
 		this.username = data.username;
 		this.discriminator = data.discriminator;

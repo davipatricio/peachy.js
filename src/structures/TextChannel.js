@@ -1,18 +1,18 @@
 class TextChannel {
-	constructor(client, data) {
+	constructor (client, data) {
 		this.client = client;
 		this.parseData(data);
 	}
 
-	get guild() {
+	get guild () {
 		return this.client.caches.guilds.get(this.guildId);
 	}
 
-	get parent() {
-		return this.client.caches.channels.get(this.parentId)
+	get parent () {
+		return this.client.caches.channels.get(this.parentId);
 	}
 
-	parseData(data) {
+	parseData (data) {
 		if (!data) return;
 
 		this.id = data.id;

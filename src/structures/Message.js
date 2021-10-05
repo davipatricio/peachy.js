@@ -1,10 +1,12 @@
+const User = require('./User');
+
 class Message {
-	constructor(client, data) {
+	constructor (client, data) {
 		this.client = client;
 		this.parseData(data);
 	}
 
-	parseData(data) {
+	parseData (data) {
 		if (!data) return;
 		this.id = data.id;
 		this.channel = this.client.channels.cache.get(data.channel_id);
@@ -15,8 +17,7 @@ class Message {
 		this.pinned = data.pinned;
 		this.type = data.type;
 
-		this.author = new User(client, data.author);
-
+		this.author = new User(this.client, data.author);
 	}
 }
-module.exports = Guild;
+module.exports = Message;
