@@ -65,7 +65,7 @@ client.on('MESSAGE_CREATE', async (msg) => {
     await msg.delete();
     msg.channel.send(msg.content.slice(4));
    }
-   if (msg.content === '!servers') msg.channel.send(`I'm in ${client.guilds.cache.size} guilds!`);
+   if (msg.content === '!servers') msg.channel.send(`I'm in ${client.caches.guilds.size} guilds!`);
 });
 
 client.on('INTERACTION_CREATE', async (interaction) => {
