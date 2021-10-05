@@ -1,4 +1,4 @@
-const Message = require('../structures/Guild');
+const Message = require('../structures/Message');
 
 module.exports.handle = function(client, data) {
 	const message = new Message(client, data);
