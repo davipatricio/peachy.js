@@ -7,6 +7,29 @@ class TextChannel {
 		this.parseData(data);
 	}
 
+	setName (name) {
+		return Requester.create(this.client, `/channels/${this.id}`, 'PATCH', true, { name });
+	}
+
+	setPosition (position = 0) {
+		return Requester.create(this.client, `/channels/${this.id}`, 'PATCH', true, { position });
+	}
+
+	setTopic (topic = null) {
+		return Requester.create(this.client, `/channels/${this.id}`, 'PATCH', true, { topic });
+	}
+
+	setRateLimitPerUser (seconds = 0) {
+		return Requester.create(this.client, `/channels/${this.id}`, 'PATCH', true, { rate_limit_per_user: seconds });
+	}
+
+	setType (type) {
+		if (typeof type === 'number') return Requester.create(this.client, `/channels/${this.id}`, 'PATCH', true, { type });
+
+		if (!['GUILD_TEXT', 'GUILD_NEWS'].includes(type)) throw new Error('Invalid channel type');
+		return Requester.create(this.client, `/channels/${this.id}`, 'PATCH', true, { type: type === 'GUILD_TEXT' ? 0 : 5 });
+	}
+
 	async delete () {
 		return Requester.create(this.client, `/channels/${this.id}`, 'DELETE', true);
 	}
