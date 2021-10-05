@@ -8,6 +8,16 @@ class Message {
 		this.parseData(data);
 	}
 
+	async react (emoji) {
+		if (typeof emoji !== 'string') throw new Error('Emoji should be a string (unicode emoji, emoji_name:id)');
+		
+		emoji = emoji.replaceAll(':', '').replaceAll('<:', '').replaceAll('<a', '').replaceAll('>', '');
+		emoji = URL.encodeURIComponent(emoji);
+
+		const data = await Requester.create(this.client, `/channels/${this.channelId}/messages/${this.id}/reactions/${emoji}/@me`, 'PUT', true);
+		return null;
+	}
+
 	async reply (content) {
 		if (typeof content === 'string') {
 			const data = await Requester.create(this.client, `/channels/${this.channelId}/messages`, 'POST', true, {
