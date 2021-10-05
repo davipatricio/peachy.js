@@ -42,6 +42,7 @@ class Guild {
 			this.unavailable = true;
 			return;
 		}
+
 		this.id = data.id;
 		this.name = data.name;
 		this.icon = data.icon;
@@ -60,16 +61,19 @@ class Guild {
 		this.large = data.large;
 		this.memberCount = data.member_count;
 
-		this.joinedAt = new Date(data.joined_at);
-		this.joinedTimestamp = data.joined_at;
+		this.joinedTimestamp = new Date(data.joined_at).getTime();
+		this.joinedAt = new Date(this.joinedTimestamp);
 
 		if (data.channels) {
 			for (const channel of data.channels) {
 				switch (channel.type) {
 					// Text channels
-					case 0:
-						this.channels.set(channel.id, new TextChannel(this, channel));
+					case 0: {
+						const textChannel = new TextChannel(this.client, channel, this);
+						this.channels.set(channel.id, textChannel);
+						this.client.caches.channels.set(channel.id, textChannel);
 						break;
+					}
 				}
 			}
 		}
