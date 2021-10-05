@@ -1,15 +1,14 @@
+const Requester = require('../utils/Requester');
+
 class TextChannel {
-	constructor (client, data) {
+	constructor (client, data, guild) {
 		this.client = client;
+		this.guild = guild;
 		this.parseData(data);
 	}
 
-	get guild () {
-		return this.client.caches.guilds.get(this.guildId);
-	}
-
-	get parent () {
-		return this.client.caches.channels.get(this.parentId);
+	async delete () {
+		return Requester.create(this.client, `/channels/${this.id}`, 'DELETE', true);
 	}
 
 	parseData (data) {
@@ -17,16 +16,17 @@ class TextChannel {
 
 		this.id = data.id;
 
-		this.nsfw = data.nsfw;
+		this.nsfw = data.nsfw ?? false;
 		this.topic = data.topic ?? null;
 		this.slowmode = data.rate_limit_per_user;
 
 		this.lastMessageId = data.last_message_id;
 		this.parentId = data.parent_id;
-		this.guildId = this.guild_id;
 
 		this.name = data.name;
 		this.type = 'GUILD_TEXT';
+
+		this.parent = this.client.caches.channels.get(this.parentId);
 	}
 }
 
