@@ -1,4 +1,5 @@
 const User = require('./User');
+const Requester = require('../utils/Requester');
 
 class Message {
 	constructor (client, data) {
@@ -6,10 +7,17 @@ class Message {
 		this.parseData(data);
 	}
 
+	async delete () {
+		return Requester.create(this.client, `/channels/${this.channelId}/messages/${this.id}`, 'DELETE', true);
+	}
+
 	parseData (data) {
 		if (!data) return;
+
 		this.id = data.id;
-		this.channel = this.client.channels.cache.get(data.channel_id);
+
+		this.channel = this.client.caches.channels.get(data.channel_id);
+		this.channelId = data.channel_id;
 
 		this.content = data.content;
 		this.embeds = data.embeds;
