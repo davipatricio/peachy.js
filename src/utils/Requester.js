@@ -1,4 +1,5 @@
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
+const { verifyForStatusCode, verifyForJSONStatusCode } = require('./CheckAPIError');
 const { apiUrl } = require('../constants/DiscordEndpoints');
 
 module.exports.create = async (client, endpoint, method = 'GET', parseHeaders = true, data = '', headers = {}) => {
@@ -15,8 +16,10 @@ module.exports.create = async (client, endpoint, method = 'GET', parseHeaders = 
 		method,
 		headers,
 		body,
-	}).then((response) => {
-		if (response.status === 403) throw new Error('Missing Permissions');
-		return response;
+	}).then(async (response) => {
+		const json = await response.json();
+		if (json.code) verifyForJSONStatusCode(json, `${apiUrl(client.options.apiVersion)}${endpoint}`, data);
+		verifyForStatusCode(`${apiUrl(client.options.apiVersion)}${endpoint}`, data, response.status);
+		return json;
 	});
 };
