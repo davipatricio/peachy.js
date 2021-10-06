@@ -10,11 +10,10 @@ class Message {
 
 	async react (emoji) {
 		if (typeof emoji !== 'string') throw new Error('Emoji should be a string (unicode emoji, emoji_name:id)');
-		
-		emoji = emoji.replaceAll(':', '').replaceAll('<:', '').replaceAll('<a', '').replaceAll('>', '');
-		emoji = URL.encodeURIComponent(emoji);
 
-		const data = await Requester.create(this.client, `/channels/${this.channelId}/messages/${this.id}/reactions/${emoji}/@me`, 'PUT', true);
+		emoji = emoji.includes(':') ? emoji.replaceAll('<:', '').replaceAll('<a:', '').replaceAll('>', '') : encodeURIComponent(emoji);
+
+		await Requester.create(this.client, `/channels/${this.channelId}/messages/${this.id}/reactions/${emoji}/@me`, 'PUT', true);
 		return null;
 	}
 
