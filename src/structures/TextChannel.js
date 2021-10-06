@@ -11,7 +11,7 @@ class TextChannel {
 
 	async send (content) {
 		if (typeof content === 'string') {
-			const data = await Requester.create(this.client, `/channels/${this.channelId}/messages`, 'POST', true, {
+			const data = await Requester.create(this.client, `/channels/${this.id}/messages`, 'POST', true, {
 				content,
 				embeds: [],
 				tts: false,
@@ -36,7 +36,7 @@ class TextChannel {
 			};
 		}
 
-		const data = await Requester.create(this.client, `/channels/${this.channelId}/messages`, 'POST', true, MakeAPIMessage.transform(content));
+		const data = await Requester.create(this.client, `/channels/${this.id}/messages`, 'POST', true, MakeAPIMessage.transform(content));
 		return new Message(this.client, data);
 	}
 
