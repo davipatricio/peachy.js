@@ -5,18 +5,18 @@ const TextChannel = require('./TextChannel');
 class Guild {
 	constructor (client, data) {
 		this.client = client;
-		this.channels = new LimitedMap(this.client.options.caches.channels);
+		this.channels = new LimitedMap(this.client.options.channels.cache);
 		this.parseData(data);
 	}
 
 	async setName (name) {
 		const baseData = await Requester.create(this.client, `/guilds/${this.id}`, 'PATCH', true, { name });
-		return this.client.caches.guilds.set(this.id, new Guild(this.client, baseData));
+		return this.client.guilds.cache.set(this.id, new Guild(this.client, baseData));
 	}
 
 	async setOwner (id) {
 		const baseData = await Requester.create(this.client, `/guilds/${this.id}`, 'PATCH', true, { owner_id: id });
-		return this.client.caches.guilds.set(this.id, new Guild(this.client, baseData));
+		return this.client.guilds.cache.set(this.id, new Guild(this.client, baseData));
 	}
 
 
@@ -31,7 +31,7 @@ class Guild {
 
 	async fetch () {
 		const data = await Requester.create(this.client, `/guilds/${this.id}?with_counts=true`, 'GET', true);
-		return this.client.caches.guilds.set(this.id, new Guild(this.client, data));
+		return this.client.guilds.cache.set(this.id, new Guild(this.client, data));
 	}
 
 	toString () {
@@ -75,7 +75,7 @@ class Guild {
 					case 0: {
 						const textChannel = new TextChannel(this.client, channel, this);
 						this.channels.set(channel.id, textChannel);
-						this.client.caches.channels.set(channel.id, textChannel);
+						this.client.channels.cache.set(channel.id, textChannel);
 						break;
 					}
 				}

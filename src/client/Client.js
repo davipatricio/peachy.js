@@ -1,9 +1,15 @@
 const os = require('os');
 const EventEmitter = require('events');
-const LimitedMap = require('../utils/LimitedMap');
+
 const WebsocketManager = require('./ws/Websocket');
 const ActionManager = require('../actions/ActionManager');
+
 const Intents = require('../utils/Intents');
+
+const GuildManager = require('../managers/GuildManager');
+const UserManager = require('../managers/UserManager');
+const EmojiManager = require('../managers/EmojiManager');
+const GuildChannelManager = require('../managers/GuildChannelManager');
 
 class Client extends EventEmitter {
 	constructor (options = {}) {
@@ -58,21 +64,20 @@ class Client extends EventEmitter {
 
 		// Get bitfield from intent array
 		this.options.intents = Intents.parse(this.options.intents);
-
-		this.caches = {
-			guilds: new LimitedMap(this.options.caches.guilds),
-			channels: new LimitedMap(this.options.caches.channels),
-			roles: new LimitedMap(this.options.caches.roles),
-			users: new LimitedMap(this.options.caches.users),
-			membersPerGuild: new LimitedMap(this.options.caches.membersPerGuild),
-			emojis: new LimitedMap(this.options.caches.emojis),
-		};
+		this.createManagers();
 
 		this.ws = new WebsocketManager(this);
 		this.actions = new ActionManager(this);
 	}
 
-	async login (token) {
+	createManagers () {
+		this.guilds = new GuildManager(this.options.caches.guilds);
+		this.emojis = new EmojiManager(this.options.caches.emojis);
+		this.users = new UserManager(this.options.caches.users);
+		this.channels = new GuildChannelManager(this.options.caches.channels);
+	}
+
+	login (token) {
 		this.token = token ?? process.env.DISCORD_TOKEN;
 		if (!this.token || typeof this.token !== 'string') throw new Error('No valid token was provided.');
 
@@ -80,7 +85,7 @@ class Client extends EventEmitter {
 		return this.ws.connect();
 	}
 
-	async disconnect () {
+	disconnect () {
 		if (!this.ws.connection) return;
 
 		if (this.api.heartbeat_timer) clearInterval(this.api.heartbeat_timer);

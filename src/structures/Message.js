@@ -74,7 +74,7 @@ class Message {
 
 		this.id = data.id;
 
-		this.channel = this.client.caches.channels.get(data.channel_id);
+		this.channel = this.client.channels.cache.get(data.channel_id);
 		this.channelId = data.channel_id;
 
 		this.content = data.content;

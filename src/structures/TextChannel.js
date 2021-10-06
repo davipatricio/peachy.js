@@ -86,7 +86,7 @@ class TextChannel {
 		this.name = data.name;
 		this.type = 'GUILD_TEXT';
 
-		this.parent = this.client.caches.channels.get(this.parentId);
+		this.parent = this.client.channels.cache.get(this.parentId);
 	}
 }
 
