@@ -1,4 +1,3 @@
-const User = require('./User');
 const Requester = require('../utils/Requester');
 const MakeAPIMessage = require('../utils/MakeAPIMessage');
 
@@ -71,6 +70,7 @@ class Message {
 
 	parseData (data) {
 		if (!data) return;
+		const User = require('./User');
 
 		this.id = data.id;
 
@@ -86,4 +86,5 @@ class Message {
 		this.author = new User(this.client, data.author);
 	}
 }
+
 module.exports = Message;
