@@ -1,6 +1,6 @@
 'use strict';
 
-async function start (client) {
+function start (client) {
 	if (client.api.heartbeat_timer) clearInterval(client.api.heartbeat_timer);
 	client.api.heartbeat_timer = setInterval(() => {
 		const heartbeatData = {
@@ -14,7 +14,7 @@ async function start (client) {
 	}, client.api.heartbeat_interval).unref();
 }
 
-async function stop (client) {
+function stop (client) {
 	if (client.api.heartbeat_timer) clearInterval(client.api.heartbeat_timer);
 }
 

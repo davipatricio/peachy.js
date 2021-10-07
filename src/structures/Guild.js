@@ -21,13 +21,12 @@ class Guild {
 		return this.client.guilds.cache.set(this.id, new Guild(this.client, baseData));
 	}
 
-
-	async leave () {
+	leave () {
 		if (this.ownerId === this.client.user.id) throw new Error('Bot is the guild owner');
 		return Requester.create(this.client, `/users/@me/guilds/${this.id}`, 'DELETE', true);
 	}
 
-	async delete () {
+	delete () {
 		return Requester.create(this.client, `/guilds/${this.id}`, 'DELETE', true);
 	}
 

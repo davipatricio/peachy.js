@@ -62,7 +62,7 @@ class Message {
 		return new Message(this.client, data);
 	}
 
-	async delete () {
+	delete () {
 		return Requester.create(this.client, `/channels/${this.channelId}/messages/${this.id}`, 'DELETE', true);
 	}
 

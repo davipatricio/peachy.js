@@ -65,7 +65,7 @@ class TextChannel {
 		return Requester.create(this.client, `/channels/${this.id}`, 'PATCH', true, { type: type === 'GUILD_TEXT' ? 0 : 5 });
 	}
 
-	async delete () {
+	delete () {
 		return Requester.create(this.client, `/channels/${this.id}`, 'DELETE', true);
 	}
 
