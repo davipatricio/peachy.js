@@ -1,4 +1,4 @@
-async function start (client, data) {
+async function start (client) {
 	if (client.api.heartbeat_timer) clearInterval(client.api.heartbeat_timer);
 	client.api.heartbeat_timer = setInterval(() => {
 		const heartbeatData = {
