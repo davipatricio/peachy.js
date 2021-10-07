@@ -79,6 +79,9 @@ class Message {
 		this.channel = this.client.channels.cache.get(data.channel_id);
 		this.channelId = data.channel_id;
 
+		this.guild = this.client.guilds.cache.get(data.guild_id);
+		this.guildId = data.guild_id;
+
 		this.content = data.content;
 		this.embeds = data.embeds;
 		this.tts = data.tts;
