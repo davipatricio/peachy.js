@@ -67,12 +67,12 @@ class Client extends EventEmitter {
 		// Get bitfield from intent array
 		this.options.intents = Intents.parse(this.options.intents);
 		this.createManagers();
-
-		this.ws = new WebsocketManager(this);
-		this.actions = new ActionManager(this);
 	}
 
 	createManagers () {
+		this.ws = new WebsocketManager(this);
+		this.actions = new ActionManager(this);
+
 		this.guilds = new GuildManager(this.options.caches.guilds);
 		this.emojis = new EmojiManager(this.options.caches.emojis);
 		this.users = new UserManager(this.options.caches.users);
