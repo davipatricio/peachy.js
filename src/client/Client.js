@@ -81,6 +81,7 @@ class Client extends EventEmitter {
 		this.token = token ?? process.env.DISCORD_TOKEN;
 		if (!this.token || typeof this.token !== 'string') throw new Error('No valid token was provided.');
 
+		this.ping = -1;
 		this.emit('debug', 'Login method was called. Preparing to connect to the Discord Gateway.');
 		return this.ws.connect();
 	}

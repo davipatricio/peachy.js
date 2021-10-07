@@ -6,6 +6,7 @@ async function start (client, data) {
 			d: client.api.sequence,
 		};
 
+		client.api.last_heartbeat = Date.now();
 		client.ws.connection.send(JSON.stringify(heartbeatData));
 		client.emit('debug', 'Sent heartbeat to Discord.');
 	}, client.api.heartbeat_interval).unref();

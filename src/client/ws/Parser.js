@@ -14,6 +14,7 @@ function message (client, message) {
 		case 0:
 			client.actions.loaded[eventName]?.handle(client, eventData);
 			break;
+
 		// Gateway HELLO event
 		case 10:
 			client.api.heartbeat_interval = eventData.heartbeat_interval;
@@ -22,9 +23,12 @@ function message (client, message) {
 			Heartbeat.start(client, data);
 			if (!client.logged_in) Payloads.sendIdentify(client);
 			break;
-			// Gateway HEARTBEAT ACK
+
+		// Gateway HEARTBEAT ACK
 		case 11:
 			client.emit('debug', 'Received heartbeat ACK.');
+			client.api.last_heartbeat_ack = Date.now();
+			client.ping = client.api.last_heartbeat_ack - client.api.last_heartbeat;
 			break;
 	}
 }

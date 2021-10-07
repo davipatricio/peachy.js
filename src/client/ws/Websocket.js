@@ -10,6 +10,7 @@ class WebSocket {
 	async connect () {
 		this.connection = new WS(Endpoints.gatewayUrl(this.client.options.apiVersion, 'json'));
 		this.prepareEvents();
+		return null;
 	}
 
 	prepareEvents () {
