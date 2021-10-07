@@ -1,12 +1,14 @@
 const Heartbeat = require('./Heartbeater');
 const Payloads = require('./Payloads');
 
-function message (client, message) {
-	const data = JSON.parse(message);
+function message (client, rawData) {
+	const data = JSON.parse(rawData);
+
 	const opcode = data.op;
 	const eventData = data.d;
 	const eventName = data.t;
 	const sequence = data.s;
+
 	client.api.sequence = sequence ?? null;
 
 	switch (opcode) {
