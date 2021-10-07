@@ -1,14 +1,21 @@
 'use strict';
 
 const Requester = require('../utils/Requester');
-const LimitedMap = require('../utils/LimitedMap');
-const TextChannel = require('./TextChannel');
 const Constants = require('../constants/DiscordEndpoints');
+const TextChannel = require('./TextChannel');
+const GuildMember = require('./GuildMember');
+const User = require('./User');
+const Role = require('./Role');
+const GuildChannelManager = require('../managers/GuildChannelManager');
+const GuildMemberManager = require('../managers/GuildMemberManager');
+const RoleManager = require('../managers/RoleManager');
 
 class Guild {
 	constructor (client, data) {
 		this.client = client;
-		this.channels = new LimitedMap(this.client.options.caches.channels);
+		this.channels = new GuildChannelManager(this.client.options.caches.channels);
+		this.members = new GuildMemberManager(this.client.options.caches.membersPerGuild);
+		this.roles = new RoleManager(this.client.options.caches.membersPerGuild);
 		this.parseData(data);
 	}
 
@@ -88,8 +95,17 @@ class Guild {
 
 		this.memberCount = data.member_count ?? data.approximate_member_count ?? data.members.length;
 
-		if (data.joinedTimestamp) this.joinedTimestamp = new Date(data.joined_at).getTime();
-		if (data.joinedAt) this.joinedAt = new Date(this.joinedTimestamp);
+		if (data.joined_at) {
+			this.joinedTimestamp = new Date(data.joined_at).getTime();
+			this.joinedAt = new Date(this.joinedTimestamp);
+		}
+
+		if (data.roles) {
+			for (const role of data.roles) {
+				const guildRole = new Role(this.client, role, this);
+				this.roles.cache.set(guildRole.id, guildRole);
+			}
+		}
 
 		if (data.channels) {
 			for (const channel of data.channels) {
@@ -97,11 +113,20 @@ class Guild {
 					// Text channels
 					case 0: {
 						const textChannel = new TextChannel(this.client, channel, this);
-						this.channels.set(channel.id, textChannel);
+						this.channels.cache.set(channel.id, textChannel);
 						this.client.channels.cache.set(channel.id, textChannel);
 						break;
 					}
 				}
+			}
+		}
+
+		if (data.members) {
+			for (const member of data.members) {
+				const user = new User(this.client, member.user);
+				const guildMember = new GuildMember(this.client, member, user, this);
+				this.members.cache.set(member.user.id, guildMember);
+				this.client.users.cache.set(member.user.id, user);
 			}
 		}
 	}

@@ -83,7 +83,10 @@ class Message {
 		this.type = data.type;
 		this.webhook_id = data.webhook_id;
 
-		if (!this.webhook_id) this.author = new User(this.client, data.author);
+		if (!this.webhook_id) {
+			this.author = new User(this.client, data.author);
+			this.member = this.guild ? this.guild.members.cache.get(this.author.id) : null;
+		}
 	}
 }
 
