@@ -25,7 +25,7 @@ class Client extends EventEmitter {
 			// Which events should be disabled and not processed
 			disabledEvents: [],
 
-			// Sent in IDENTIFY payload
+			// Data ent in IDENTIFY payload
 			shardId: 0,
 			shardCount: 1,
 
@@ -52,7 +52,11 @@ class Client extends EventEmitter {
 
 			// Default message options
 
+			// when replying to a message, whether to error if the referenced message
+			// doesn't exist instead of sending as a normal (non-reply) message
 			failIfNotExists: false,
+
+			// Default allowed mentions configuration
 			allowedMentions: {
 				parse: ['users', 'roles', 'everyone'],
 				replied_user: true,
@@ -79,9 +83,9 @@ class Client extends EventEmitter {
 		this.channels = new GuildChannelManager(this.options.caches.channels);
 	}
 
-	login (token) {
-		this.token = token ?? process.env.DISCORD_TOKEN;
-		if (!this.token || typeof this.token !== 'string') throw new Error('No valid token was provided.');
+	login (token = process.env.DISCORD_TOKEN) {
+		if (!token || typeof token !== 'string') throw new Error('No valid token was provided.');
+		this.token = token;
 
 		this.ping = -1;
 		this.emit('debug', 'Login method was called. Preparing to connect to the Discord Gateway.');

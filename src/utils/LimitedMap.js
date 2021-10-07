@@ -24,8 +24,20 @@ class LimitedMap extends Map {
 		return [...this.values()];
 	}
 
-	random () {
-		return this.valueArray()[Math.floor(Math.random() * this.size)];
+
+	// Returns an array with random items
+	random (items = 1) {
+		if (items < 1 || this.size === 0) return [];
+		if (items === 1) return this.valueArray()[Math.floor(Math.random() * this.size)];
+
+		if (items > this.size) return this.valueArray();
+
+		// Select N random items
+		const keys = [];
+		for (let i = 0; i < items; i++) {
+			keys.push(this.keyArray()[Math.floor(Math.random() * this.size)]);
+		}
+		return keys;
 	}
 }
 
