@@ -12,7 +12,6 @@ class WebSocketManager {
 	connect () {
 		this.connection = new WebSocket(Endpoints.gatewayUrl(this.client.options.apiVersion, 'json'));
 		this.prepareEvents();
-		return null;
 	}
 
 	prepareEvents () {

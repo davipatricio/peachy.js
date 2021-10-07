@@ -3,15 +3,14 @@
 const os = require('os');
 const EventEmitter = require('events');
 
-const WebsocketManager = require('./ws/WebsocketManager');
-const ActionManager = require('../actions/ActionManager');
-
 const Intents = require('../utils/Intents');
 
 const GuildManager = require('../managers/GuildManager');
 const UserManager = require('../managers/UserManager');
 const EmojiManager = require('../managers/EmojiManager');
 const GuildChannelManager = require('../managers/GuildChannelManager');
+const WebsocketManager = require('./ws/WebsocketManager');
+const ActionManager = require('../actions/ActionManager');
 
 class Client extends EventEmitter {
 	constructor (options = {}) {
