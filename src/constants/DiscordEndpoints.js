@@ -1,5 +1,7 @@
 'use strict';
 
+
+// https://discord.com/developers/docs/reference#image-formatting-cdn-endpoints
 module.exports = {
 	// API
 	gatewayUrl: (version, encoding) => `wss://gateway.discord.gg/?v=${version}&encoding=${encoding}`,
