@@ -41,7 +41,7 @@ class User {
 		return new Message(this.client, data);
 	}
 
-	async createDM () {
+	createDM () {
 		return Requester.create(this.client, '/users/@me/channels', 'POST', true, { recipient_id: this.id });
 	}
 
