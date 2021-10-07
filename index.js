@@ -9,4 +9,11 @@ module.exports = {
 	Message: require('./src/structures/Message'),
 	TextChannel: require('./src/structures/TextChannel'),
 	User: require('./src/structures/User'),
+
+	// Managers
+	EmojiManager: require('./src/managers/EmojiManager'),
+	GuildManager: require('./src/managers/GuildManager'),
+	GuildChannelManager: require('./src/managers/GuildChannelManager'),
+	RoleManager: require('./src/managers/RoleManager'),
+	UserManager: require('./src/managers/UserManager'),
 };
