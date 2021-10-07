@@ -1,16 +1,16 @@
 'use strict';
 
-const WS = require('ws');
+const WebSocket = require('ws');
 const Endpoints = require('../../constants/DiscordEndpoints');
 const Parser = require('./Parser');
 
-class WebSocket {
+class WebSocketManager {
 	constructor (client) {
 		this.client = client;
 	}
 
 	connect () {
-		this.connection = new WS(Endpoints.gatewayUrl(this.client.options.apiVersion, 'json'));
+		this.connection = new WebSocket(Endpoints.gatewayUrl(this.client.options.apiVersion, 'json'));
 		this.prepareEvents();
 		return null;
 	}
@@ -20,4 +20,4 @@ class WebSocket {
 	}
 };
 
-module.exports = WebSocket;
+module.exports = WebSocketManager;

@@ -58,7 +58,7 @@ class TextChannel {
 		return Requester.create(this.client, `/channels/${this.id}`, 'PATCH', true, { rate_limit_per_user: seconds });
 	}
 
-	setType (type) {
+	setType (type = 'GUILD_NEWS') {
 		if (typeof type === 'number') return Requester.create(this.client, `/channels/${this.id}`, 'PATCH', true, { type });
 
 		if (!['GUILD_TEXT', 'GUILD_NEWS'].includes(type)) throw new Error('Invalid channel type');

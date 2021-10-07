@@ -44,30 +44,18 @@ class MessageEmbed {
 		return this;
 	}
 
-	setFooter (footer, image = '') {
-		if (this.footer) {
-			this.footer.text = footer;
-			this.footer.icon_url = image;
-		}
-		else {
-			this.footer = {
-				text: footer,
-				icon_url: image,
-			};
-		}
-
+	setFooter (text = null, icon_url = null) {
+		this.footer = { text, icon_url };
 		return this;
 	}
 
-	setImage (url) {
-		if (this.image) this.image.url = url;
-		else this.image = { url };
+	setImage (url = null) {
+		this.image = { url };
 		return this;
 	}
 
-	setThumbnail (url) {
-		if (this.thumbnail) this.thumbnail.url = url;
-		else this.thumbnail = { url };
+	setThumbnail (url = null) {
+		this.thumbnail = { url };
 		return this;
 	}
 
