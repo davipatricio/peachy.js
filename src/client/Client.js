@@ -3,7 +3,7 @@
 const os = require('os');
 const EventEmitter = require('events');
 
-const WebsocketManager = require('./ws/Websocket');
+const WebsocketManager = require('./ws/WebsocketManager');
 const ActionManager = require('../actions/ActionManager');
 
 const Intents = require('../utils/Intents');
