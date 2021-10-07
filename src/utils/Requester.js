@@ -14,22 +14,27 @@ module.exports.create = async (client, endpoint, method = 'GET', parseHeaders = 
 	}
 	const body = typeof data === 'object' ? JSON.stringify(data) : data;
 
-	return fetch(`${apiUrl(client.options.apiVersion)}${endpoint}`, {
+	const fetchData = await fetch(`${apiUrl(client.options.apiVersion)}${endpoint}`, {
 		method,
 		headers,
 		body,
-	}).then(async (response) => {
-		let json;
-		try {
-			json = await response.json();
-		}
-		catch {
-			verifyForStatusCode(`${apiUrl(client.options.apiVersion)}${endpoint}`, data, response.status);
-			return response;
-		}
-
-		if (json.code) verifyForJSONStatusCode(json, `${apiUrl(client.options.apiVersion)}${endpoint}`, data);
-		verifyForStatusCode(`${apiUrl(client.options.apiVersion)}${endpoint}`, data, response.status);
-		return json;
 	});
+
+
+	let json = null;
+	try {
+		json = await fetchData.json();
+	}
+	catch {
+		verifyForStatusCode(`${apiUrl(client.options.apiVersion)}${endpoint}`, data, fetchData.status);
+		return fetchData;
+	}
+
+	// Verify if an error code was returned
+	// If there was an error, one of the following methods will throw an error
+	if (json.code) verifyForJSONStatusCode(json, `${apiUrl(client.options.apiVersion)}${endpoint}`, data);
+	verifyForStatusCode(`${apiUrl(client.options.apiVersion)}${endpoint}`, data, fetchData.status);
+
+
+	return json;
 };
