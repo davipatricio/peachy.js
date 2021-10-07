@@ -32,12 +32,7 @@ class Message {
 					guild_id: this.channel.guildId,
 					fail_if_not_exists: this.client.options.failIfNotExists,
 				},
-				allowed_mentions: {
-					parse: this.client.options.allowedMentions.parse,
-					replied_user: this.client.options.allowedMentions.replied_user,
-					users: this.client.options.allowedMentions.users,
-					roles: this.client.options.allowedMentions.roles,
-				},
+				allowed_mentions: this.client.options.allowedMentions,
 			});
 			return new Message(this.client, data);
 		}
@@ -50,12 +45,7 @@ class Message {
 		};
 
 		if (!content.allowed_mentions) {
-			content.allowed_mentions = {
-				parse: this.client.options.allowedMentions.parse,
-				replied_user: this.client.options.allowedMentions.replied_user,
-				users: this.client.options.allowedMentions.users,
-				roles: this.client.options.allowedMentions.roles,
-			};
+			content.allowed_mentions = this.client.options.allowedMentions;
 		}
 
 		const data = await Requester.create(this.client, `/channels/${this.channelId}/messages`, 'POST', true, MakeAPIMessage.transform(content));

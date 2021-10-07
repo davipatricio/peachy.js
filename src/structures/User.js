@@ -28,23 +28,13 @@ class User {
 				tts: false,
 				sticker_ids: [],
 				components: [],
-				allowed_mentions: {
-					parse: this.client.options.allowedMentions.parse,
-					replied_user: this.client.options.allowedMentions.replied_user,
-					users: this.client.options.allowedMentions.users,
-					roles: this.client.options.allowedMentions.roles,
-				},
+				allowed_mentions: this.client.options.allowedMentions,
 			});
 			return new Message(this.client, data);
 		}
 
 		if (!content.allowed_mentions) {
-			content.allowed_mentions = {
-				parse: this.client.options.allowedMentions.parse,
-				replied_user: this.client.options.allowedMentions.replied_user,
-				users: this.client.options.allowedMentions.users,
-				roles: this.client.options.allowedMentions.roles,
-			};
+			content.allowed_mentions = this.client.options.allowedMentions;
 		}
 
 		const data = await Requester.create(this.client, `/channels/${dmChannelId.id}/messages`, 'POST', true, MakeAPIMessage.transform(content));
@@ -52,14 +42,12 @@ class User {
 	}
 
 	async createDM () {
-		const data = await Requester.create(this.client, '/users/@me/channels', 'POST', true, { recipient_id: this.id });
-		return data;
+		return Requester.create(this.client, '/users/@me/channels', 'POST', true, { recipient_id: this.id });
 	}
 
 	toString () {
 		return `<@!${this.id}>`;
 	}
-
 
 	parseData (data) {
 		if (!data) return;

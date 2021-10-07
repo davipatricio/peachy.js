@@ -19,23 +19,13 @@ class TextChannel {
 				tts: false,
 				sticker_ids: [],
 				components: [],
-				allowed_mentions: {
-					parse: this.client.options.allowedMentions.parse,
-					replied_user: this.client.options.allowedMentions.replied_user,
-					users: this.client.options.allowedMentions.users,
-					roles: this.client.options.allowedMentions.roles,
-				},
+				allowed_mentions: this.client.options.allowedMentions,
 			});
 			return new Message(this.client, data);
 		}
 
 		if (!content.allowed_mentions) {
-			content.allowed_mentions = {
-				parse: this.client.options.allowedMentions.parse,
-				replied_user: this.client.options.allowedMentions.replied_user,
-				users: this.client.options.allowedMentions.users,
-				roles: this.client.options.allowedMentions.roles,
-			};
+			content.allowed_mentions = this.client.options.allowedMentions;
 		}
 
 		const data = await Requester.create(this.client, `/channels/${this.id}/messages`, 'POST', true, MakeAPIMessage.transform(content));
@@ -80,7 +70,7 @@ class TextChannel {
 
 		this.nsfw = data.nsfw ?? false;
 		this.topic = data.topic ?? null;
-		this.slowmode = data.rate_limit_per_user;
+		this.slowmode = data.rate_limit_per_user ?? 0;
 
 		this.lastMessageId = data.last_message_id;
 		this.parentId = data.parent_id;
