@@ -31,7 +31,7 @@ class Guild {
 	}
 
 	async fetch () {
-		const data = await Requester.create(this.client, `/guilds/${this.id}?with_counts=true`, 'GET', true);
+		const data = await Requester.create(this.client, `/guilds/${this.id}`, 'GET', true);
 		return this.client.guilds.cache.set(this.id, new Guild(this.client, data));
 	}
 
