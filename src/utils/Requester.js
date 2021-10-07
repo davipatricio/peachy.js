@@ -4,7 +4,7 @@ const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fet
 const { verifyForStatusCode, verifyForJSONStatusCode } = require('./CheckAPIError');
 const { apiUrl } = require('../constants/DiscordEndpoints');
 
-module.exports.create = async (client, endpoint, method = 'GET', parseHeaders = true, data = '', headers = {}) => {
+module.exports.create = async (client, endpoint, method = 'GET', parseHeaders = true, data = undefined, headers = {}) => {
 	if (parseHeaders) {
 		headers = Object.assign({
 			'Authorization': `Bot ${client.token}`,
