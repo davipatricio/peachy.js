@@ -1,3 +1,5 @@
+'use strict';
+
 const Requester = require('../utils/Requester');
 const LimitedMap = require('../utils/LimitedMap');
 const TextChannel = require('./TextChannel');

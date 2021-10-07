@@ -1,3 +1,5 @@
+'use strict';
+
 const Requester = require('../utils/Requester');
 const Constants = require('../constants/DiscordEndpoints');
 const MakeAPIMessage = require('../utils/MakeAPIMessage');

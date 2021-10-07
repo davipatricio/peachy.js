@@ -1,3 +1,5 @@
+'use strict';
+
 async function start (client) {
 	if (client.api.heartbeat_timer) clearInterval(client.api.heartbeat_timer);
 	client.api.heartbeat_timer = setInterval(() => {

@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports.verifyForStatusCode = (endpoint, data, code) => {
 	switch (code) {
 		case 403: throw new Error(`DiscordAPIError: Missing Permissions (403)\nEndpoint: ${endpoint}\nData: ${data ?? 'empty'}`);

@@ -1,3 +1,5 @@
+'use strict';
+
 const LimitedMap = require('../utils/LimitedMap');
 
 class EmojiManager {

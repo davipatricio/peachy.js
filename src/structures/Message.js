@@ -1,3 +1,5 @@
+'use strict';
+
 const Requester = require('../utils/Requester');
 const MakeAPIMessage = require('../utils/MakeAPIMessage');
 

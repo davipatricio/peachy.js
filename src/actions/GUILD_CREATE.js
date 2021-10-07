@@ -1,3 +1,5 @@
+'use strict';
+
 const Guild = require('../structures/Guild');
 
 module.exports.handle = function(client, data) {

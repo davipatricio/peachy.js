@@ -1,3 +1,5 @@
+'use strict';
+
 const Heartbeat = require('./Heartbeater');
 const Payloads = require('./Payloads');
 

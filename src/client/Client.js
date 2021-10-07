@@ -1,3 +1,5 @@
+'use strict';
+
 const os = require('os');
 const EventEmitter = require('events');
 

@@ -1,5 +1,6 @@
-module.exports = {
+'use strict';
 
+module.exports = {
 	// API
 	gatewayUrl: (version, encoding) => `wss://gateway.discord.gg/?v=${version}&encoding=${encoding}`,
 	apiUrl: (version) => `https://discord.com/api/v${version}`,

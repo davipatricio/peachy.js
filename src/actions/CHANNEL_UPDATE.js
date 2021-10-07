@@ -1,3 +1,5 @@
+'use strict';
+
 const TextChannel = require('../structures/TextChannel');
 
 module.exports.handle = function(client, data) {

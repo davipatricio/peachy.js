@@ -1,3 +1,5 @@
+'use strict';
+
 class LimitedMap extends Map {
 	constructor (limit) {
 		super();

@@ -1,3 +1,5 @@
+'use strict';
+
 const Message = require('../structures/Message');
 
 module.exports.handle = function(client, data) {

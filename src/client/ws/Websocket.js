@@ -1,3 +1,5 @@
+'use strict';
+
 const WS = require('ws');
 const Endpoints = require('../../constants/DiscordEndpoints');
 const Parser = require('./Parser');

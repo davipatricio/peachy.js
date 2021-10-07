@@ -1,3 +1,5 @@
+'use strict';
+
 class MessageEmbed {
 	constructor (data = {}) {
 		this.title = data.title ?? null;

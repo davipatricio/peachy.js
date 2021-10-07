@@ -1,3 +1,5 @@
+'use strict';
+
 function sendIdentify (client) {
 	const IdentifyPayload = {
 		op: 2,

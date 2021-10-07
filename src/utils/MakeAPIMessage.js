@@ -1,3 +1,5 @@
+'use strict';
+
 const MessageEmbed = require('../structures/MessageEmbed');
 
 module.exports.transform = (data) => {

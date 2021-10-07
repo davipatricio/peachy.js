@@ -1,3 +1,5 @@
+'use strict';
+
 const User = require('../structures/User');
 
 module.exports.handle = function(client, { user }) {
