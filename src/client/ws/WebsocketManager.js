@@ -23,6 +23,7 @@ class WebSocketManager {
 					this.client.emit('debug', '[DEBUG] Received 4007 [Invalid Sequence], attempting to reconnect...');
 					this.forceReconnect();
 					if (this.client.api) this.client.api.sequence = null;
+					break;
 				case 4008:
 					this.client.emit('debug', '[DEBUG] Received 4008 [Rate Limit], attempting to reconnect...');
 					this.forceReconnect();
