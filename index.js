@@ -18,5 +18,5 @@ module.exports = {
 	UserManager: require('./src/managers/UserManager'),
 
 	// Other
-	version: require('./package.json').version,
+	VERSION: require('./package.json').version,
 };

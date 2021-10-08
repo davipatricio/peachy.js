@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/DenkyLabs/peachy.js#readme",
   "dependencies": {
-    "node-fetch": "^3.0.0",
+    "discord-request": "github:JustAWaifuHunter/requester",
     "ws": "^8.2.1"
   },
   "devDependencies": {

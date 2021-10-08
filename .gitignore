@@ -106,3 +106,4 @@ dist
 # Others
 docs/
 .npmrc
+**/test.js

@@ -1,10 +1,11 @@
 'use strict';
 
-const LimitedMap = require('../utils/LimitedMap');
+const TextChannel = require('../structures/TextChannel');
+const BaseManager = require('./BaseManager');
 
 class GuildChannelManager extends BaseManager {
 	constructor (limit) {
-		this.cache = new LimitedMap(limit);
+		super(TextChannel, limit)
 	}
 }
 

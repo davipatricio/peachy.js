@@ -1,6 +1,6 @@
 'use strict';
 
-const EventEmitter = require('node:events');
+const RestClient = require("./RestClient");
 
 const Intents = require('../utils/Intents');
 const Heartbeater = require('./ws/Heartbeater');
@@ -9,7 +9,7 @@ const CacheMake = require('../utils/Cache');
 const WebsocketManager = require('./ws/WebsocketManager');
 const ActionManager = require('../actions/ActionManager');
 
-class Client extends EventEmitter {
+class Client extends RestClient {
 	constructor (options = {}) {
 		super();
 
@@ -73,9 +73,7 @@ class Client extends EventEmitter {
 	}
 
 	login (token = process.env.DISCORD_TOKEN) {
-		if (!token || typeof token !== 'string') throw new Error('No valid token was provided.');
-		this.token = token;
-
+		super.login(token)
 		this.ping = -1;
 		this.emit('debug', '[DEBUG] Login method was called. Preparing to connect to the Discord Gateway.');
 		this.ws.connect();
