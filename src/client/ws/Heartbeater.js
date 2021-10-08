@@ -6,7 +6,7 @@ function sendImmediately (client) {
 		d: client.api.sequence,
 	};
 
-	client.ws.connection.send(JSON.stringify(heartbeatData));
+	client.ws.connection?.send(JSON.stringify(heartbeatData));
 	client.emit('debug', '[DEBUG] Sent heartbeat to Discord.');
 }
 
@@ -28,7 +28,7 @@ function start (client) {
 		client.api.last_heartbeat = Date.now();
 		client.api.heartbeat_acked = false;
 
-		client.ws.connection.send(JSON.stringify(heartbeatData));
+		client.ws.connection?.send(JSON.stringify(heartbeatData));
 		client.emit('debug', '[DEBUG] Sent heartbeat to Discord.');
 
 		// The client should receive an ACK in less than 15 seconds
@@ -38,16 +38,16 @@ function start (client) {
 				client.emit('debug', '[DEBUG] Heartbeat wasn\'t acked in 15 seconds. Reconnecting...');
 
 				// Close the connection with a non-1000 code so we can reconnect with the stored session id
-				client.ws.connection.close(4000);
+				client.ws.connection?.close(4000);
 				client.reconnect();
 			}
-		}, 15000).unref();
+		}, 15_000).unref();
 	}, client.api.heartbeat_interval).unref();
-}
+
 
 function stop (client) {
 	if (client.api.heartbeat_timer) clearInterval(client.api.heartbeat_timer);
-	if (client.api) client.api.heartbeat_timer = null;
+	client.api.heartbeat_timer ??= null;
 }
 
 

@@ -13,7 +13,7 @@ function sendIdentify (client) {
 		},
 	};
 
-	client.ws.connection.send(JSON.stringify(IdentifyPayload));
+	client.ws.connection?.send(JSON.stringify(IdentifyPayload));
 }
 
 function sendResume (client) {
@@ -26,7 +26,7 @@ function sendResume (client) {
 		},
 	};
 
-	client.ws.connection.send(JSON.stringify(ResumePayload));
+	client.ws.connection?.send(JSON.stringify(ResumePayload));
 }
 
 
