@@ -1,15 +1,16 @@
-const Utils = require("../utils");
+const { isConstructor } = require("../utils");
+const LimitedMap = require("../utils/LimitedMap");
 
 class BaseManager {
   constructor(base, limit = Infinity, url) {
-    this.cache = new Utils.LimitedMap(limit);
+    this.cache = new LimitedMap(limit);
     this.base = base;
 
     if (url) this.url = url;
   }
 
   _add(data, ...extra) {
-    if (Utils.isConstructor(data, extra)) {
+    if (isConstructor(data, extra)) {
       data = new this.base(data, extra);
     }
 
@@ -19,7 +20,7 @@ class BaseManager {
   }
 
   fetch() {
-      return 
+    return;
   }
   forge() {}
 }
