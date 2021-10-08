@@ -41,7 +41,7 @@ const client = new Peachy.Client({
     disabledEvents: ['TYPING_START'],
     
     shardId: 0, // Should start at 0. Useful for large bots in multiple machines
-    shardCount: 1 // How many shards spawn
+    shardCount: 1, // How many shards spawn
     autoReconnect: true,
 
     intents: ['GUILDS', 'GUILD_MESSAGES'],
@@ -63,8 +63,8 @@ client.login('Bot token');
 client.on('messageCreate', async (msg) => {
    if (msg.content === '!ping') msg.channel.send(`Pong! ${client.ping}ms.`);
    if (msg.content === '!say') {
-    await msg.delete();
-    msg.channel.send(msg.content.slice(4));
+      await msg.delete();
+      msg.channel.send(msg.content.slice(4));
    }
    if (msg.content === '!servers') msg.channel.send(`I'm in ${client.guilds.cache.size} guilds!`);
 });
