@@ -24,7 +24,7 @@ pnpm add peachy.js
 const Peachy = require('peachy.js');
 const client = new Peachy.Client();
 
-client.on('MESSAGE_CREATE', async (msg) => {
+client.on('messageCreate', async (msg) => {
    if (msg.content === '!ping') msg.channel.send(`Pong! ${client.ping}ms.`);
 });
 
@@ -70,5 +70,5 @@ client.on('messageCreate', async (msg) => {
 });
 
 
-client.once('READY', () => console.log('Connected to Discord!'));
+client.once('ready', () => console.log('Connected to Discord!'));
 ```
