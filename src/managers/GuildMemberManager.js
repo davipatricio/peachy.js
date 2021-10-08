@@ -1,9 +1,10 @@
 'use strict';
 
-const BaseManager = require('./BaseManager');
-class GuildMemberManager extends BaseManager {
+const LimitedMap = require('../utils/LimitedMap');
+
+class GuildMemberManager {
 	constructor (limit) {
-		super(limit);
+		this.cache = new LimitedMap(limit);
 	}
 }
 
