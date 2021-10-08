@@ -1,10 +1,10 @@
 'use strict';
 
-const LimitedMap = require('../utils/LimitedMap');
+const BaseManager = require("./BaseManager");
 
-class RoleManager {
+
+class RoleManager extends BaseManager {
 	constructor (limit) {
-		this.cache = new LimitedMap(limit);
 	}
 }
 

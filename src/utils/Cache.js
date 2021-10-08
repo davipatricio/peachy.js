@@ -13,6 +13,7 @@ function CacheMake(options = {}) {
     GuildManager: options.GuildManager ?? Infinity,
     RoleManager: options.RoleManager ?? Infinity,
     UserManager: options.UserManager ?? Infinity,
+    GuildMemberManager: options.GuildMemberManager ?? Infinity
   };
 
   Make.EmojiManager = new EmojiManager(Make.options.EmojiManager);

@@ -2,6 +2,7 @@
 
 module.exports.parse = (intents) => {
 	if (typeof intents === 'number') return intents;
+	if (!Array.isArray(intents)) throw new Error('Intents must be an array or number');
 
 	let finalIntents = 0;
 	for (const intent of intents) {

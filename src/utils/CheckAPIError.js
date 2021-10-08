@@ -10,7 +10,7 @@ module.exports.verifyForStatusCode = (endpoint, data, code) => {
 };
 
 module.exports.verifyForJSONStatusCode = (jsonResponse, endpoint, data) => {
-	if (jsonResponse.code) {
+	if (jsonResponse.code && jsonResponse.message) {
 		throw new Error(`DiscordAPIError: ${jsonResponse.message} (${jsonResponse.code})\nEndpoint: ${endpoint}\nData: ${typeof data === 'object' ? JSON.stringify(data) : data ?? 'empty'}`);
 	}
 };

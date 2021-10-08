@@ -32,12 +32,7 @@ class Message {
 					guild_id: this.channel.guildId,
 					fail_if_not_exists: this.client.options.failIfNotExists,
 				},
-				allowed_mentions: {
-					parse: this.client.options.allowedMentions.parse,
-					replied_user: this.client.options.allowedMentions.replied_user,
-					users: this.client.options.allowedMentions.users,
-					roles: this.client.options.allowedMentions.roles,
-				},
+				allowed_mentions: this.client.options.allowedMentions,
 			});
 			return new Message(this.client, data);
 		}
@@ -50,12 +45,7 @@ class Message {
 		};
 
 		if (!content.allowed_mentions) {
-			content.allowed_mentions = {
-				parse: this.client.options.allowedMentions.parse,
-				replied_user: this.client.options.allowedMentions.replied_user,
-				users: this.client.options.allowedMentions.users,
-				roles: this.client.options.allowedMentions.roles,
-			};
+			content.allowed_mentions = this.client.options.allowedMentions;
 		}
 
 		const data = await Requester.create(this.client, `/channels/${this.channelId}/messages`, 'POST', true, MakeAPIMessage.transform(content));
@@ -76,19 +66,27 @@ class Message {
 
 		this.id = data.id;
 
-		this.channel = this.client.channels.cache.get(data.channel_id);
-		this.channelId = data.channel_id;
+		if (data.channel_id) {
+			this.channel = this.client.channels.cache.get(data.channel_id);
+			this.channelId = data.channel_id;
+		}
 
-		this.guild = this.client.guilds.cache.get(data.guild_id);
-		this.guildId = data.guild_id;
+		if (data.guild_id) {
+			this.guild = this.client.guilds.cache.get(data.guild_id);
+			this.guildId = data.guild_id;
+		}
 
-		this.content = data.content;
+		this.content = data.content ?? null;
 		this.embeds = data.embeds;
-		this.tts = data.tts;
+		this.tts = data.tts ?? false;
 		this.pinned = data.pinned;
 		this.type = data.type;
+		this.webhook_id = data.webhook_id;
 
-		this.author = new User(this.client, data.author);
+		if (!this.webhook_id) {
+			this.author = new User(this.client, data.author);
+			this.member = this.guild ? this.guild.members.cache.get(this.author.id) : null;
+		}
 	}
 }
 

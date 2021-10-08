@@ -11,12 +11,12 @@ class User {
 	}
 
 	displayBannerURL (options = { format: 'png', size: 2048 }) {
-		if (!this.banner_hash) return null;
-		return Constants.userBanner(this.id, this.banner_hash, options.size, options.format);
+		if (!this.bannerHash) return null;
+		return Constants.userBanner(this.id, this.bannerHash, options.size, options.format);
 	}
 
 	displayAvatarURL (options = { format: 'png', size: 2048 }) {
-		return Constants.userAvatar(this.id, this.avatar_hash, options.size, options.format);
+		return this.avatarHash ? Constants.userAvatar(this.id, this.avatarHash, options.size, options.format) : Constants.userDefaultAvatar(this.discriminator);
 	}
 
 	async send (content) {
@@ -28,36 +28,25 @@ class User {
 				tts: false,
 				sticker_ids: [],
 				components: [],
-				allowed_mentions: {
-					parse: this.client.options.allowedMentions.parse,
-					replied_user: this.client.options.allowedMentions.replied_user,
-					users: this.client.options.allowedMentions.users,
-					roles: this.client.options.allowedMentions.roles,
-				},
+				allowed_mentions: this.client.options.allowedMentions,
 			});
 			return new Message(this.client, data);
 		}
 
 		if (!content.allowed_mentions) {
-			content.allowed_mentions = {
-				parse: this.client.options.allowedMentions.parse,
-				replied_user: this.client.options.allowedMentions.replied_user,
-				users: this.client.options.allowedMentions.users,
-				roles: this.client.options.allowedMentions.roles,
-			};
+			content.allowed_mentions = this.client.options.allowedMentions;
 		}
 
 		const data = await Requester.create(this.client, `/channels/${dmChannelId.id}/messages`, 'POST', true, MakeAPIMessage.transform(content));
 		return new Message(this.client, data);
 	}
 
-	toString () {
-		return `<@!${this.id}>`;
+	createDM () {
+		return Requester.create(this.client, '/users/@me/channels', 'POST', true, { recipient_id: this.id });
 	}
 
-	async createDM () {
-		const data = await Requester.create(this.client, '/users/@me/channels', 'POST', true, { recipient_id: this.id });
-		return data;
+	toString () {
+		return `<@!${this.id}>`;
 	}
 
 	parseData (data) {
@@ -67,11 +56,13 @@ class User {
 		this.username = data.username;
 		this.discriminator = data.discriminator;
 		this.tag = `${this.username}#${this.discriminator}`;
-		this.bot = data.bot;
+
+		this.bot = data.bot ?? false;
 
 		// Avatar and banners
-		this.avatar_hash = data.avatar;
-		this.banner_hash = data.banner;
+		this.avatarHash = data.avatar;
+		this.bannerHash = data.banner;
+		this.accentColor = data.accent_color;
 	}
 }
 

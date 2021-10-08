@@ -2,7 +2,7 @@
 
 const LimitedMap = require('../utils/LimitedMap');
 
-class GuildChannelManager {
+class GuildChannelManager extends BaseManager {
 	constructor (limit) {
 		this.cache = new LimitedMap(limit);
 	}

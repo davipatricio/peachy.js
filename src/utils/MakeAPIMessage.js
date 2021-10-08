@@ -12,14 +12,8 @@ module.exports.transform = (data) => {
 		});
 	}
 
-
-	if (!data.content) {
-		data.content = '';
-	}
-
-	if (!data.tts) {
-		data.tts = false;
-	}
+	data.content = data.content ?? '';
+	data.tts = data.tts ?? false;
 
 	return data;
 };

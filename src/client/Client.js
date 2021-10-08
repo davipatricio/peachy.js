@@ -2,12 +2,12 @@
 
 const EventEmitter = require('node:events');
 
+const Intents = require('../utils/Intents');
+const Heartbeater = require('./ws/Heartbeater');
+const CacheMake = require('../utils/Cache');
+
 const WebsocketManager = require('./ws/WebsocketManager');
 const ActionManager = require('../actions/ActionManager');
-
-const Intents = require('../utils/Intents');
-
-const CacheMake = require('../utils/Cache');
 
 class Client extends EventEmitter {
 	constructor (options = {}) {
@@ -18,10 +18,13 @@ class Client extends EventEmitter {
 		this.api = {};
 
 		this.options = Object.assign({
+			// If the library should reconnect automatically
+			autoReconnect: true,
+
 			// Which events should be disabled and not processed
 			disabledEvents: [],
 
-			// Sent in IDENTIFY payload
+			// Data ent in IDENTIFY payload
 			shardId: 0,
 			shardCount: 1,
 
@@ -41,7 +44,11 @@ class Client extends EventEmitter {
 
 			// Default message options
 
+			// when replying to a message, whether to error if the referenced message
+			// doesn't exist instead of sending as a normal (non-reply) message
 			failIfNotExists: false,
+
+			// Default allowed mentions configuration
 			allowedMentions: {
 				parse: ['users', 'roles', 'everyone'],
 				replied_user: true,
@@ -65,24 +72,44 @@ class Client extends EventEmitter {
 		CacheMake.addToClient(this, this.options.cache);
 	}
 
-	login (token) {
-		this.token = token ?? process.env.DISCORD_TOKEN;
-		if (!this.token || typeof this.token !== 'string') throw new Error('No valid token was provided.');
+	login (token = process.env.DISCORD_TOKEN) {
+		if (!token || typeof token !== 'string') throw new Error('No valid token was provided.');
+		this.token = token;
 
 		this.ping = -1;
-		this.emit('debug', 'Login method was called. Preparing to connect to the Discord Gateway.');
-		return this.ws.connect();
+		this.emit('debug', '[DEBUG] Login method was called. Preparing to connect to the Discord Gateway.');
+		this.ws.connect();
 	}
 
 	disconnect () {
-		if (!this.ws.connection) return;
+		if (this.ws.connection) this.ws.connection.close(1000);
 
 		if (this.api.heartbeat_timer) clearInterval(this.api.heartbeat_timer);
-		this.api.sequence = null;
-		this.ws.connection.close();
+		this.token = null;
+		this.api = {};
+		this.cleanUp();
+	}
+
+	cleanUp () {
+		this.ping = -1;
 		this.ready = false;
 		this.user = null;
-		this.api = {};
+		this.guilds.cache.clear();
+		this.emojis.cache.clear();
+		this.users.cache.clear();
+		this.channels.cache.clear();
+	}
+
+	reconnect () {
+		Heartbeater.stop(this);
+		this.cleanUp();
+		this.emit('reconnecting');
+
+		// If we don't have a session id, we cannot reconnect
+		this.api.should_resume = Boolean(this.api.sessionId);
+
+		this.reconnecting = true;
+		this.login(this.token);
 	}
 
 	_verifyOptions () {
