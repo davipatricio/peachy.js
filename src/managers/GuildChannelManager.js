@@ -5,7 +5,7 @@ const BaseManager = require('./BaseManager');
 
 class GuildChannelManager extends BaseManager {
 	constructor (limit) {
-		super(TextChannel, limit)
+		super(TextChannel, limit);
 	}
 }
 

@@ -14,7 +14,7 @@ class Guild {
 	constructor (client, data) {
 		this.client = client;
 		this.channels = new GuildChannelManager(this.client.options.cache.options.GuildChannelManager);
-		this.members = new GuildMemberManager(this.client.options.cache.options.GuildMemberManager)
+		this.members = new GuildMemberManager(this.client.options.cache.options.GuildMemberManager);
 		this.roles = new RoleManager(this.client.options.cache.options.RoleManager);
 
 		this.parseData(data);

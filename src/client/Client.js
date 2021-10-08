@@ -1,6 +1,6 @@
 'use strict';
 
-const RestClient = require("./RestClient");
+const RestClient = require('./RestClient');
 
 const Intents = require('../utils/Intents');
 const Heartbeater = require('./ws/Heartbeater');
@@ -73,7 +73,7 @@ class Client extends RestClient {
 	}
 
 	login (token = process.env.DISCORD_TOKEN) {
-		super.login(token)
+		super.login(token);
 		this.ping = -1;
 		this.emit('debug', '[DEBUG] Login method was called. Preparing to connect to the Discord Gateway.');
 		this.ws.connect();
@@ -115,7 +115,7 @@ class Client extends RestClient {
 		if (!Array.isArray(this.options.disabledEvents)) throw new Error('The disabledEvents option must be an array.');
 
 		if (typeof this.options.properties !== 'object') throw new Error('The properties option must be an object.');
-		if (typeof this.options.cache !== "object") throw new Error('The cache option must be an object.');
+		if (typeof this.options.cache !== 'object') throw new Error('The cache option must be an object.');
 
 		if (typeof this.options.shardId !== 'number') throw new Error('The shardId option must be a number.');
 		if (typeof this.options.apiVersion !== 'number') throw new Error('The apiVersion option must be a number.');

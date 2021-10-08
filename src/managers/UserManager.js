@@ -1,12 +1,12 @@
-"use strict";
+'use strict';
 
-const User = require("../structures/User");
-const BaseManager = require("./BaseManager");
+const User = require('../structures/User');
+const BaseManager = require('./BaseManager');
 
 class UserManager extends BaseManager {
-  constructor(limit) {
-    super(User, limit);
-  }
+	constructor (limit) {
+		super(User, limit);
+	}
 }
 
 module.exports = UserManager;
