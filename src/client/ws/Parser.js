@@ -23,7 +23,7 @@ function message (client, rawData) {
 		// Invalid session (we should reconnect and resume)
 		case 9:
 			if (client.api.should_resume) return;
-			client.ws.connection.close(4000);
+			client.ws.connection?.close(4000);
 			Heartbeat.stop(client);
 			client.reconnect();
 			break;

@@ -80,8 +80,7 @@ class Client extends RestClient {
 	}
 
 	disconnect () {
-		if (this.ws.connection) this.ws.connection.close(1000);
-
+		this.ws.connection?.close(1000);
 		if (this.api.heartbeat_timer) clearInterval(this.api.heartbeat_timer);
 		this.token = null;
 		this.api = {};
