@@ -4,6 +4,7 @@ const os = require('os');
 const EventEmitter = require('events');
 
 const Intents = require('../utils/Intents');
+const Heartbeater = require('./ws/Heartbeater');
 
 const GuildManager = require('../managers/GuildManager');
 const UserManager = require('../managers/UserManager');
@@ -21,6 +22,9 @@ class Client extends EventEmitter {
 		this.api = {};
 
 		this.options = Object.assign({
+			// If the library should reconnect automatically
+			autoReconnect: true,
+
 			// Which events should be disabled and not processed
 			disabledEvents: [],
 
@@ -87,19 +91,39 @@ class Client extends EventEmitter {
 		this.token = token;
 
 		this.ping = -1;
-		this.emit('debug', 'Login method was called. Preparing to connect to the Discord Gateway.');
-		return this.ws.connect();
+		this.emit('debug', '[DEBUG] Login method was called. Preparing to connect to the Discord Gateway.');
+		this.ws.connect();
 	}
 
 	disconnect () {
-		if (!this.ws.connection) return;
+		if (this.ws.connection) this.ws.connection.close(1000);
 
 		if (this.api.heartbeat_timer) clearInterval(this.api.heartbeat_timer);
-		this.api.sequence = null;
-		this.ws.connection.close();
+		this.token = null;
+		this.api = {};
+		this.cleanUp();
+	}
+
+	cleanUp () {
+		this.ping = -1;
 		this.ready = false;
 		this.user = null;
-		this.api = {};
+		this.guilds.cache.clear();
+		this.emojis.cache.clear();
+		this.users.cache.clear();
+		this.channels.cache.clear();
+	}
+
+	reconnect () {
+		Heartbeater.stop(this);
+		this.cleanUp();
+		this.emit('reconnecting');
+
+		// If we don't have a session id, we cannot reconnect
+		this.api.should_resume = !!this.api.sessionId;
+
+		this.reconnecting = true;
+		this.login(this.token);
 	}
 
 	_verifyOptions () {

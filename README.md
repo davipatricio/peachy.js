@@ -42,6 +42,7 @@ const client = new Peachy.Client({
     
     shardId: 0, // Should start at 0. Useful for large bots in multiple machines
     shardCount: 1 // How many shards spawn
+    autoReconnect: true,
 
     intents: ['GUILDS', 'GUILD_MESSAGES'],
     

@@ -16,6 +16,21 @@ function sendIdentify (client) {
 	client.ws.connection.send(JSON.stringify(IdentifyPayload));
 }
 
+function sendResume (client) {
+	const ResumePayload = {
+		op: 6,
+		d: {
+			token: client.token,
+			session_id: client.api.sessionId,
+			seq: client.api.sequence,
+		},
+	};
+
+	client.ws.connection.send(JSON.stringify(ResumePayload));
+}
+
+
 module.exports = {
 	sendIdentify,
+	sendResume,
 };
