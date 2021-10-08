@@ -1,6 +1,6 @@
 {
   "name": "peachy.js",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A powerful library for interacting with the Discord API",
   "main": "./index.js",
   "keywords": [

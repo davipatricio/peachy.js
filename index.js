@@ -16,4 +16,7 @@ module.exports = {
 	GuildChannelManager: require('./src/managers/GuildChannelManager'),
 	RoleManager: require('./src/managers/RoleManager'),
 	UserManager: require('./src/managers/UserManager'),
+
+	// Other
+	version: require('./package.json').version,
 };
