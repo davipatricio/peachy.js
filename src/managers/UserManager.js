@@ -1,11 +1,9 @@
 'use strict';
 
-const User = require('../structures/User');
 const BaseManager = require('./BaseManager');
-
 class UserManager extends BaseManager {
 	constructor (limit) {
-		super(User, limit);
+		super(limit);
 	}
 }
 
