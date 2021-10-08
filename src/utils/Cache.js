@@ -3,13 +3,10 @@
 const EmojiManager = require('../managers/EmojiManager');
 const GuildChannelManager = require('../managers/GuildChannelManager');
 const GuildManager = require('../managers/GuildManager');
-const RoleManager = require('../managers/RoleManager');
 const UserManager = require('../managers/UserManager');
 
-function CacheMake (options = {}) {
-	const Make = {};
-
-	Make.options = {
+module.exports.default = (options = {}) => {
+	return {
 		EmojiManager: options.EmojiManager ?? Infinity,
 		GuildChannelManager: options.GuildChannelManager ?? Infinity,
 		GuildManager: options.GuildManager ?? Infinity,
@@ -17,24 +14,10 @@ function CacheMake (options = {}) {
 		UserManager: options.UserManager ?? Infinity,
 		GuildMemberManager: options.GuildMemberManager ?? Infinity,
 	};
-
-	Make.EmojiManager = new EmojiManager(Make.options.EmojiManager);
-	Make.GuildChannelManager = new GuildChannelManager(
-		Make.options.GuildChannelManager,
-	);
-	Make.GuildManager = new GuildManager(Make.options.GuildChannelManager);
-	Make.RoleManager = new RoleManager(Make.options.RoleManager);
-	Make.UserManager = new UserManager(Make.options.UserManager);
-	return Make;
-}
-
-CacheMake.addToClient = (client, Make) => {
-	client.guilds = Make.GuildManager;
-	client.emojis = Make.GuildManager;
-	client.users = Make.UserManager;
-	client.channels = Make.GuildChannelManager;
-
-	return client;
 };
-
-module.exports = CacheMake;
+module.exports.addToClient = (client, Make) => {
+	client.guilds = new GuildManager(Make.options.GuildChannelManager);
+	client.emojis = new EmojiManager(Make.options.EmojiManager);
+	client.users = new UserManager(Make.options.UserManager);
+	client.channels = new GuildChannelManager(Make.options.GuildChannelManager);
+};

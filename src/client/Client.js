@@ -1,15 +1,15 @@
 'use strict';
 
-const RestClient = require('./RestClient');
+const EventEmitter = require('node:events');
 
 const Intents = require('../utils/Intents');
 const Heartbeater = require('./ws/Heartbeater');
-const CacheMake = require('../utils/Cache');
+const CacheFactory = require('../utils/Cache');
 
 const WebsocketManager = require('./ws/WebsocketManager');
 const ActionManager = require('../actions/ActionManager');
 
-class Client extends RestClient {
+class Client extends EventEmitter {
 	constructor (options = {}) {
 		super();
 
@@ -40,7 +40,7 @@ class Client extends RestClient {
 			},
 
 			// By default, all caches are enabled without any limit
-			cache: CacheMake(),
+			cache: CacheFactory.default(options.cache),
 
 			// Default message options
 
@@ -69,7 +69,7 @@ class Client extends RestClient {
 		this.ws = new WebsocketManager(this);
 		this.actions = new ActionManager(this);
 
-		CacheMake.addToClient(this, this.options.cache);
+		CacheFactory.addToClient(this, this.options.cache);
 	}
 
 	login (token = process.env.DISCORD_TOKEN) {
@@ -80,8 +80,7 @@ class Client extends RestClient {
 	}
 
 	disconnect () {
-		if (this.ws.connection) this.ws.connection.close(1000);
-
+		this.ws.connection?.close(1000);
 		if (this.api.heartbeat_timer) clearInterval(this.api.heartbeat_timer);
 		this.token = null;
 		this.api = {};

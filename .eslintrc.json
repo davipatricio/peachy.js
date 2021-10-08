@@ -6,7 +6,7 @@
       "es2021": true
     },
     "parserOptions": {
-      "ecmaVersion": 11,
+      "ecmaVersion": 2021,
       "sourceType": "script"
     },
     "extends": ["eslint:recommended","google"],

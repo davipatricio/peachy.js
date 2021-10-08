@@ -1,12 +1,10 @@
 'use strict';
 
-const Role = require('../structures/Role');
-const BaseManager = require('./BaseManager');
+const LimitedMap = require('../utils/LimitedMap');
 
-
-class RoleManager extends BaseManager {
+class RoleManager {
 	constructor (limit) {
-		super(Role, limit);
+		this.cache = new LimitedMap(limit);
 	}
 }
 

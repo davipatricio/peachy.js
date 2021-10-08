@@ -12,8 +12,8 @@ module.exports.transform = (data) => {
 		});
 	}
 
-	data.content = data.content ?? '';
-	data.tts = data.tts ?? false;
+	data.content ??= '';
+	data.tts ??= false;
 
 	return data;
 };

@@ -1,6 +1,6 @@
 'use strict';
 
-const { readdirSync } = require('fs');
+const { readdirSync } = require('node:fs');
 
 class ActionManager {
 	constructor (client) {

@@ -1,11 +1,10 @@
 'use strict';
 
-const User = require('../structures/User');
-const BaseManager = require('./BaseManager');
+const LimitedMap = require('../utils/LimitedMap');
 
-class UserManager extends BaseManager {
+class UserManager {
 	constructor (limit) {
-		super(User, limit);
+		this.cache = new LimitedMap(limit);
 	}
 }
 
