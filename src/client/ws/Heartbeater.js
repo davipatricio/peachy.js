@@ -43,7 +43,7 @@ function start (client) {
 			}
 		}, 15_000).unref();
 	}, client.api.heartbeat_interval).unref();
-
+}
 
 function stop (client) {
 	if (client.api.heartbeat_timer) clearInterval(client.api.heartbeat_timer);
