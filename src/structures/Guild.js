@@ -7,7 +7,7 @@ const TextChannel = require('./TextChannel');
 class Guild {
 	constructor (client, data) {
 		this.client = client;
-		this.channels = new LimitedMap(this.client.options.caches.channels);
+		this.channels = new LimitedMap(this.client.options.cache.options.GuildChannelManager);
 		this.parseData(data);
 	}
 
