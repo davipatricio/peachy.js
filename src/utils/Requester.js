@@ -40,8 +40,8 @@ module.exports.create = async (
 
   // Verify if an error code was returned from Discord API
   // If there was an error, one of the following methods will throw an error
-  if (json.code) verifyForJSONStatusCode(json, `${apiUrl(client.options.apiVersion)}${endpoint}`, data);
-  verifyForStatusCode(`${apiUrl(client.options.apiVersion)}${endpoint}`, data, fetchData.status);
+  if (json.code) verifyForJSONStatusCode(json, `${apiUrl(client.options.apiVersion)}${endpoint}`, data, method);
+  verifyForStatusCode(`${apiUrl(client.options.apiVersion)}${endpoint}`, data, fetchData.status, method);
 
   return json;
 };
