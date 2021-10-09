@@ -14,7 +14,9 @@
     "peachy.js"
   ],
   "scripts": {
-    "lint": "eslint --fix src/**/*.js"
+    "lint:check": "eslint src/**/*.js",
+    "lint:fix": "eslint --fix src/**/*.js",
+    "prettier": "prettier --write src/**/*.js typings/**/*.ts"
   },
   "repository": {
     "type": "git",
@@ -32,7 +34,9 @@
   },
   "devDependencies": {
     "eslint": "^7.32.0",
-    "eslint-config-google": "^0.14.0"
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-prettier": "^4.0.0"
   },
   "engines": {
     "node": ">=16.6.0",
