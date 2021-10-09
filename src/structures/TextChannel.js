@@ -32,37 +32,48 @@ class TextChannel {
 		return new Message(this.client, data);
 	}
 
-	setName (name) {
-		return Requester.create(this.client, `/channels/${this.id}`, 'PATCH', true, { name });
+	async setName (name) {
+		const data = await Requester.create(this.client, `/channels/${this.id}`, 'PATCH', true, { name });
+		return new TextChannel(this.client, data, this.guild);
 	}
 
-	setPosition (position = 0) {
-		return Requester.create(this.client, `/channels/${this.id}`, 'PATCH', true, { position });
+	async setPosition (position = 0) {
+		const data = await Requester.create(this.client, `/channels/${this.id}`, 'PATCH', true, { position });
+		return new TextChannel(this.client, data, this.guild);
 	}
 
-	setTopic (topic = null) {
-		return Requester.create(this.client, `/channels/${this.id}`, 'PATCH', true, { topic });
+	async setTopic (topic = null) {
+		const data = await Requester.create(this.client, `/channels/${this.id}`, 'PATCH', true, { topic });
+		return new TextChannel(this.client, data, this.guild);
 	}
 
-	setRateLimitPerUser (seconds = 0) {
-		return Requester.create(this.client, `/channels/${this.id}`, 'PATCH', true, { rate_limit_per_user: seconds });
+	async setRateLimitPerUser (seconds = 0) {
+		const data = await Requester.create(this.client, `/channels/${this.id}`, 'PATCH', true, { rate_limit_per_user: seconds });
+		return new TextChannel(this.client, data, this.guild);
 	}
 
-	setType (type = 'GUILD_NEWS') {
-		if (typeof type === 'number') return Requester.create(this.client, `/channels/${this.id}`, 'PATCH', true, { type });
+	async setType (type = 'GUILD_NEWS') {
+		if (typeof type === 'number') {
+			const data = await Requester.create(this.client, `/channels/${this.id}`, 'PATCH', true, { type });
+			return new TextChannel(this.client, data, this.guild);
+		}
 
 		if (!['GUILD_TEXT', 'GUILD_NEWS'].includes(type)) throw new Error('Invalid channel type');
-		return Requester.create(this.client, `/channels/${this.id}`, 'PATCH', true, { type: type === 'GUILD_TEXT' ? 0 : 5 });
+		const data = await Requester.create(this.client, `/channels/${this.id}`, 'PATCH', true, { type: type === 'GUILD_TEXT' ? 0 : 5 });
+		return new TextChannel(this.client, data, this.guild);
 	}
 
-	delete () {
-		return Requester.create(this.client, `/channels/${this.id}`, 'DELETE', true);
+	async delete (reason) {
+		const data = await Requester.create(this.client, `/channels/${this.id}`, 'DELETE', true, undefined, {
+			'X-Audit-Log-Reason': reason,
+		});
+		return new TextChannel(this.client, data, this.guild);
 	}
 
 	async fetch () {
 		const data = await Requester.create(this.client, `/channels/${this.id}`, 'GET', true);
 		const channel = new TextChannel(this.client, data, this.guild);
-		this.cache.set(data.id, channel);
+		this.guild.channels.cache.set(data.id, channel);
 		this.client.channels.cache.set(data.id, channel);
 		return channel;
 	}

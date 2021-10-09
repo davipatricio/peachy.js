@@ -6,18 +6,20 @@ const { apiUrl } = require('../constants/DiscordEndpoints');
 
 // "data" defaults to undefined because GET requests don't have a body
 module.exports.create = async (client, endpoint, method = 'GET', parseHeaders = true, data = undefined, headers = {}) => {
+	let parsedHeaders = headers;
 	if (parseHeaders) {
-		headers = Object.assign({
+		parsedHeaders = {
 			'Authorization': `Bot ${client.token}`,
 			'Content-Type': 'application/json',
 			'User-Agent': `DiscordBot (https://github.com/DenkyLabs/peachy.js/, ${require('../../index').version})`,
-		}, headers);
+			...headers,
+		};
 	}
 
 	const body = typeof data === 'object' ? JSON.stringify(data) : data;
 	const fetchData = await fetch(`${apiUrl(client.options.apiVersion)}${endpoint}`, {
 		method,
-		headers,
+		headers: parsedHeaders,
 		body,
 	});
 
