@@ -12,7 +12,7 @@ function message(client, rawData) {
   const sequence = data.s;
 
   // If the client is reconnecting/resuming, we don't want to override the last sequence number
-  if (!client.reconnecting) client.api.sequence = sequence ?? null;
+  if (!client.api.should_resume) client.api.sequence = sequence ?? null;
 
   switch (opcode) {
     // General Gateway Events (GUILD_CREATE, GUILD_DELETE etc)
@@ -30,8 +30,6 @@ function message(client, rawData) {
 
     // Gateway HELLO event
     case 10:
-      client.reconnecting = false;
-
       // Here we should resume the session if we have a pending resume request
       if (client.api.should_resume) {
         Payloads.sendResume(client);
