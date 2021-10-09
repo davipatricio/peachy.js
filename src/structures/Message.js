@@ -99,7 +99,7 @@ class Message {
 
     if (!this.webhook_id) {
       this.author = new User(this.client, data.author);
-      this.member = this.guild ? this.guild.members.cache.get(this.author.id) : null;
+      this.member = this.guild?.members.cache.get(this.author.id) ?? null;
     }
   }
 }
