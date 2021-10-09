@@ -13,6 +13,7 @@ class WebSocketManager {
   connect() {
     this.connection = new WebSocket(Endpoints.gatewayUrl(this.client.options.apiVersion, 'json'));
     this.connection.on('message', message => Parser.message(this.client, message));
+
     this.connection.on('close', code => {
       if (!this.client.options.autoReconnect) return;
       switch (code) {
@@ -22,7 +23,6 @@ class WebSocketManager {
         case 4007:
           this.client.emit('debug', '[DEBUG] Received 4007 [Invalid Sequence], attempting to reconnect...');
           this.forceReconnect();
-          if (this.client.api) this.client.api.sequence = null;
           break;
         case 4008:
           this.client.emit('debug', '[DEBUG] Received 4008 [Rate Limit], attempting to reconnect...');
@@ -31,7 +31,6 @@ class WebSocketManager {
         case 4009:
           this.client.emit('debug', '[DEBUG] Received 4009 [Session Timeout], attempting to reconnect...');
           this.forceReconnect(false);
-          if (this.client.api) this.client.api.sessionId = null;
           break;
         case 4013:
           this.client.emit('debug', '[DEBUG] Received 4013 [Invalid Intents], NOT attempting to reconnect.');
