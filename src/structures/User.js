@@ -6,7 +6,7 @@ const MakeAPIMessage = require('../utils/MakeAPIMessage');
 const Requester = require('../utils/Requester');
 class User {
   constructor(client, data) {
-    this.client = client;
+    this._client = client;
     this.parseData(data);
   }
 
@@ -24,33 +24,33 @@ class User {
   async send(content) {
     const dmChannelId = await this.createDM();
     if (typeof content === 'string') {
-      const data = await Requester.create(this.client, `/channels/${dmChannelId.id}/messages`, 'POST', true, {
+      const data = await Requester.create(this._client, `/channels/${dmChannelId.id}/messages`, 'POST', true, {
         content,
         embeds: [],
         tts: false,
         sticker_ids: [],
         components: [],
-        allowed_mentions: this.client.options.allowedMentions,
+        allowed_mentions: this._client.options.allowedMentions,
       });
-      return new Message(this.client, data);
+      return new Message(this._client, data);
     }
 
     if (!content.allowed_mentions) {
-      content.allowed_mentions = this.client.options.allowedMentions;
+      content.allowed_mentions = this._client.options.allowedMentions;
     }
 
     const data = await Requester.create(
-      this.client,
+      this._client,
       `/channels/${dmChannelId.id}/messages`,
       'POST',
       true,
       MakeAPIMessage.transform(content),
     );
-    return new Message(this.client, data);
+    return new Message(this._client, data);
   }
 
   createDM() {
-    return Requester.create(this.client, '/users/@me/channels', 'POST', true, { recipient_id: this.id });
+    return Requester.create(this._client, '/users/@me/channels', 'POST', true, { recipient_id: this.id });
   }
 
   toString() {

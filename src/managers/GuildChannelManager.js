@@ -1,32 +1,33 @@
 'use strict';
 
 const TextChannel = require('../structures/TextChannel');
-const LimitedMap = require('../utils/LimitedMap');
-const Requester = require('../utils/Requester');
+const { LimitedMap } = require('../utils/Utils');
+const BaseManager = require('./BaseManager');
 
 class GuildChannelManager {
   constructor(client, limit) {
+    this._client = client;
     this.cache = new LimitedMap(limit);
-    this.client = client;
   }
 
-  async fetch(id) {
-    if (this.cache.has(id)) return this.cache.get(id);
+  fetch(options) {
+    return BaseManager.prototype.fetch.call(
+      {
+        base: TextChannel,
+        _client: this._client,
+        _url: `/channels/`,
+        cache: this.cache,
+      },
+      options,
+    );
+  }
 
-    const data = await Requester.create(this.client, `/channels/${id}`, 'GET', true);
-    let channel = null;
-    switch (data.type) {
-      case 0:
-        // We don't want to change the old channel data so we clone the old channel and update it's data
-        channel =
-          this.cache.get(id)?._update(data) ??
-          TextChannel(this.client, data, this.client.guilds.cache.get(data.guild_id));
-        break;
-    }
-
-    this.cache.set(channel.id, channel);
-    this.client.channels.cache.set(channel.id, channel);
-    return channel;
+  forge(options) {
+    return this.fetch({
+      getFromCache: true,
+      forge: true,
+      id: typeof options === 'string' ? options : options.id,
+    });
   }
 }
 
