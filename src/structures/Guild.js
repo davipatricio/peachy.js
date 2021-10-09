@@ -1,5 +1,6 @@
 'use strict';
 
+const DataManager = require('./DataManager');
 const GuildMember = require('./GuildMember');
 const Role = require('./Role');
 const TextChannel = require('./TextChannel');
@@ -10,9 +11,10 @@ const GuildMemberManager = require('../managers/GuildMemberManager');
 const RoleManager = require('../managers/RoleManager');
 const Requester = require('../utils/Requester');
 
-class Guild {
+class Guild extends DataManager {
   constructor(client, data) {
-    this.client = client;
+    super(client);
+
     this.channels = new GuildChannelManager(this.client.options.cache.GuildChannelManager);
     this.members = new GuildMemberManager(this.client.options.cache.GuildMemberManager);
     this.roles = new RoleManager(this.client.options.cache.RoleManager);

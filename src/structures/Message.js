@@ -1,11 +1,13 @@
 'use strict';
 
+const DataManager = require('./DataManager');
 const MakeAPIMessage = require('../utils/MakeAPIMessage');
 const Requester = require('../utils/Requester');
 
-class Message {
+class Message extends DataManager {
   constructor(client, data) {
-    this.client = client;
+    super(client);
+
     this.parseData(data);
   }
 
@@ -19,13 +21,13 @@ class Message {
       ? emoji.replaceAll('<:', '').replaceAll('<a:', '').replaceAll('>', '')
       : encodeURIComponent(emoji);
 
-    // TODO: return MessageReaction
     await Requester.create(
       this.client,
       `/channels/${this.channelId}/messages/${this.id}/reactions/${emoji}/@me`,
       'PUT',
       true,
     );
+    // TODO: return MessageReaction
     return null;
   }
 
@@ -45,7 +47,7 @@ class Message {
         },
         allowed_mentions: this.client.options.allowedMentions,
       });
-      return new Message(this.client, data);
+      return this.parseData(data);
     }
 
     content.message_reference = {
@@ -64,7 +66,7 @@ class Message {
       true,
       MakeAPIMessage.transform(content),
     );
-    return new Message(this.client, data);
+    return this.parseData(data);
   }
 
   async edit(content) {
@@ -89,7 +91,7 @@ class Message {
           allowed_mentions: this.client.options.allowedMentions,
         },
       );
-      return new Message(this.client, data);
+      return this.parseData(data);
     }
 
     content.message_reference = {
@@ -108,7 +110,7 @@ class Message {
       true,
       MakeAPIMessage.transform(content),
     );
-    return new Message(this.client, data);
+    return this.parseData(data);
   }
 
   async crosspost() {
@@ -118,7 +120,7 @@ class Message {
       'POST',
       true,
     );
-    return new Message(this.client, data);
+    return this.parseData(data);
   }
 
   delete() {

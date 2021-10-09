@@ -1,14 +1,15 @@
 'use strict';
 
+const DataManager = require('./DataManager');
 const Invite = require('./Invite');
 const Message = require('./Message');
 const ChannelMessageManager = require('../managers/ChannelMessageManager');
 const MakeAPIMessage = require('../utils/MakeAPIMessage');
 const Requester = require('../utils/Requester');
-
-class TextChannel {
+class TextChannel extends DataManager {
   constructor(client, data, guild) {
-    this.client = client;
+    super(client);
+
     this.guild = guild;
     this.messages = new ChannelMessageManager(client, this.client.options.cache.ChannelMessageManager);
     this.parseData(data);

@@ -1,10 +1,12 @@
 'use strict';
 
+const DataManager = require('./DataManager');
 const Requester = require('../utils/Requester');
 
-class Role {
+class Role extends DataManager {
   constructor(client, data, guild) {
-    this.client = client;
+    super(client);
+
     this.guild = guild;
     this.parseData(data);
   }
@@ -20,7 +22,7 @@ class Role {
         'X-Audit-Log-Reason': reason,
       },
     );
-    return new Role(this.client, data, this.guild);
+    return this.parseData(data);
   }
 
   async setHoist(hoist = true, reason) {
@@ -34,7 +36,7 @@ class Role {
         'X-Audit-Log-Reason': reason,
       },
     );
-    return new Role(this.client, data, this.guild);
+    return this.parseData(data);
   }
 
   async setMentionable(mentionable = true, reason) {
@@ -48,7 +50,7 @@ class Role {
         'X-Audit-Log-Reason': reason,
       },
     );
-    return new Role(this.client, data, this.guild);
+    return this.parseData(data);
   }
 
   delete(reason) {
