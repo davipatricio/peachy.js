@@ -15,9 +15,9 @@ class Guild extends DataManager {
   constructor(client, data) {
     super(client);
 
-    this.channels = new GuildChannelManager(this.client.options.cache.GuildChannelManager);
-    this.members = new GuildMemberManager(this.client.options.cache.GuildMemberManager);
-    this.roles = new RoleManager(this.client.options.cache.RoleManager);
+    this.channels = new GuildChannelManager(this.client, this.client.options.cache.GuildChannelManager);
+    this.members = new GuildMemberManager(this.client, this.client.options.cache.GuildMemberManager);
+    this.roles = new RoleManager(this.client, this.client.options.cache.RoleManager);
 
     this.parseData(data);
   }
