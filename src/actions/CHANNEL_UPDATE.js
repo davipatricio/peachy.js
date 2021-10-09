@@ -9,6 +9,7 @@ module.exports.handle = (client, data) => {
       const oldChannel = client.channels.cache.get(data.id);
       client.emit('channelUpdate', oldChannel, channel);
       client.channels.cache.set(data.id, channel);
+      break;
     }
   }
 };

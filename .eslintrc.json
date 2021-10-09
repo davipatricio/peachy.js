@@ -92,6 +92,7 @@
     "require-await": "warn",
     "wrap-iife": "error",
     "yoda": "error",
+    "no-fallthrough": "error",
 
     "no-label-var": "error",
     "no-shadow": "error",

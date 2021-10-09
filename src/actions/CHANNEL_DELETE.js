@@ -8,6 +8,7 @@ module.exports.handle = (client, data) => {
       const channel = new TextChannel(client, data);
       client.channels.cache.delete(data.id);
       client.emit('channelDelete', channel);
+      break;
     }
   }
 };
