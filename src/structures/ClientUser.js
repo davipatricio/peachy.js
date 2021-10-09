@@ -8,6 +8,10 @@ class ClientUser {
     this.parseData(data);
   }
 
+  setAFK(afk = true) {
+    this.setPresence({ afk });
+  }
+
   setActivity(name, type = 0) {
     this.setPresence({
       activities: [
@@ -30,8 +34,8 @@ class ClientUser {
         since: null,
       },
     };
-
-    this.client.ws.connection.send(JSON.stringify(data));
+    this.presence = data.d;
+    this.client.ws.connection?.send(JSON.stringify(data));
   }
 
   displayAvatarURL(options = { format: 'png', size: 2048 }) {
