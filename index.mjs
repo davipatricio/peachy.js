@@ -12,5 +12,6 @@ export const {
     GuildChannelManager,
     RoleManager,
     UserManager,
+    Utils,
     version,
   } = Peachy;
