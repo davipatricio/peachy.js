@@ -5,7 +5,6 @@ const { readdirSync } = require('node:fs');
 class ActionManager {
   constructor(client) {
     this.loaded = {};
-    this.client = client;
     const actions = readdirSync(__dirname);
     for (let action of actions) {
       action = action.replace('.js', '');
