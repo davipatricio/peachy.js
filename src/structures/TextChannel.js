@@ -2,6 +2,7 @@
 
 const Invite = require('./Invite');
 const Message = require('./Message');
+const ChannelMessageManager = require('../managers/ChannelMessageManager');
 const MakeAPIMessage = require('../utils/MakeAPIMessage');
 const Requester = require('../utils/Requester');
 
@@ -9,6 +10,7 @@ class TextChannel {
   constructor(client, data, guild) {
     this.client = client;
     this.guild = guild;
+    this.messages = new ChannelMessageManager(this.client.options.cache.ChannelMessageManager);
     this.parseData(data);
   }
 

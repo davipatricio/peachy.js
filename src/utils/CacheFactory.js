@@ -12,6 +12,7 @@ module.exports.default = (options = {}) => ({
   RoleManager: options.RoleManager ?? Infinity,
   UserManager: options.UserManager ?? Infinity,
   GuildMemberManager: options.GuildMemberManager ?? Infinity,
+  ChannelMessageManager: options.ChannelMessageManager ?? 200,
 });
 
 module.exports.addToClient = (client, options) => {

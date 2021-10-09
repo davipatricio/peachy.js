@@ -161,6 +161,11 @@ class Message {
     this.pinned = data.pinned;
     this.type = data.type;
     this.webhook_id = data.webhook_id;
+
+    // Add message to channel cache
+    if (this.channel) {
+      this.channel.messages.cache.set(this.id, this);
+    }
   }
 }
 
