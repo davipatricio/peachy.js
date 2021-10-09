@@ -111,6 +111,16 @@ class Message {
     return new Message(this.client, data);
   }
 
+  async crosspost() {
+    const data = await Requester.create(
+      this.client,
+      `/channels/${this.channelId}/messages/${this.id}/crosspost`,
+      'POST',
+      true,
+    );
+    return new Message(this.client, data);
+  }
+
   delete() {
     return Requester.create(this.client, `/channels/${this.channelId}/messages/${this.id}`, 'DELETE', true);
   }
@@ -135,17 +145,22 @@ class Message {
       this.guildId = data.guild_id;
     }
 
+    if (!this.webhook_id) {
+      this.author = new User(this.client, data.author);
+      this.member = this.guild?.members.cache.get(this.author.id) ?? null;
+    }
+
+    if (data.created_at) {
+      this.createdTimestamp = new Date(data.created_at).getTime();
+      this.createdAt = new Date(this.createdTimestamp);
+    }
+
     this.content = data.content ?? null;
     this.embeds = data.embeds;
     this.tts = data.tts ?? false;
     this.pinned = data.pinned;
     this.type = data.type;
     this.webhook_id = data.webhook_id;
-
-    if (!this.webhook_id) {
-      this.author = new User(this.client, data.author);
-      this.member = this.guild?.members.cache.get(this.author.id) ?? null;
-    }
   }
 }
 
