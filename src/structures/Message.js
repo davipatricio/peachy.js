@@ -12,6 +12,9 @@ class Message {
 	async react (emoji) {
 		if (typeof emoji !== 'string') throw new Error('Emoji should be a string (unicode emoji, emoji_name:id)');
 
+		// Custom emojis should be sent to the api as "name:id"
+		// Unicode emojis should be URL encoded
+		// https://discord.com/developers/docs/resources/channel#create-reaction
 		emoji = emoji.includes(':') ? emoji.replaceAll('<:', '').replaceAll('<a:', '').replaceAll('>', '') : encodeURIComponent(emoji);
 
 		await Requester.create(this.client, `/channels/${this.channelId}/messages/${this.id}/reactions/${emoji}/@me`, 'PUT', true);
@@ -44,9 +47,7 @@ class Message {
 			fail_if_not_exists: this.client.options.failIfNotExists,
 		};
 
-		if (!content.allowed_mentions) {
-			content.allowed_mentions = this.client.options.allowedMentions;
-		}
+		if (!content.allowed_mentions) content.allowed_mentions = this.client.options.allowedMentions;
 
 		const data = await Requester.create(this.client, `/channels/${this.channelId}/messages`, 'POST', true, MakeAPIMessage.transform(content));
 		return new Message(this.client, data);

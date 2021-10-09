@@ -3,8 +3,9 @@
 const LimitedMap = require('../utils/LimitedMap');
 
 class GuildMemberManager {
-	constructor (limit) {
+	constructor (client, limit) {
 		this.cache = new LimitedMap(limit);
+		this.client = client;
 	}
 }
 

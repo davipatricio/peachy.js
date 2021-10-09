@@ -59,6 +59,14 @@ class TextChannel {
 		return Requester.create(this.client, `/channels/${this.id}`, 'DELETE', true);
 	}
 
+	async fetch () {
+		const data = await Requester.create(this.client, `/channels/${this.id}`, 'GET', true);
+		const channel = new TextChannel(this.client, data, this.guild);
+		this.cache.set(data.id, channel);
+		this.client.channels.cache.set(data.id, channel);
+		return channel;
+	}
+
 	toString () {
 		return `<#${this.id}>`;
 	}

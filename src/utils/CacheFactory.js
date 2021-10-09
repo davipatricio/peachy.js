@@ -1,7 +1,7 @@
 'use strict';
 
 const EmojiManager = require('../managers/EmojiManager');
-const GuildChannelManager = require('../managers/GuildChannelManager');
+const ChannelManager = require('../managers/ChannelManager');
 const GuildManager = require('../managers/GuildManager');
 const UserManager = require('../managers/UserManager');
 
@@ -15,9 +15,10 @@ module.exports.default = (options = {}) => {
 		GuildMemberManager: options.GuildMemberManager ?? Infinity,
 	};
 };
-module.exports.addToClient = (client, Make) => {
-	client.guilds = new GuildManager(Make.options.GuildChannelManager);
-	client.emojis = new EmojiManager(Make.options.EmojiManager);
-	client.users = new UserManager(Make.options.UserManager);
-	client.channels = new GuildChannelManager(Make.options.GuildChannelManager);
+
+module.exports.addToClient = (client, options) => {
+	client.guilds = new GuildManager(client, options.GuildChannelManager);
+	client.emojis = new EmojiManager(client, options.EmojiManager);
+	client.users = new UserManager(client, options.UserManager);
+	client.channels = new ChannelManager(client, options.GuildChannelManager);
 };

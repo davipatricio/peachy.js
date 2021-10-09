@@ -9,6 +9,7 @@ class Role {
 
 	parseData (data) {
 		if (!data) return;
+
 		this.id = data.id;
 		this.name = data.name;
 		this.color = data.color;

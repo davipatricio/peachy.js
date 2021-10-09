@@ -4,7 +4,7 @@ const LimitedMap = require('../utils/LimitedMap');
 const Requester = require('../utils/Requester');
 const TextChannel = require('../structures/TextChannel');
 
-class GuildChannelManager {
+class ChannelManager {
 	constructor (client, limit) {
 		this.cache = new LimitedMap(limit);
 		this.client = client;
@@ -13,7 +13,7 @@ class GuildChannelManager {
 	async fetch (id) {
 		if (this.cache.has(id)) return this.cache.get(id);
 
-		const data = await Requester.create(this.client, `/channels/${id}`, 'GET', true);
+		const data = await Requester.create(this.client, `/channels/${id}`, 'DELETE', true);
 		let channel = null;
 		switch (data.type) {
 			case 0:
@@ -22,11 +22,11 @@ class GuildChannelManager {
 		}
 
 		if (channel) {
-			this.cache.set(channel.id, channel);
-			this.client.channels.cache.set(channel.id, channel);
+			this.cache.set(id, channel);
+			this.client.channels.cache.set(id, channel);
 		}
 		return channel;
 	}
 }
 
-module.exports = GuildChannelManager;
+module.exports = ChannelManager;
