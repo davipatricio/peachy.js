@@ -66,6 +66,13 @@ class TextChannel {
     return new TextChannel(this.client, data, this.guild);
   }
 
+  async setDefaultAutoArchiveDuration(minutes = 60) {
+    const data = await Requester.create(this.client, `/channels/${this.id}`, 'PATCH', true, {
+      default_auto_archive_duration: minutes,
+    });
+    return new TextChannel(this.client, data, this.guild);
+  }
+
   async setType(type = 'GUILD_NEWS') {
     if (typeof type === 'number') {
       const data = await Requester.create(this.client, `/channels/${this.id}`, 'PATCH', true, { type });
