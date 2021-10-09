@@ -13,9 +13,9 @@ const RoleManager = require('../managers/RoleManager');
 class Guild {
 	constructor (client, data) {
 		this.client = client;
-		this.channels = new GuildChannelManager(this.client.options.cache.options.GuildChannelManager);
-		this.members = new GuildMemberManager(this.client.options.cache.options.GuildMemberManager);
-		this.roles = new RoleManager(this.client.options.cache.options.RoleManager);
+		this.channels = new GuildChannelManager(this.client.options.cache.GuildChannelManager);
+		this.members = new GuildMemberManager(this.client.options.cache.GuildMemberManager);
+		this.roles = new RoleManager(this.client.options.cache.RoleManager);
 
 		this.parseData(data);
 	}

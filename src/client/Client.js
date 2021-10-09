@@ -73,8 +73,8 @@ class Client extends EventEmitter {
 	}
 
 	login (token = process.env.DISCORD_TOKEN) {
-		super.login(token);
 		this.ping = -1;
+		this.token = token;
 		this.emit('debug', '[DEBUG] Login method was called. Preparing to connect to the Discord Gateway.');
 		this.ws.connect();
 	}
