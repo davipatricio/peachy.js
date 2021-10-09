@@ -14,9 +14,9 @@
     "peachy.js"
   ],
   "scripts": {
-    "lint:check": "eslint src/**/*.js",
-    "lint:fix": "eslint --fix src/**/*.js",
-    "prettier": "prettier --write src/**/*.js typings/**/*.ts"
+    "lint:check": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "prettier": "prettier --write src/**/*.js"
   },
   "repository": {
     "type": "git",
