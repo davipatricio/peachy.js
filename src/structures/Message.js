@@ -19,6 +19,7 @@ class Message {
       ? emoji.replaceAll('<:', '').replaceAll('<a:', '').replaceAll('>', '')
       : encodeURIComponent(emoji);
 
+    // TODO: return MessageReaction
     await Requester.create(
       this.client,
       `/channels/${this.channelId}/messages/${this.id}/reactions/${emoji}/@me`,
@@ -60,6 +61,50 @@ class Message {
       this.client,
       `/channels/${this.channelId}/messages`,
       'POST',
+      true,
+      MakeAPIMessage.transform(content),
+    );
+    return new Message(this.client, data);
+  }
+
+  async edit(content) {
+    if (this.author.id !== this.client.user.id) throw new Error('You can only edit your own messages');
+    if (typeof content === 'string') {
+      const data = await Requester.create(
+        this.client,
+        `/channels/${this.channelId}/messages/${this.id}`,
+        'PATCH',
+        true,
+        {
+          content,
+          embeds: [],
+          tts: false,
+          components: [],
+          message_reference: {
+            message_id: this.id,
+            channel_id: this.channelId,
+            guild_id: this.channel.guildId,
+            fail_if_not_exists: this.client.options.failIfNotExists,
+          },
+          allowed_mentions: this.client.options.allowedMentions,
+        },
+      );
+      return new Message(this.client, data);
+    }
+
+    content.message_reference = {
+      message_id: this.id,
+      channel_id: this.channelId,
+      guild_id: this.channel.guildId,
+      fail_if_not_exists: this.client.options.failIfNotExists,
+    };
+
+    if (!content.allowed_mentions) content.allowed_mentions = this.client.options.allowedMentions;
+
+    const data = await Requester.create(
+      this.client,
+      `/channels/${this.channelId}/messages/${this.id}`,
+      'PATCH',
       true,
       MakeAPIMessage.transform(content),
     );
