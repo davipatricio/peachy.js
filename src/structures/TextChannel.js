@@ -1,5 +1,6 @@
 'use strict';
 
+const Invite = require('./Invite');
 const Message = require('./Message');
 const MakeAPIMessage = require('../utils/MakeAPIMessage');
 const Requester = require('../utils/Requester');
@@ -36,6 +37,11 @@ class TextChannel {
       MakeAPIMessage.transform(content),
     );
     return new Message(this.client, data);
+  }
+
+  async createInvite(options = { max_age: 86400, max_uses: 0, temporary: false, unique: false }) {
+    const data = await Requester.create(this.client, `/channels/${this.id}/invites`, 'POST', true, options);
+    return new Invite(this.client, data);
   }
 
   async setName(name) {
