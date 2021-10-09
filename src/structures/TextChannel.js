@@ -46,45 +46,108 @@ class TextChannel {
     return new Invite(this.client, data);
   }
 
-  async setName(name) {
-    const data = await Requester.create(this.client, `/channels/${this.id}`, 'PATCH', true, { name });
+  async setName(name, reason) {
+    const data = await Requester.create(
+      this.client,
+      `/channels/${this.id}`,
+      'PATCH',
+      true,
+      { name },
+      {
+        'X-Audit-Log-Reason': reason,
+      },
+    );
     return new TextChannel(this.client, data, this.guild);
   }
 
-  async setPosition(position = 0) {
-    const data = await Requester.create(this.client, `/channels/${this.id}`, 'PATCH', true, { position });
+  async setPosition(position = 0, reason) {
+    const data = await Requester.create(
+      this.client,
+      `/channels/${this.id}`,
+      'PATCH',
+      true,
+      { position },
+      {
+        'X-Audit-Log-Reason': reason,
+      },
+    );
     return new TextChannel(this.client, data, this.guild);
   }
 
-  async setTopic(topic = null) {
-    const data = await Requester.create(this.client, `/channels/${this.id}`, 'PATCH', true, { topic });
+  async setTopic(topic = null, reason) {
+    const data = await Requester.create(
+      this.client,
+      `/channels/${this.id}`,
+      'PATCH',
+      true,
+      { topic },
+      {
+        'X-Audit-Log-Reason': reason,
+      },
+    );
     return new TextChannel(this.client, data, this.guild);
   }
 
-  async setRateLimitPerUser(seconds = 0) {
-    const data = await Requester.create(this.client, `/channels/${this.id}`, 'PATCH', true, {
-      rate_limit_per_user: seconds,
-    });
+  async setRateLimitPerUser(seconds = 0, reason) {
+    const data = await Requester.create(
+      this.client,
+      `/channels/${this.id}`,
+      'PATCH',
+      true,
+      {
+        rate_limit_per_user: seconds,
+      },
+      {
+        'X-Audit-Log-Reason': reason,
+      },
+    );
     return new TextChannel(this.client, data, this.guild);
   }
 
-  async setDefaultAutoArchiveDuration(minutes = 60) {
-    const data = await Requester.create(this.client, `/channels/${this.id}`, 'PATCH', true, {
-      default_auto_archive_duration: minutes,
-    });
+  async setDefaultAutoArchiveDuration(minutes = 60, reason) {
+    const data = await Requester.create(
+      this.client,
+      `/channels/${this.id}`,
+      'PATCH',
+      true,
+      {
+        default_auto_archive_duration: minutes,
+      },
+      {
+        'X-Audit-Log-Reason': reason,
+      },
+    );
     return new TextChannel(this.client, data, this.guild);
   }
 
-  async setType(type = 'GUILD_NEWS') {
+  async setType(type = 'GUILD_NEWS', reason) {
     if (typeof type === 'number') {
-      const data = await Requester.create(this.client, `/channels/${this.id}`, 'PATCH', true, { type });
+      const data = await Requester.create(
+        this.client,
+        `/channels/${this.id}`,
+        'PATCH',
+        true,
+        { type },
+        {
+          'X-Audit-Log-Reason': reason,
+        },
+      );
       return new TextChannel(this.client, data, this.guild);
     }
 
     if (!['GUILD_TEXT', 'GUILD_NEWS'].includes(type)) throw new Error('Invalid channel type');
-    const data = await Requester.create(this.client, `/channels/${this.id}`, 'PATCH', true, {
-      type: type === 'GUILD_TEXT' ? 0 : 5,
-    });
+    const data = await Requester.create(
+      this.client,
+      `/channels/${this.id}`,
+      'PATCH',
+      true,
+      {
+        type: type === 'GUILD_TEXT' ? 0 : 5,
+      },
+      {
+        'X-Audit-Log-Reason': reason,
+      },
+    );
     return new TextChannel(this.client, data, this.guild);
   }
 
