@@ -99,7 +99,7 @@ class TextChannel {
 
     this.nsfw = data.nsfw ?? false;
     this.topic = data.topic ?? null;
-    this.slowmode = data.rate_limit_per_user ?? 0;
+    this.rateLimitPerUser = data.rate_limit_per_user ?? 0;
 
     this.lastMessageId = data.last_message_id;
     this.parentId = data.parent_id;
