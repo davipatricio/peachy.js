@@ -14,7 +14,7 @@ class WebSocketManager {
     this.connection = new WebSocket(Endpoints.gatewayUrl(this.client.options.apiVersion, 'json'));
     this.connection.on('message', message => Parser.message(this.client, message));
 
-    this.connection.on('close', (code) => {
+    this.connection.on('close', code => {
       if (!this.client.options.autoReconnect) return;
       switch (code) {
         case 4004:
