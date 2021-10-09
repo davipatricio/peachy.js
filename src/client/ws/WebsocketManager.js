@@ -45,12 +45,8 @@ class WebSocketManager {
 
   forceReconnect(resume = true) {
     Heartbeater.stop(this.client);
-    if (resume) {
-      this.connection.close(4000);
-    } else {
-      this.connection.close(1000);
-      this.client.api.sessionId = null;
-    }
+    this.connection?.close(resume ? 4000 : 1000);
+    this.client.api.sessionId = resume ? this.client.api.sessionId : null;
 
     this.client.reconnect();
     this.client.api.should_resume = resume;
