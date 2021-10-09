@@ -17,6 +17,7 @@ class Client extends EventEmitter {
     this.user = null;
     this.api = {};
 
+    // This will either create the default options or set options that are missing.
     this.options = Object.assign(
       {
         // If the library should reconnect automatically
@@ -84,14 +85,15 @@ class Client extends EventEmitter {
 
   disconnect() {
     this.ws.connection?.close(1000);
-    if (this.api.heartbeat_timer) clearInterval(this.api.heartbeat_timer);
-    this.token = null;
+    // Stop heartbeating (this automatically verifies if there's a timer)
+    Heartbeater.stop(this);
+
     this.api = {};
     this.cleanUp();
   }
 
   cleanUp() {
-    this.ping = -1;
+    this.ping = 1;
     this.ready = false;
     this.user = null;
     this.guilds.cache.clear();
@@ -101,7 +103,9 @@ class Client extends EventEmitter {
   }
 
   reconnect() {
+    // Stop heartbeating (this automatically verifies if there's a timer)
     Heartbeater.stop(this);
+
     this.cleanUp();
     this.emit('reconnecting');
 

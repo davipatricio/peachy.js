@@ -6,13 +6,14 @@ class ActionManager {
   constructor(client) {
     this.loaded = {};
     const actions = readdirSync(__dirname);
+
     for (let action of actions) {
       action = action.replace('.js', '');
 
-      // Do not load this same file
+      // Do not load the file itself
       if (action === 'ActionManager') continue;
 
-      // Don't load disabled events
+      // Do not load disabled events
       if (client.options.disabledEvents.includes(action)) continue;
       this.loaded[action] = require(`./${action}`);
     }

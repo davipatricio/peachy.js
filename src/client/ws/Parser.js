@@ -39,6 +39,7 @@ function message(client, rawData) {
 
         // Because we're starting to heartbeat, we need to say that the last heartbeat was acked.
         client.api.heartbeat_acked = true;
+
         client.ready = true;
         Heartbeat.start(client);
         Heartbeat.sendImmediately(client);

@@ -32,7 +32,7 @@ function start(client) {
     client.emit('debug', '[DEBUG] Sent heartbeat to Discord.');
 
     // The client should receive an ACK in less than 15 seconds
-    // If not, it should disconnect and reconnect and send Resume
+    // If not, it should disconnect and reconnect and send Resume command
     setTimeout(() => {
       if (!client.api.heartbeat_acked) {
         client.emit('debug', "[DEBUG] Heartbeat wasn't acked in 15 seconds. Reconnecting...");
