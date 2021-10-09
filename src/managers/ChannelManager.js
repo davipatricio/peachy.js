@@ -13,7 +13,7 @@ class ChannelManager {
   async fetch(id) {
     if (this.cache.has(id)) return this.cache.get(id);
 
-    const data = await Requester.create(this.client, `/channels/${id}`, 'DELETE', true);
+    const data = await Requester.create(this.client, `/channels/${id}`, 'GET', true);
     let channel = null;
     switch (data.type) {
       case 0:
