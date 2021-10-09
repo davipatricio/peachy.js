@@ -22,7 +22,7 @@ function message(client, rawData) {
 
     // Invalid session (we should reconnect and resume)
     case 9:
-      if (client.api.should_resume) return;
+      if (client.api.should_resume) break;
       client.ws.connection?.close(4000);
       Heartbeat.stop(client);
       client.reconnect();
@@ -42,7 +42,7 @@ function message(client, rawData) {
         client.ready = true;
         Heartbeat.start(client);
         Heartbeat.sendImmediately(client);
-        return;
+        break;
       }
 
       client.api.heartbeat_interval = eventData.heartbeat_interval;
