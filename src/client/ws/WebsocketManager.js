@@ -17,6 +17,10 @@ class WebSocketManager {
     this.connection.on('close', code => {
       if (!this.client.options.autoReconnect) return;
       switch (code) {
+        // Discord WebSocket requesting client reconnect.
+        case 1001:
+          this.forceReconnect();
+          break;
         case 4004:
           this.client.emit('debug', '[DEBUG] Received 4004 [Invalid Token], NOT attempting to reconnect.');
           throw new Error('DiscordAPIError: Invalid token.');
