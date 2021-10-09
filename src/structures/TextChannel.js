@@ -10,7 +10,7 @@ class TextChannel {
   constructor(client, data, guild) {
     this.client = client;
     this.guild = guild;
-    this.messages = new ChannelMessageManager(this.client.options.cache.ChannelMessageManager);
+    this.messages = new ChannelMessageManager(client, this.client.options.cache.ChannelMessageManager);
     this.parseData(data);
   }
 
