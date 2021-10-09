@@ -3,6 +3,17 @@
   "version": "1.0.2",
   "description": "A powerful library for interacting with the Discord API",
   "main": "./index.js",
+  "exports": {
+    ".": [
+      {
+        "require": "./index.js",
+        "import": "./index.mjs"
+      },
+      "./index.js"
+    ],
+    "./": "./",
+    "./esm": "./index.mjs"
+  },
   "keywords": [
     "discord",
     "api",
