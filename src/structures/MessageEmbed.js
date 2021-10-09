@@ -11,7 +11,7 @@ class MessageEmbed {
     this.image = data.image ?? null;
     this.thumbnail = data.thumbnail ?? null;
     this.author = data.author ?? null;
-    this.fields = data.fields ?? null;
+    this.fields = data.fields ?? [];
   }
 
   setAuthor(name, icon = '', url = '') {
@@ -60,9 +60,14 @@ class MessageEmbed {
   }
 
   addField(name, value, inline = false) {
-    if (!this.fields) this.fields = [];
-    this.fields.push({ name, value, inline });
+    this.addFields({ name, value, inline });
     return this;
+  }
+
+  addFields(...fields) {
+    if (!this.fields) this.fields = []
+    for (const field of fields) this.fields.push(field)
+    return this
   }
 
   toJSON() {

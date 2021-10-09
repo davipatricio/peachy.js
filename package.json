@@ -40,7 +40,6 @@
   },
   "homepage": "https://github.com/DenkyLabs/peachy.js#readme",
   "dependencies": {
-    "node-fetch": "latest",
     "ws": "^8.2.1"
   },
   "devDependencies": {
