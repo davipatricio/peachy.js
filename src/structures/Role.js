@@ -7,8 +7,7 @@ class Role extends DataManager {
   constructor(client, data, guild) {
     super(client);
 
-    this.guild = guild;
-    this.parseData(data);
+    this.parseData(data, guild);
   }
 
   async setName(name, reason) {
@@ -59,7 +58,15 @@ class Role extends DataManager {
     });
   }
 
-  parseData(data) {
+  get guild() {
+    return this.guildId ? this.client.guilds.cache.get(this.guildId) : null;
+  }
+
+  toString() {
+    return `<@&${this.id}>`;
+  }
+
+  parseData(data, guild) {
     if (!data) return;
 
     this.id = data.id;
@@ -70,6 +77,7 @@ class Role extends DataManager {
     this.permissions = data.permissions;
     this.managed = data.managed;
     this.mentionable = data.mentionable;
+    this.guildId = guild?.id;
   }
 }
 

@@ -10,9 +10,8 @@ class TextChannel extends DataManager {
   constructor(client, data, guild) {
     super(client);
 
-    this.guild = guild;
     this.messages = new ChannelMessageManager(client, this.client.options.cache.ChannelMessageManager);
-    this.parseData(data);
+    this.parseData(data, guild);
   }
 
   async send(content) {
@@ -167,11 +166,15 @@ class TextChannel extends DataManager {
     return channel;
   }
 
+  get guild() {
+    return this.guildId ? this.client.guilds.cache.get(this.guildId) : null;
+  }
+
   toString() {
     return `<#${this.id}>`;
   }
 
-  parseData(data) {
+  parseData(data, guild) {
     if (!data) return;
 
     this.id = data.id;
@@ -185,6 +188,8 @@ class TextChannel extends DataManager {
 
     this.name = data.name;
     this.type = 'GUILD_TEXT';
+
+    this.guildId = guild?.id;
 
     this.parent = this.client.channels.cache.get(this.parentId);
   }

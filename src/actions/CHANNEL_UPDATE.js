@@ -9,7 +9,7 @@ module.exports.handle = (client, data) => {
       let channel = null;
       if (oldChannel) {
         // We don't want to change the old channel data so we clone the old channel and update it's data
-        channel = oldChannel._update(data);
+        channel = oldChannel._update(data, oldChannel.guild);
       } else {
         channel = new TextChannel(client, data, client.guilds.caches.get(data.guild_id));
       }

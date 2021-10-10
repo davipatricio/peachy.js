@@ -9,9 +9,9 @@ class DataManager {
     return Object.assign(Object.create(this), this);
   }
 
-  _update(data) {
+  _update(data, ...params) {
     const clone = this._clone();
-    this.parseData?.(data);
+    this.parseData?.(data, params);
     return clone;
   }
 }

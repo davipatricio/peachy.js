@@ -131,25 +131,31 @@ class Message extends DataManager {
     return this.content;
   }
 
+  get guild() {
+    return this.guildId ? this.client.guilds.cache.get(this.guildId) : null;
+  }
+
+  get channel() {
+    return this.channelId ? this.client.channels.cache.get(this.channelId) : null;
+  }
+
+  get member() {
+    return this.guildId ? this.guild?.members.cache.get(this.author.id) : null;
+  }
+
   parseData(data) {
     if (!data) return;
     const User = require('./User');
 
     this.id = data.id;
 
-    if (data.channel_id) {
-      this.channel = this.client.channels.cache.get(data.channel_id);
-      this.channelId = data.channel_id;
-    }
-
-    if (data.guild_id) {
-      this.guild = this.client.guilds.cache.get(data.guild_id);
-      this.guildId = data.guild_id;
-    }
+    this.channelId = data.channel_id ?? null;
+    this.guildId = data.guild_id ?? null;
 
     if (!this.webhook_id) {
       this.author = new User(this.client, data.author);
-      this.member = this.guild?.members.cache.get(this.author.id) ?? null;
+    } else {
+      this.webhook_id = data.webhook_id;
     }
 
     if (data.created_at) {
@@ -158,11 +164,10 @@ class Message extends DataManager {
     }
 
     this.content = data.content ?? null;
-    this.embeds = data.embeds;
+    this.embeds = data.embeds ?? [];
     this.tts = data.tts ?? false;
     this.pinned = data.pinned;
     this.type = data.type;
-    this.webhook_id = data.webhook_id;
 
     // Add message to channel cache
     if (this.channel) {

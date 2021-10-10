@@ -8,21 +8,25 @@ class GuildMember extends DataManager {
     super(client);
 
     this.user = user;
-    this.guild = guild;
 
-    this.parseData(data, user, guild);
+    this.parseData(data, guild);
   }
 
   toString() {
     return `<@!${this.user.id}>`;
   }
 
-  parseData(data) {
+  get guild() {
+    return this.guildId ? this.client.guilds.cache.get(this.guildId) : null;
+  }
+
+  parseData(data, guild) {
     if (!data) return;
 
     this.nickname = data.nick;
     this.rolesIds = data.roles;
     this.permissionsList = [];
+    this.guildId = guild?.id;
 
     for (const role of this.rolesIds) {
       this.permissionsList.push(...Permissions.parse(this.guild.roles.cache.get(role).permissions));

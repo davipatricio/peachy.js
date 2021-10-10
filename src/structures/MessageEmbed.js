@@ -11,7 +11,7 @@ class MessageEmbed {
     this.image = data.image ?? null;
     this.thumbnail = data.thumbnail ?? null;
     this.author = data.author ?? null;
-    this.fields = data.fields ?? null;
+    this.fields = data.fields ?? [];
   }
 
   setAuthor(name, icon = '', url = '') {

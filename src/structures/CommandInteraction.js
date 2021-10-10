@@ -89,7 +89,15 @@ class CommandInteraction extends DataManager {
     return null;
   }
 
-  async parseData(data) {
+  get guild() {
+    return this.guildId ? this.client.guilds.cache.get(this.guildId) : null;
+  }
+
+  get channel() {
+    return this.channelId ? this.client.channels.cache.get(this.channelId) : null;
+  }
+
+  parseData(data) {
     if (!data) return;
 
     this.name = data.name;
@@ -100,24 +108,13 @@ class CommandInteraction extends DataManager {
 
     this.deferred = false;
     this.replied = false;
-
-    if (data.guild_id) {
-      this.guild = this.client.guilds.cache.get(data.guild_id) ?? (await this.client.guilds.fetch(data.guild_id));
-      this.guildId = data.guild_id;
-    }
-
-    if (data.channel_id) {
-      this.channel =
-        this.client.channels.cache.get(data.channel_id) ?? (await this.client.channels.fetch(data.channel_id));
-      this.channelId = data.channel_id;
-    }
-
-    if (data.member) {
-      this.member =
-        this.guild.members.cache.get(data.member.user.id) ??
-        new GuildMember(this.client, data.member, data.member.user, this.guild);
-      this.user = this.client.users.cache.get(data.member.user.id) ?? new User(this.client, data.member.user);
-    }
+    this.guildId = this.guildId ? data.guild_id : null;
+    this.channelId = data.channel_id ? data.channel_id : null;
+    this.member = data.member
+      ? this.guild?.members.cache.get(data.member.user.id) ??
+        new GuildMember(this.client, data.member, data.member.user, this.guild)
+      : null;
+    this.user = this.client.users.cache.get(data.member.user.id) ?? new User(this.client, data.member.user);
   }
 }
 
