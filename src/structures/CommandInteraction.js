@@ -14,6 +14,7 @@ class CommandInteraction extends DataManager {
   }
 
   async reply(data) {
+    if (!this.replied) throw new Error('Command interaction was not replied to or deferred.');
     if (typeof data === 'string') {
       const message = await Requester.create(
         this.client,
@@ -87,6 +88,16 @@ class CommandInteraction extends DataManager {
     this.deferred = true;
     this.replied = true;
     return null;
+  }
+
+  deleteReply() {
+    if (!this.replied) throw new Error('Command interaction was not replied to or deferred.');
+    return Requester.create(
+      this.client,
+      `/webhooks/${this.client.user.id}/${this.token}/messages/@original`,
+      'DELETE',
+      true,
+    );
   }
 
   get guild() {

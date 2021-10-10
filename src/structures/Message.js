@@ -127,10 +127,6 @@ class Message extends DataManager {
     return Requester.create(this.client, `/channels/${this.channelId}/messages/${this.id}`, 'DELETE', true);
   }
 
-  toString() {
-    return this.content;
-  }
-
   get guild() {
     return this.guildId ? this.client.guilds.cache.get(this.guildId) : null;
   }
@@ -141,6 +137,10 @@ class Message extends DataManager {
 
   get member() {
     return this.guildId ? this.guild?.members.cache.get(this.author.id) : null;
+  }
+
+  toString() {
+    return this.content;
   }
 
   parseData(data) {
@@ -155,7 +155,7 @@ class Message extends DataManager {
     if (!this.webhook_id) {
       this.author = new User(this.client, data.author);
     } else {
-      this.webhook_id = data.webhook_id;
+      this.webhook_id = data.webhook_id ?? null;
     }
 
     if (data.created_at) {
@@ -166,7 +166,7 @@ class Message extends DataManager {
     this.content = data.content ?? null;
     this.embeds = data.embeds ?? [];
     this.tts = data.tts ?? false;
-    this.pinned = data.pinned;
+    this.pinned = data.pinned ?? false;
     this.type = data.type;
 
     // Add message to channel cache

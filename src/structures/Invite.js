@@ -10,6 +10,8 @@ class Invite {
   }
 
   parseData(data) {
+    if (!data) return;
+
     this.code = data.code;
 
     if (data.channel) {
