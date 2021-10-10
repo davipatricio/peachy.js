@@ -16,12 +16,11 @@ class GuildMember extends DataManager {
     return `<@!${this.user.id}>`;
   }
 
-  get guild() {
-    return this.guildId ? this.client.guilds.cache.get(this.guildId) : null;
-  }
-
   parseData(data, guild) {
     if (!data) return;
+
+    this.guildId = guild?.id;
+    this.guild = this.guildId ? this.client.guilds.cache.get(this.guildId) : null;
 
     this.nickname = data.nick;
     this.rolesIds = data.roles;
