@@ -20,7 +20,7 @@ class GuildChannelManager {
         // We don't want to change the old channel data so we clone the old channel and update it's data
         channel =
           this.cache.get(id)?._update(data) ??
-          TextChannel(this.client, data, this.client.guilds.cache.get(data.guild_id));
+          new TextChannel(this.client, data, this.client.guilds.cache.get(data.guild_id));
         break;
     }
 
