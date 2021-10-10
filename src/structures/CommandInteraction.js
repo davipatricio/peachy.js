@@ -89,7 +89,7 @@ class CommandInteraction extends DataManager {
     return null;
   }
 
-  parseData(data) {
+  async parseData(data) {
     if (!data) return;
 
     this.name = data.name;
@@ -102,12 +102,13 @@ class CommandInteraction extends DataManager {
     this.replied = false;
 
     if (data.guild_id) {
-      this.guild = this.client.guilds.cache.get(data.guild_id);
+      this.guild = this.client.guilds.cache.get(data.guild_id) ?? (await this.client.guilds.fetch(data.guild_id));
       this.guildId = data.guild_id;
     }
 
     if (data.channel_id) {
-      this.channel = this.client.channels.cache.get(data.channel_id);
+      this.channel =
+        this.client.channels.cache.get(data.channel_id) ?? (await this.client.channels.fetch(data.channel_id));
       this.channelId = data.channel_id;
     }
 
