@@ -1,6 +1,5 @@
 'use strict';
 
-const DataManager = require('./DataManager');
 const GuildMember = require('./GuildMember');
 const Role = require('./Role');
 const TextChannel = require('./TextChannel');
@@ -10,10 +9,11 @@ const GuildChannelManager = require('../managers/GuildChannelManager');
 const GuildMemberManager = require('../managers/GuildMemberManager');
 const RoleManager = require('../managers/RoleManager');
 const Requester = require('../utils/Requester');
+const Base = require('./Base');
 
-class Guild extends DataManager {
+class Guild extends Base {
   constructor(client, data) {
-    super(client);
+    super(client, data.id);
 
     this.channels = new GuildChannelManager(this.client, this.client.options.cache.GuildChannelManager);
     this.members = new GuildMemberManager(this.client, this, this.client.options.cache.GuildMemberManager);
@@ -41,27 +41,27 @@ class Guild extends DataManager {
   }
 
   async setName(name) {
-    const baseData = await Requester.create(this.client, `/guilds/${this.id}`, 'PATCH', true, { name });
-    return this.client.guilds.cache.set(this.id, new Guild(this.client, baseData));
+    const baseData = await Requester.create(this._client, `/guilds/${this.id}`, 'PATCH', true, { name });
+    return this._client.guilds.cache.set(this.id, new Guild(this._client, baseData));
   }
 
   async setOwner(id) {
-    const baseData = await Requester.create(this.client, `/guilds/${this.id}`, 'PATCH', true, { owner_id: id });
-    return this.client.guilds.cache.set(this.id, new Guild(this.client, baseData));
+    const baseData = await Requester.create(this._client, `/guilds/${this.id}`, 'PATCH', true, { owner_id: id });
+    return this._client.guilds.cache.set(this.id, new Guild(this._client, baseData));
   }
 
   leave() {
-    if (this.ownerId === this.client.user.id) throw new Error('Bot is the guild owner');
-    return Requester.create(this.client, `/users/@me/guilds/${this.id}`, 'DELETE', true);
+    if (this.ownerId === this._client.user.id) throw new Error('Bot is the guild owner');
+    return Requester.create(this._client, `/users/@me/guilds/${this.id}`, 'DELETE', true);
   }
 
   delete() {
-    return Requester.create(this.client, `/guilds/${this.id}`, 'DELETE', true);
+    return Requester.create(this._client, `/guilds/${this.id}`, 'DELETE', true);
   }
 
   async fetch() {
-    const data = await Requester.create(this.client, `/guilds/${this.id}?with_counts=true`, 'GET', true);
-    return this.client.guilds.cache.set(this.id, new Guild(this.client, data));
+    const data = await Requester.create(this._client, `/guilds/${this.id}?with_counts=true`, 'GET', true);
+    return this._client.guilds.cache.set(this.id, new Guild(this._client, data));
   }
 
   toString() {
@@ -69,9 +69,6 @@ class Guild extends DataManager {
   }
 
   parseData(data) {
-    if (!data.id) return;
-    this.id = data.id;
-
     if (this.unavailable) {
       this.unavailable = true;
       return;
@@ -107,7 +104,7 @@ class Guild extends DataManager {
 
     if (data.roles) {
       for (const role of data.roles) {
-        const guildRole = new Role(this.client, role, this);
+        const guildRole = new Role(this._client, role, this);
         this.roles.cache.set(guildRole.id, guildRole);
       }
     }
@@ -117,9 +114,9 @@ class Guild extends DataManager {
         switch (channel.type) {
           // Text channels
           case 0: {
-            const textChannel = new TextChannel(this.client, channel, this);
+            const textChannel = new TextChannel(this._client, channel, this);
             this.channels.cache.set(channel.id, textChannel);
-            this.client.channels.cache.set(channel.id, textChannel);
+            this._client.channels.cache.set(channel.id, textChannel);
             break;
           }
         }
@@ -128,10 +125,10 @@ class Guild extends DataManager {
 
     if (data.members) {
       for (const member of data.members) {
-        const user = new User(this.client, member.user);
-        const guildMember = new GuildMember(this.client, member, user, this);
+        const user = new User(this._client, member.user);
+        const guildMember = new GuildMember(this._client, member, user, this);
         this.members.cache.set(member.user.id, guildMember);
-        this.client.users.cache.set(member.user.id, user);
+        this._client.users.cache.set(member.user.id, user);
       }
     }
   }

@@ -1,12 +1,12 @@
 'use strict';
 
-const DataManager = require('./DataManager');
+const Base = require('./Base');
 const MakeAPIMessage = require('../utils/MakeAPIMessage');
 const Requester = require('../utils/Requester');
 
-class Message extends DataManager {
+class Message extends Base {
   constructor(client, data) {
-    super(client);
+    super(client, data.id);
 
     this.parseData(data);
   }
@@ -22,7 +22,7 @@ class Message extends DataManager {
       : encodeURIComponent(emoji);
 
     await Requester.create(
-      this.client,
+      this._client,
       `/channels/${this.channelId}/messages/${this.id}/reactions/${emoji}/@me`,
       'PUT',
       true,
@@ -33,7 +33,7 @@ class Message extends DataManager {
 
   async reply(content) {
     if (typeof content === 'string') {
-      const data = await Requester.create(this.client, `/channels/${this.channelId}/messages`, 'POST', true, {
+      const data = await Requester.create(this._client, `/channels/${this.channelId}/messages`, 'POST', true, {
         content,
         embeds: [],
         tts: false,
@@ -43,9 +43,9 @@ class Message extends DataManager {
           message_id: this.id,
           channel_id: this.channelId,
           guild_id: this.channel.guildId,
-          fail_if_not_exists: this.client.options.failIfNotExists,
+          fail_if_not_exists: this._client.options.failIfNotExists,
         },
-        allowed_mentions: this.client.options.allowedMentions,
+        allowed_mentions: this._client.options.allowedMentions,
       });
       return this.parseData(data);
     }
@@ -54,13 +54,13 @@ class Message extends DataManager {
       message_id: this.id,
       channel_id: this.channelId,
       guild_id: this.channel.guildId,
-      fail_if_not_exists: this.client.options.failIfNotExists,
+      fail_if_not_exists: this._client.options.failIfNotExists,
     };
 
-    if (!content.allowed_mentions) content.allowed_mentions = this.client.options.allowedMentions;
+    if (!content.allowed_mentions) content.allowed_mentions = this._client.options.allowedMentions;
 
     const data = await Requester.create(
-      this.client,
+      this._client,
       `/channels/${this.channelId}/messages`,
       'POST',
       true,
@@ -70,10 +70,10 @@ class Message extends DataManager {
   }
 
   async edit(content) {
-    if (this.author.id !== this.client.user.id) throw new Error('You can only edit your own messages');
+    if (this.author.id !== this._client.user.id) throw new Error('You can only edit your own messages');
     if (typeof content === 'string') {
       const data = await Requester.create(
-        this.client,
+        this._client,
         `/channels/${this.channelId}/messages/${this.id}`,
         'PATCH',
         true,
@@ -86,9 +86,9 @@ class Message extends DataManager {
             message_id: this.id,
             channel_id: this.channelId,
             guild_id: this.channel.guildId,
-            fail_if_not_exists: this.client.options.failIfNotExists,
+            fail_if_not_exists: this._client.options.failIfNotExists,
           },
-          allowed_mentions: this.client.options.allowedMentions,
+          allowed_mentions: this._client.options.allowedMentions,
         },
       );
       return this.parseData(data);
@@ -98,13 +98,13 @@ class Message extends DataManager {
       message_id: this.id,
       channel_id: this.channelId,
       guild_id: this.channel.guildId,
-      fail_if_not_exists: this.client.options.failIfNotExists,
+      fail_if_not_exists: this._client.options.failIfNotExists,
     };
 
-    if (!content.allowed_mentions) content.allowed_mentions = this.client.options.allowedMentions;
+    if (!content.allowed_mentions) content.allowed_mentions = this._client.options.allowedMentions;
 
     const data = await Requester.create(
-      this.client,
+      this._client,
       `/channels/${this.channelId}/messages/${this.id}`,
       'PATCH',
       true,
@@ -115,7 +115,7 @@ class Message extends DataManager {
 
   async crosspost() {
     const data = await Requester.create(
-      this.client,
+      this._client,
       `/channels/${this.channelId}/messages/${this.id}/crosspost`,
       'POST',
       true,
@@ -124,7 +124,7 @@ class Message extends DataManager {
   }
 
   delete() {
-    return Requester.create(this.client, `/channels/${this.channelId}/messages/${this.id}`, 'DELETE', true);
+    return Requester.create(this._client, `/channels/${this.channelId}/messages/${this.id}`, 'DELETE', true);
   }
 
   toString() {
@@ -138,17 +138,17 @@ class Message extends DataManager {
     this.id = data.id;
 
     if (data.channel_id) {
-      this.channel = this.client.channels.cache.get(data.channel_id);
+      this.channel = this._client.channels.cache.get(data.channel_id);
       this.channelId = data.channel_id;
     }
 
     if (data.guild_id) {
-      this.guild = this.client.guilds.cache.get(data.guild_id);
+      this.guild = this._client.guilds.cache.get(data.guild_id);
       this.guildId = data.guild_id;
     }
 
     if (!this.webhook_id) {
-      this.author = new User(this.client, data.author);
+      this.author = new User(this._client, data.author);
       this.member = this.guild?.members.cache.get(this.author.id) ?? null;
     }
 
@@ -168,6 +168,8 @@ class Message extends DataManager {
     if (this.channel) {
       this.channel.messages.cache.set(this.id, this);
     }
+
+    return this;
   }
 }
 

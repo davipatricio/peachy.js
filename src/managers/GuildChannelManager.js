@@ -1,13 +1,13 @@
 'use strict';
 
 const TextChannel = require('../structures/TextChannel');
-const LimitedMap = require('../utils/LimitedMap');
-const Requester = require('../utils/Requester');
+const { LimitedMap } = require('../utils/Utils');
+const BaseManager = require('./BaseManager');
 
 class GuildChannelManager {
   constructor(client, limit) {
+    this._client = client;
     this.cache = new LimitedMap(limit);
-    this.client = client;
   }
 
   async fetch(id) {
@@ -24,9 +24,12 @@ class GuildChannelManager {
         break;
     }
 
-    this.cache.set(channel.id, channel);
-    this.client.channels.cache.set(channel.id, channel);
-    return channel;
+  forge(options) {
+    return this.fetch({
+      getFromCache: true,
+      forge: true,
+      id: typeof options === 'string' ? options : options.id,
+    });
   }
 }
 
