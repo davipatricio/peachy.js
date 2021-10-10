@@ -13,6 +13,10 @@ class GuildMember extends DataManager {
     this.parseData(data, user, guild);
   }
 
+  toString() {
+    return `<@!${this.user.id}>`;
+  }
+
   parseData(data) {
     if (!data) return;
 

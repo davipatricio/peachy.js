@@ -80,14 +80,16 @@ class CommandInteraction extends DataManager {
 
   async deferReply(ephemeral = false) {
     if (this.deferred || this.replied) throw new Error('Command interaction has already been replied to or deferred.');
-
-   https://github.com/denkylabs/peachy.js/blob/3ebb9d592c0abd395dbd36d3932de0c98f4f12ed/src/managers/ChannelManager.js
+    await Requester.create(this.client, `/interactions/${this.id}/${this.token}/callback`, 'POST', true, {
+      ephemeral: ephemeral ? 1 << 6 : undefined,
+      type: 5,
+    });
     this.deferred = true;
     this.replied = true;
     return null;
   }
 
-  async parseData(data) {
+  parseData(data) {
     if (!data) return;
 
     this.name = data.name;
@@ -100,12 +102,12 @@ class CommandInteraction extends DataManager {
     this.replied = false;
 
     if (data.guild_id) {
-      this.guild = await this.client.guilds.fetch(data.guild_id);
+      this.guild = this.client.guilds.cache.get(data.guild_id);
       this.guildId = data.guild_id;
     }
 
     if (data.channel_id) {
-      this.channel = await this.client.channels.fetch(data.channel_id);
+      this.channel = this.client.channels.cache.get(data.channel_id);
       this.channelId = data.channel_id;
     }
 
@@ -113,7 +115,7 @@ class CommandInteraction extends DataManager {
       this.member =
         this.guild.members.cache.get(data.member.user.id) ??
         new GuildMember(this.client, data.member, data.member.user, this.guild);
-      this.user = this.client.user.cache.get(data.member.user.id) ?? new User(this.client, data.member.user);
+      this.user = this.client.users.cache.get(data.member.user.id) ?? new User(this.client, data.member.user);
     }
   }
 }
