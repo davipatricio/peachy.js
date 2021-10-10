@@ -1,11 +1,19 @@
 'use strict';
 
 const User = require('../structures/User');
-const BaseManager = require('./BaseManager');
+const LimitedMap = require('../utils/LimitedMap');
+const Requester = require('../utils/Requester');
 
-class UserManager extends BaseManager {
+class UserManager {
   constructor(client, limit) {
-    super(User, limit, '/users/', client);
+    this.cache = new LimitedMap(limit);
+    this.client = client;
+  }
+
+  async fetch(id) {
+    if (this.cache.has(id)) return this.cache.get(id);
+    const data = await Requester.create(this.client, `/users/${id}`, 'GET', true);
+    return new User(this.client, data);
   }
 }
 

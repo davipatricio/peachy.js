@@ -4,7 +4,7 @@ const User = require('./User');
 
 class Invite {
   constructor(client, data, guild) {
-    this._client = client;
+    this.client = client;
     this.guild = guild;
     this.parseData(data);
   }
@@ -13,16 +13,16 @@ class Invite {
     this.code = data.code;
 
     if (data.channel) {
-      this.channel = this._client.channels.cache.get(data.channel.id) ?? data.channel;
+      this.channel = this.client.channels.cache.get(data.channel.id) ?? data.channel;
       this.channelId = data.channel.id;
     }
 
     if (data.guild) {
-      this.guild = this._client.guilds.cache.get(data.guild.id) ?? data.guild;
+      this.guild = this.client.guilds.cache.get(data.guild.id) ?? data.guild;
       this.guildId = data.guild.id;
     }
 
-    this.inviter = new User(this._client, data.inviter);
+    this.inviter = new User(this.client, data.inviter);
     this.maxAge = data.max_age;
     this.maxUses = data.max_uses;
     this.temporary = data.temporary;

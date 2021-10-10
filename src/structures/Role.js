@@ -1,11 +1,11 @@
 'use strict';
 
-const Base = require('./Base');
+const DataManager = require('./DataManager');
 const Requester = require('../utils/Requester');
 
-class Role extends Base {
+class Role extends DataManager {
   constructor(client, data, guild) {
-    super(client, data.id);
+    super(client);
 
     this.guild = guild;
     this.parseData(data);
@@ -13,7 +13,7 @@ class Role extends Base {
 
   async setName(name, reason) {
     const data = await Requester.create(
-      this._client,
+      this.client,
       `/guilds/${this.guild.id}/roles/${this.id}`,
       'PATCH',
       true,
@@ -27,7 +27,7 @@ class Role extends Base {
 
   async setHoist(hoist = true, reason) {
     const data = await Requester.create(
-      this._client,
+      this.client,
       `/guilds/${this.guild.id}/roles/${this.id}`,
       'PATCH',
       true,
@@ -41,7 +41,7 @@ class Role extends Base {
 
   async setMentionable(mentionable = true, reason) {
     const data = await Requester.create(
-      this._client,
+      this.client,
       `/guilds/${this.guild.id}/roles/${this.id}`,
       'PATCH',
       true,
@@ -54,7 +54,7 @@ class Role extends Base {
   }
 
   delete(reason) {
-    return Requester.create(this._client, `/guilds/${this.guild.id}/roles/${this.id}`, 'DELETE', true, undefined, {
+    return Requester.create(this.client, `/guilds/${this.guild.id}/roles/${this.id}`, 'DELETE', true, undefined, {
       'X-Audit-Log-Reason': reason,
     });
   }
@@ -70,8 +70,6 @@ class Role extends Base {
     this.permissions = data.permissions;
     this.managed = data.managed;
     this.mentionable = data.mentionable;
-
-    return this
   }
 }
 

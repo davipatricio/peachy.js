@@ -4,9 +4,6 @@ const EventEmitter = require('node:events');
 
 const Heartbeater = require('./ws/Heartbeater');
 
-const MakeAPIMessage = require('../utils/MakeAPIMessage');
-const Message = require('../structures/Message');
-
 const WebsocketManager = require('./ws/WebsocketManager');
 const ActionManager = require('../actions/ActionManager');
 const CacheFactory = require('../utils/CacheFactory');
@@ -72,10 +69,6 @@ class Client extends EventEmitter {
     this.createManagers();
   }
 
-  makeRequest(endpoint, method = 'GET', data = undefined) {
-    return Requester.create(this, endpoint, method, true, data);
-  }
-
   createManagers() {
     this.ws = new WebsocketManager(this);
     this.actions = new ActionManager(this);
@@ -83,31 +76,7 @@ class Client extends EventEmitter {
     CacheFactory.addToClient(this, this.options.cache);
   }
 
-  createMessage(channelID, content) {
-    if (typeof content === 'string') {
-      return this.makeRequest(`/channels/${this.id}/messages`, 'POST', {
-        content,
-        embeds: [],
-        tts: false,
-        sticker_ids: [],
-        components: [],
-        allowed_mentions: this.options.allowedMentions,
-      }).then(msg => new Message(this, msg));
-    }
-
-    if (!content.allowed_mentions) {
-      content.allowed_mentions = this.options.allowedMentions;
-    }
-
-    return this.makeRequest(`/channels/${channelID}/messages`, 'POST', MakeAPIMessage.transform(content)).then(
-      msg => new Message(this, msg),
-    );
-  }
-
   login(token = process.env.DISCORD_TOKEN) {
-    if (!token || typeof token !== 'string') {
-      throw new Error('No valid token was provided.');
-    }
     this.ping = -1;
     this.token = token;
     this.emit('debug', '[DEBUG] Login method was called. Preparing to connect to the Discord Gateway.');

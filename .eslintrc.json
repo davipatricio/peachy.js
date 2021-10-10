@@ -27,13 +27,9 @@
         "trailingComma": "all",
         "endOfLine": "lf",
         "arrowParens": "avoid"
-      },
-      "error",
-      {
-        "endOfLine": "auto"
       }
     ],
-    "strict": ["warn", "global"],
+    "strict": ["error", "global"],
     "no-await-in-loop": "warn",
     "no-compare-neg-zero": "error",
     "no-template-curly-in-string": "error",

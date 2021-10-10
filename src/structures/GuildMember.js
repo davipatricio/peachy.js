@@ -1,11 +1,12 @@
 'use strict';
 
+const DataManager = require('./DataManager');
 const Permissions = require('../utils/PermissionParser');
-const Base = require('./Base');
 
-class GuildMember extends Base {
+class GuildMember extends DataManager {
   constructor(client, data, user, guild) {
-    super(client, data.id)
+    super(client);
+
     this.user = user;
     this.guild = guild;
 
@@ -13,6 +14,8 @@ class GuildMember extends Base {
   }
 
   parseData(data) {
+    if (!data) return;
+
     this.nickname = data.nick;
     this.rolesIds = data.roles;
     this.permissionsList = [];

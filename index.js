@@ -1,45 +1,23 @@
 'use strict';
 
-function exportMethods(methods, extra) {
-  var methodName, methodPath;
+module.exports = {
+  Client: require('./src/client/Client'),
 
-  for (const method of methods) {
-    methodName = method.split('/').slice(-1);
-    methodPath = method;
-    module.exports[methodName] = require(methodPath);
-  }
+  // Structures
+  MessageEmbed: require('./src/structures/MessageEmbed'),
+  Guild: require('./src/structures/Guild'),
+  Message: require('./src/structures/Message'),
+  TextChannel: require('./src/structures/TextChannel'),
+  User: require('./src/structures/User'),
 
-  for (const ex of extra) {
-    module.exports[ex[0]] = ex[1];
-  }
-}
+  // Managers
+  EmojiManager: require('./src/managers/EmojiManager'),
+  GuildManager: require('./src/managers/GuildManager'),
+  GuildChannelManager: require('./src/managers/GuildChannelManager'),
+  RoleManager: require('./src/managers/RoleManager'),
+  UserManager: require('./src/managers/UserManager'),
 
-exportMethods(
-  [
-    // Client
-    './src/client/RestClient',
-    './src/client/Client',
-
-    // Strucures
-    './src/structures/MessageEmbed',
-    './src/structures/Guild',
-    './src/structures/Message',
-    './src/structures/TextChannel',
-    './src/structures/User',
-
-    // Managers
-    './src/managers/EmojiManager',
-    './src/managers/GuildManager',
-    './src/managers/GuildChannelManager',
-    './src/managers/RoleManager',
-    './src/managers/UserManager',
-
-    // Utils
-    './src/utils/Utils',
-    './src/Utils/Requester',
-    './src/Utils/LimitedMap',
-    './src/Utils/Intents',
-    './src/Utils/CacheFactory',
-  ],
-  [['version', require('./package.json').version]],
-);
+  // Other
+  Utils: require('./src/utils/Utils'),
+  version: require('./package.json').version,
+};
