@@ -121,6 +121,7 @@ class CommandInteraction extends DataManager {
     this.replied = false;
     this.guildId = this.guildId ? data.guild_id : null;
     this.channelId = data.channel_id ? data.channel_id : null;
+
     this.member = data.member
       ? this.guild?.members.cache.get(data.member.user.id) ??
         new GuildMember(this.client, data.member, data.member.user, this.guild)
