@@ -57,13 +57,16 @@ class User {
     return `<@!${this.id}>`;
   }
 
+  get tag() {
+    return `${this.username}#${this.discriminator}`;
+  }
+
   parseData(data) {
     if (!data) return;
 
     this.id = data.id;
     this.username = data.username;
     this.discriminator = data.discriminator;
-    this.tag = `${this.username}#${this.discriminator}`;
 
     this.bot = data.bot ?? false;
 

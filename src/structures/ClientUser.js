@@ -1,11 +1,11 @@
 'use strict';
 
-const Constants = require('../constants/DiscordEndpoints');
+const User = require('./User');
 
-class ClientUser {
+class ClientUser extends User {
   constructor(client, data) {
-    this.client = client;
-    this.parseData(data);
+    super(client, data);
+    super.parseData(data);
   }
 
   setAFK(afk = true) {
@@ -34,34 +34,7 @@ class ClientUser {
         since: null,
       },
     };
-    this.presence = data.d;
     this.client.ws.connection?.send(JSON.stringify(data));
-  }
-
-  displayAvatarURL(options = { format: 'png', size: 2048 }) {
-    return this.avatarHash
-      ? Constants.userAvatar(this.id, this.avatarHash, options.size, options.format)
-      : Constants.userDefaultAvatar(this.discriminator);
-  }
-
-  toString() {
-    return `<@!${this.id}>`;
-  }
-
-  parseData(data) {
-    if (!data) return;
-
-    this.id = data.id;
-    this.username = data.username;
-    this.discriminator = data.discriminator;
-    this.tag = `${this.username}#${this.discriminator}`;
-
-    this.bot = data.bot ?? false;
-
-    // Avatar and banners
-    this.avatarHash = data.avatar;
-    this.bannerHash = data.banner;
-    this.accentColor = data.accent_color;
   }
 }
 
