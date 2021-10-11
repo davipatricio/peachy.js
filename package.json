@@ -27,7 +27,7 @@
   "scripts": {
     "lint:check": "eslint src",
     "lint:fix": "eslint src --fix",
-    "docs": "jsdoc --configure jsdoc.json",
+    "docs": "jsdoc -c jsdoc.json",
     "prettier": "prettier --write src/**/*.js"
   },
   "repository": {

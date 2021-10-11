@@ -28,7 +28,7 @@
 
 
     <title>
-      Permissions
+      LimitedMap
     </title>
 
     <!--[if lt IE 9]>
@@ -80,7 +80,7 @@
   <body>
 
     <nav class="navbar" id="navbar">
-      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">peachy.js</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/denkylabs/peachy.js' class=' menu-link' id='' target='_blank'>GitHub</a></li><li class="menu-li"><a href='https://discord.gg/' class=' menu-link' id='' target='_blank'>Support</a></li></ul><div class="accordion collapsed" id="4685944" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion collapsed child" id=1072605><div class="accordion-heading child"><a href="Client.html">Client</a><svg><use xlink:href="#down-icon"></use></svg></div><ul class='methods accordion-content'><li data-type='method'><a href="Client.html#disconnect">disconnect</a></li><li data-type='method'><a href="Client.html#login">login</a></li></ul></li><li class="accordion collapsed child" id=6687832><div class="accordion-heading child"><a href="Intents.html">Intents</a><svg><use xlink:href="#down-icon"></use></svg></div><ul class='methods accordion-content'><li data-type='method'><a href="Intents.html#.parse">parse</a></li></ul></li><li class="accordion collapsed child" id=2733783><div class="accordion-heading child"><a href="LimitedMap.html">LimitedMap</a><svg><use xlink:href="#down-icon"></use></svg></div><ul class='methods accordion-content'><li data-type='method'><a href="LimitedMap.html#keyArray">keyArray</a></li><li data-type='method'><a href="LimitedMap.html#random">random</a></li><li data-type='method'><a href="LimitedMap.html#valueArray">valueArray</a></li></ul></li><li class="accordion collapsed child" id=2356616><div class="accordion-heading child"><a href="Permissions.html">Permissions</a><svg><use xlink:href="#down-icon"></use></svg></div><ul class='methods accordion-content'><li data-type='method'><a href="Permissions.html#.parse">parse</a></li></ul></li></ul> </div><div class="accordion collapsed" id="4509998" > <h3 class="accordion-heading">Events<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="Client.html#event:debug">debug</a></li></ul> </div></div>
+      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">peachy.js</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/denkylabs/peachy.js' class=' menu-link' id='' target='_blank'>GitHub</a></li><li class="menu-li"><a href='https://discord.gg/' class=' menu-link' id='' target='_blank'>Support</a></li></ul><div class="accordion collapsed" id="9193006" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion collapsed child" id=1995609><div class="accordion-heading child"><a href="Client.html">Client</a><svg><use xlink:href="#down-icon"></use></svg></div><ul class='methods accordion-content'><li data-type='method'><a href="Client.html#disconnect">disconnect</a></li><li data-type='method'><a href="Client.html#login">login</a></li></ul></li><li class="accordion collapsed child" id=6585854><div class="accordion-heading child"><a href="Intents.html">Intents</a><svg><use xlink:href="#down-icon"></use></svg></div><ul class='methods accordion-content'><li data-type='method'><a href="Intents.html#.parse">parse</a></li></ul></li><li class="accordion collapsed child" id=4522882><div class="accordion-heading child"><a href="LimitedMap.html">LimitedMap</a><svg><use xlink:href="#down-icon"></use></svg></div><ul class='methods accordion-content'><li data-type='method'><a href="LimitedMap.html#keyArray">keyArray</a></li><li data-type='method'><a href="LimitedMap.html#random">random</a></li><li data-type='method'><a href="LimitedMap.html#valueArray">valueArray</a></li></ul></li><li class="accordion collapsed child" id=8813547><div class="accordion-heading child"><a href="Permissions.html">Permissions</a><svg><use xlink:href="#down-icon"></use></svg></div><ul class='methods accordion-content'><li data-type='method'><a href="Permissions.html#.parse">parse</a></li></ul></li></ul> </div><div class="accordion collapsed" id="5370369" > <h3 class="accordion-heading">Events<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="Client.html#event:debug">debug</a></li></ul> </div></div>
       
 
     </nav>
@@ -95,7 +95,7 @@
     <div id="main" class="main-content">
       
       <h1 id='page-title' class="page-title">
-        Permissions
+        LimitedMap
       </h1>
       
 
@@ -112,10 +112,12 @@
         
         <h2>
         
-        Permissions
+        LimitedMap
         
         </h2>
         
+        
+            <div class="class-description"><p>A Map that have a limited size and will remove the oldest items once the max size is reached</p></div>
         
     
 </header>
@@ -127,115 +129,12 @@
         
 
     
-
-    <h4 class="name" id="Permissions">
-        <a href="#Permissions">#</a>
-        <span class="type-signature"></span>new Permissions<span class="signature">()</span><span class="type-signature"></span>
-    </h4>
-
+        <h2>Constructor</h2>
     
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <div class="details-item-container">
-            <dt class="tag-source">Source:</dt>
-            <dd class="tag-source"><ul class="dummy"><li>
-                <a href="utils_PermissionParser.js.html">utils/PermissionParser.js</a>, <a href="utils_PermissionParser.js.html#line6">line 6</a>
-            </li></ul></dd>
-        </div>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    <h4 class="name" id=".parse">
-        <a href="#.parse">#</a>
-        <span class="type-signature">(static) </span>parse<span class="signature">(bitfield<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Array.&lt;string>}</span>
+    <h4 class="name" id="LimitedMap">
+        <a href="#LimitedMap">#</a>
+        <span class="type-signature"></span>new LimitedMap<span class="signature">(limit<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span>
     </h4>
 
     
@@ -280,7 +179,7 @@
 
         <tr>
             
-                <td class="name"><code>bitfield</code></td>
+                <td class="name"><code>limit</code></td>
             
 
             <td class="type">
@@ -307,12 +206,12 @@
             
                 <td class="default">
                 
-                    0
+                    Infinity
                 
                 </td>
             
 
-            <td class="description last"><p>Bitfield of permissions to parse</p></td>
+            <td class="description last"><p>The maximum size of the map</p></td>
         </tr>
 
     
@@ -357,7 +256,127 @@
         <div class="details-item-container">
             <dt class="tag-source">Source:</dt>
             <dd class="tag-source"><ul class="dummy"><li>
-                <a href="utils_PermissionParser.js.html">utils/PermissionParser.js</a>, <a href="utils_PermissionParser.js.html#line11">line 11</a>
+                <a href="utils_LimitedMap.js.html">utils/LimitedMap.js</a>, <a href="utils_LimitedMap.js.html#line8">line 8</a>
+            </li></ul></dd>
+        </div>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li>Map</li>
+    </ul>
+
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="keyArray">
+        <a href="#keyArray">#</a>
+        <span class="type-signature"></span>keyArray<span class="signature">()</span><span class="type-signature"> &rarr; {Array}</span>
+    </h4>
+
+    
+
+
+
+    <div class="description">
+        <p>Returns an array with all keys</p>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="utils_LimitedMap.js.html">utils/LimitedMap.js</a>, <a href="utils_LimitedMap.js.html#line28">line 28</a>
             </li></ul></dd>
         </div>
     
@@ -387,12 +406,6 @@
     <strong>Returns:</strong>
         
             
-<div class="param-desc">
-    <ul>
-<li>Array of permission names</li>
-</ul>
-</div>
-
 
 
 <dl class="param-type">
@@ -401,7 +414,305 @@
     </dt>
     <dd>
         
-<span class="param-type">Array.&lt;string></span>
+<span class="param-type">Array</span>
+
+
+    </dd>
+</dl>
+
+            
+    </div>
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="random">
+        <a href="#random">#</a>
+        <span class="type-signature"></span>random<span class="signature">(items<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {*|Array.&lt;*>}</span>
+    </h4>
+
+    
+
+
+
+    <div class="description">
+        <p>Returns an array with a random value or N random values</p>
+    </div>
+
+
+
+
+
+
+
+
+
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>items</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    1
+                
+                </td>
+            
+
+            <td class="description last"><p>The number of values to return</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="utils_LimitedMap.js.html">utils/LimitedMap.js</a>, <a href="utils_LimitedMap.js.html#line45">line 45</a>
+            </li></ul></dd>
+        </div>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="method-member-container mt-20">
+    <strong>Returns:</strong>
+        
+            
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">*</span>
+|
+
+<span class="param-type">Array.&lt;*></span>
+
+
+    </dd>
+</dl>
+
+            
+    </div>
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="valueArray">
+        <a href="#valueArray">#</a>
+        <span class="type-signature"></span>valueArray<span class="signature">()</span><span class="type-signature"> &rarr; {Array}</span>
+    </h4>
+
+    
+
+
+
+    <div class="description">
+        <p>Returns an array with all values</p>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="utils_LimitedMap.js.html">utils/LimitedMap.js</a>, <a href="utils_LimitedMap.js.html#line36">line 36</a>
+            </li></ul></dd>
+        </div>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="method-member-container mt-20">
+    <strong>Returns:</strong>
+        
+            
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array</span>
 
 
     </dd>

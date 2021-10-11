@@ -2,14 +2,14 @@
   "source": {
     "include": ["src", "package.json", "README.md"],
     "includePattern": ".js$",
-    "excludePattern": "(node_modules/|docs)"
+    "excludePattern": "(.github/|node_modules/|docs/)"
   },
 
   "plugins": ["plugins/markdown"],
   "opts": {
     "encoding": "utf8",
     "readme": "./README.md",
-    "destination": "docs/",
+    "destination": "./docs/",
     "recurse": true,
     "verbose": true,
     "template": "./node_modules/clean-jsdoc-theme",
