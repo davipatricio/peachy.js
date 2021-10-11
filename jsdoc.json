@@ -16,6 +16,20 @@
     "theme_opts": {
       "title": "peachy.js",
       "theme": "dark",
+      "meta": [
+        {
+          "name": "og:title",
+          "content": "peachy.js"
+        },
+        {
+          "name": "description",
+          "content": "peachy.js documentation"
+        },
+        {
+          "name": "og:description",
+          "content": "peachy.js documentation"
+        }
+      ],
       "menu": [
         {
           "title": "GitHub",
