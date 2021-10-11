@@ -8,7 +8,6 @@ class GuildMember extends DataManager {
     super(client);
 
     this.user = user;
-
     this.parseData(data, guild);
   }
 
@@ -19,16 +18,14 @@ class GuildMember extends DataManager {
   parseData(data, guild) {
     if (!data) return;
 
-    this.guildId = guild?.id;
-    this.guild = this.guildId ? this.client.guilds.cache.get(this.guildId) : null;
-
+    this.guildId = guild.id;
+    this.guild = this.client.guilds.cache.get(this.guildId);
     this.nickname = data.nick;
     this.rolesIds = data.roles;
     this.permissionsList = [];
-    this.guildId = guild?.id;
 
     for (const role of this.rolesIds) {
-      this.permissionsList.push(...Permissions.parse(this.guild.roles.cache.get(role).permissions));
+      this.permissionsList.push(...Permissions.parse(this.guild?.roles.cache.get(role).permissions));
     }
 
     if (data.joined_at) {

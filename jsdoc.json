@@ -1,0 +1,33 @@
+{
+  "source": {
+    "include": ["src", "package.json", "README.md"],
+    "includePattern": ".js$",
+    "excludePattern": "(node_modules/|docs)"
+  },
+
+  "plugins": ["plugins/markdown"],
+  "opts": {
+    "encoding": "utf8",
+    "readme": "./README.md",
+    "destination": "docs/",
+    "recurse": true,
+    "verbose": true,
+    "template": "./node_modules/clean-jsdoc-theme",
+    "theme_opts": {
+      "title": "peachy.js",
+      "theme": "dark",
+      "menu": [
+        {
+          "title": "GitHub",
+          "link": "https://github.com/denkylabs/peachy.js",
+          "target": "_blank"
+        },
+        {
+          "title": "Support",
+          "link": "https://discord.gg/",
+          "target": "_blank"
+        }
+      ]
+    }
+  }
+}
