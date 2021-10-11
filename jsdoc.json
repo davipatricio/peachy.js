@@ -18,6 +18,10 @@
       "theme": "dark",
       "meta": [
         {
+          "name": "og:site_name",
+          "content": "peachy.js Documentation"
+        },
+        {
           "name": "og:title",
           "content": "peachy.js"
         },
@@ -28,6 +32,10 @@
         {
           "name": "og:description",
           "content": "peachy.js documentation"
+        },
+        {
+          "name": "theme-color",
+          "content": "#808080"
         }
       ],
       "menu": [
