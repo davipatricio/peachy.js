@@ -74,6 +74,9 @@ class User {
     this.avatarHash = data.avatar;
     this.bannerHash = data.banner;
     this.accentColor = data.accent_color;
+
+    // Cache user
+    this.client.users.cache.set(data.id, this);
   }
 }
 

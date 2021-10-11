@@ -170,9 +170,7 @@ class Message extends DataManager {
     this.type = data.type;
 
     // Add message to channel cache
-    if (this.channel) {
-      this.channel.messages.cache.set(this.id, this);
-    }
+    this.channel?.messages.cache.set(this.id, this);
   }
 }
 

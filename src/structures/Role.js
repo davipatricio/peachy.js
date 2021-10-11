@@ -78,6 +78,9 @@ class Role extends DataManager {
     this.managed = data.managed;
     this.mentionable = data.mentionable;
     this.guildId = guild?.id;
+
+    // Cache role
+    this.guild?.roles.cache.set(data.id, this);
   }
 }
 

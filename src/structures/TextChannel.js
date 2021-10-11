@@ -192,6 +192,10 @@ class TextChannel extends DataManager {
     this.guildId = guild?.id;
 
     this.parent = this.client.channels.cache.get(this.parentId);
+
+    // Cache channel
+    this.client.channels.cache.set(data.id, this);
+    this.guild?.channels.cache.set(data.id, this);
   }
 }
 

@@ -77,28 +77,29 @@ class Guild extends DataManager {
       return;
     }
 
-    if (data.name) this.name = data.name;
+    this.name = data.name ?? null;
 
-    if (data.icon) this.icon = data.icon;
-    if (data.splash) this.splash = data.splash;
-    if (data.discovery_splash) this.discoverySplash = data.discovery_splash;
-    if (data.banner) this.discoverySplash = data.banner;
+    this.icon = data.icon ?? null;
+    this.splash = data.splash;
+    this.discoverySplash = data.discovery_splash ?? null;
+    this.discoverySplash = data.banner ?? null;
 
-    if (data.owner_id) this.ownerId = data.owner_id;
-    if (data.afk_channel_id) this.afkChannelId = data.afk_channel_id;
-    if (data.afk_timeout) this.afkTimeout = data.afk_timeout;
-    if (data.widget_enabled) this.widgetEnabled = data.widget_enabled;
-    if (data.widget_channel_id) this.widgetChannelId = data.widget_channel_id;
+    this.ownerId = data.owner_id ?? null;
+    this.afkChannelId = data.afk_channel_id ?? null;
+    this.afkTimeout = data.afk_timeout ?? null;
+    this.widgetEnabled = data.widget_enabled ?? null;
+    this.widgetChannelId = data.widget_channel_id ?? null;
 
-    if (data.verification_level) this.verificationLevel = data.verification_level;
-    if (data.default_message_notifications) this.defaultMessageNotifications = data.default_message_notifications;
-    if (data.explicit_content_filter) this.explicitContentFilter = data.explicit_content_filter;
-    if (data.features) this.features = data.features;
-    if (data.mfa_level) this.mfaLevel = data.mfa_level;
+    this.verificationLevel = data.verification_level ?? null;
+
+    this.defaultMessageNotifications = data.default_message_notifications ?? null;
+    this.explicitContentFilter = data.explicit_content_filter ?? null;
+    this.features = data.features ?? [];
+    this.mfaLevel = data.mfa_level ?? null;
 
     this.large = data.large ?? false;
 
-    this.memberCount = data.member_count ?? data.approximate_member_count ?? data.members.length;
+    this.memberCount = data.member_count ?? data.approximate_member_count ?? data.members.length ?? 0;
 
     if (data.joined_at) {
       this.joinedTimestamp = new Date(data.joined_at).getTime();
@@ -134,6 +135,9 @@ class Guild extends DataManager {
         this.client.users.cache.set(member.user.id, user);
       }
     }
+
+    // Cache guild
+    this.client.guilds.cache.set(data.id, this);
   }
 }
 

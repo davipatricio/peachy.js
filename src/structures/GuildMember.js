@@ -1,13 +1,14 @@
 'use strict';
 
 const DataManager = require('./DataManager');
+const User = require('./User');
 const Permissions = require('../utils/PermissionParser');
 
 class GuildMember extends DataManager {
   constructor(client, data, user, guild) {
     super(client);
 
-    this.user = user;
+    this.user = user instanceof User ? user : new User(client, user);
     this.parseData(data, guild);
   }
 
@@ -32,6 +33,10 @@ class GuildMember extends DataManager {
       this.joinedTimestamp = new Date(data.joined_at).getTime();
       this.joinedAt = new Date(this.joinedTimestamp);
     }
+
+    // Cache channel
+    this.client.users.cache.set(data.id, this.user);
+    this.guild?.members.cache.set(data.id, this);
   }
 }
 
