@@ -27,11 +27,11 @@
         },
         {
           "name": "description",
-          "content": "peachy.js documentation"
+          "content": "A minimalist and perfomance-focused library in development designed to interact with Discord API."
         },
         {
           "name": "og:description",
-          "content": "peachy.js documentation"
+          "content": "A minimalist and perfomance-focused library in development designed to interact with Discord API."
         },
         {
           "name": "theme-color",
