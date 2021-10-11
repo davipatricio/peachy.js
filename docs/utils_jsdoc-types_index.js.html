@@ -40,7 +40,7 @@
 
 
     <title>
-      utils/PermissionParser.js
+      utils/jsdoc-types/index.js
     </title>
 
     <!--[if lt IE 9]>
@@ -107,7 +107,7 @@
     <div id="main" class="main-content">
       
       <h1 id='page-title' class="page-title">
-        utils/PermissionParser.js
+        utils/jsdoc-types/index.js
       </h1>
       
 
@@ -118,30 +118,31 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>'use strict';
+            <pre class="prettyprint source linenums"><code>/**
+ * @typedef {Object} ImageOptions - Image options object
+ * @property {string} [format='png'] - Image format
+ * @property {string} [size=2048] - Image size (any power of two between 16 and 4096)
+ */
 
-const PermissionsBitfield = require('../constants/Permissions');
+/**
+ * @typedef {Object} AllowedMentions Allowed mentions object
+ * @property {Array&lt;string>} [allowedMentions.parse=['users', 'roles', 'everyone']] - Types of mentions to be parsed
+ * @property {Array&lt;string>} [allowedMentions.users=[]] - Snowflakes of Users to be parsed as mentions
+ * @property {Array&lt;string>} [allowedMentions.roles=[]] - Snowflakes of Roles to be parsed as mentions
+ * @property {boolean} [AllowedMentions.replied_user=true] - Whether the author of the Message being replied to should be pinged
+ */
 
-/** */
-class Permissions extends null {
-  /**
-   * @param {number} [bitfield=0] - Bitfield of permissions to parse
-   * @returns {Array&lt;string>} - Array of permission names
-   */
-  static parse(bitfield = 0) {
-    const final = [];
-
-    for (const permission in PermissionsBitfield) {
-      if ((PermissionsBitfield[permission] &amp; bitfield) === PermissionsBitfield[permission]) {
-        final.push(permission);
-      }
-    }
-
-    return final;
-  }
-}
-
-module.exports = Permissions;
+/**
+ * @typedef {Object} CacheFactory - Default cache options
+ * @property {number} [CacheFactory.ChannelManager=Infinity] - How many channels will be cached
+ * @property {number} [CacheFactory.ChannelMessageManager=Infinity] - How many messages will be cached
+ * @property {number} [CacheFactory.EmojiManager=Infinity] - How many emojis will be cached
+ * @property {number} [CacheFactory.GuildChannelManage=Infinity] - How many guild channels will be cached
+ * @property {number} [CacheFactory.GuildManager=Infinity] - How many guilds will be cached
+ * @property {number} [CacheFactory.GuildMemberManager=Infinity] - How many members will be cached
+ * @property {number} [CacheFactory.RoleManager=Infinity] - How many roles will be cached
+ * @property {number} [CacheFactory.UserManager=Infinity] - How many users will be cached.
+ */
 </code></pre>
         </article>
     </section>

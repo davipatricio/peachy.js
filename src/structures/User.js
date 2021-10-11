@@ -4,23 +4,47 @@ const Message = require('./Message');
 const Constants = require('../constants/DiscordEndpoints');
 const MakeAPIMessage = require('../utils/MakeAPIMessage');
 const Requester = require('../utils/Requester');
+
+/**
+ * Represents a Discord user.
+ * @param {Client} client The instantiating client
+ * @param {Object} data The raw data for the user
+ */
 class User {
   constructor(client, data) {
     this.client = client;
     this.parseData(data);
   }
 
+  /**
+   * A link to the user's banner.
+   * @param {ImageOptions} options - Options for the Image URL
+   * @returns {string|null}
+   */
   displayBannerURL(options = { format: 'png', size: 2048 }) {
     if (!this.bannerHash) return null;
     return Constants.userBanner(this.id, this.bannerHash, options.size, options.format);
   }
 
+  /**
+   * A link to the user's avatar.
+   * @param {ImageOptions} options - Options for the Image URL
+   * @returns {string}
+   */
   displayAvatarURL(options = { format: 'png', size: 2048 }) {
     return this.avatarHash
       ? Constants.userAvatar(this.id, this.avatarHash, options.size, options.format)
       : Constants.userDefaultAvatar(this.discriminator);
   }
 
+  /**
+   * Sends a message to the user.
+   * @param {Object|string} content - Message text or message options
+   * @param {string} [content.content=''] - The message text
+   * @param {Array} [content.embeds=[]] - Array of {@link MessageEmbed} or raw embed data
+   * @param {boolean} [content.tts=false] - Whether or not the message should be spoken aloud
+   * @param {AllowedMentions} [content.allowedMentions={@link ClientOptions}#allowedMentions] - Allowed mentions object
+   */
   async send(content) {
     const dmChannelId = await this.createDM();
     if (typeof content === 'string') {

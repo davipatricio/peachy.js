@@ -11,6 +11,12 @@ const GuildMemberManager = require('../managers/GuildMemberManager');
 const RoleManager = require('../managers/RoleManager');
 const Requester = require('../utils/Requester');
 
+/**
+ * Represents a guild (or a server) on Discord
+ * @extends {DataManager}
+ * @param {Client} client The instantiating client
+ * @param {Object} data The raw data for the guild
+ */
 class Guild extends DataManager {
   constructor(client, data) {
     super(client);
@@ -22,48 +28,94 @@ class Guild extends DataManager {
     this.parseData(data);
   }
 
+  /**
+   * The URL to this guild's icon
+   * @param {ImageOptions} options - Options for the Image URL
+   * @returns {string|null}
+   */
   displayIconURL(options = { format: 'png', size: 2048 }) {
     return this.icon ? Constants.guildIcon(this.id, this.icon, options.size, options.format) : null;
   }
 
+  /**
+   * The URL to this guild's splash
+   * @param {ImageOptions} options - Options for the Image URL
+   * @returns {string|null}
+   */
   displaySplashURL(options = { format: 'png', size: 2048 }) {
     return this.splash ? Constants.guildSplash(this.id, this.splash, options.size, options.format) : null;
   }
 
+  /**
+   * The URL to this guild's discovery icon
+   * @param {ImageOptions} options - Options for the Image URL
+   * @returns {string|null}
+   */
   displayDiscoverySplashURL(options = { format: 'png', size: 2048 }) {
     return this.discoverySplash
       ? Constants.guildDiscoverySplash(this.id, this.discoverySplash, options.size, options.format)
       : null;
   }
 
+  /**
+   * The URL to this guild's banner
+   * @param {ImageOptions} options - Options for the Image URL
+   * @returns {string|null}
+   */
   displayBannerURL(options = { format: 'png', size: 2048 }) {
     return this.banner ? Constants.guildBanner(this.id, this.banner, options.size, options.format) : null;
   }
 
+  /**
+   * Edits the name of the guild (requires MANAGE_GUILD permission)
+   * @param {string} name - The new Guild name
+   * @returns {Promise<Error|Guild>}
+   */
   async setName(name) {
     const baseData = await Requester.create(this.client, `/guilds/${this.id}`, 'PATCH', true, { name });
     return this.client.guilds.cache.set(this.id, new Guild(this.client, baseData));
   }
 
+  /**
+   * Sets a new owner of the guild (bot should be the guild owner)
+   * @param {string} id - ID of new guild owner
+   * @returns {Promise<Error|Guild>}
+   */
   async setOwner(id) {
     const baseData = await Requester.create(this.client, `/guilds/${this.id}`, 'PATCH', true, { owner_id: id });
     return this.client.guilds.cache.set(this.id, new Guild(this.client, baseData));
   }
 
+  /**
+   * Leaves the current guild
+   * @returns {Promise<Error|Guild>}
+   */
   leave() {
     if (this.ownerId === this.client.user.id) throw new Error('Bot is the guild owner');
     return Requester.create(this.client, `/users/@me/guilds/${this.id}`, 'DELETE', true);
   }
 
+  /**
+   * Leaves the current guild (bot should be the guild owner)
+   * @returns {Promise<Error|Guild>}
+   */
   delete() {
     return Requester.create(this.client, `/guilds/${this.id}`, 'DELETE', true);
   }
 
+  /**
+   * Fetches the current guild
+   * @returns {Promise<Error|Guild>}
+   */
   async fetch() {
     const data = await Requester.create(this.client, `/guilds/${this.id}?with_counts=true`, 'GET', true);
     return this.client.guilds.cache.set(this.id, new Guild(this.client, data));
   }
 
+  /**
+   * Returns the guild name
+   * @returns {string}
+   */
   toString() {
     return this.name;
   }

@@ -40,7 +40,7 @@
 
 
     <title>
-      Client
+      Guild
     </title>
 
     <!--[if lt IE 9]>
@@ -107,7 +107,7 @@
     <div id="main" class="main-content">
       
       <h1 id='page-title' class="page-title">
-        Client
+        Guild
       </h1>
       
 
@@ -124,12 +124,12 @@
         
         <h2>
         
-        Client
+        Guild
         
         </h2>
         
         
-            <div class="class-description"><p>Represents the main peachy.js Client, used for interacting with the Discord API</p></div>
+            <div class="class-description"><p>Represents a guild (or a server) on Discord</p></div>
         
     
 </header>
@@ -144,14 +144,320 @@
         <h2>Constructor</h2>
     
 
-    <h4 class="name" id="Client">
-        <a href="#Client">#</a>
-        <span class="type-signature"></span>new Client<span class="signature">(options)</span><span class="type-signature"></span>
+    <h4 class="name" id="Guild">
+        <a href="#Guild">#</a>
+        <span class="type-signature"></span>new Guild<span class="signature">(client, data)</span><span class="type-signature"></span>
     </h4>
 
     
 
 
+
+
+
+
+
+
+
+
+
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>client</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Client.html">Client</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The instantiating client</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The raw data for the guild</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="structures_Guild.js.html">structures/Guild.js</a>, <a href="structures_Guild.js.html#line20">line 20</a>
+            </li></ul></dd>
+        </div>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li>DataManager</li>
+    </ul>
+
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="delete">
+        <a href="#delete">#</a>
+        <span class="type-signature"></span>delete<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;(Error|<a href="Guild.html">Guild</a>)>}</span>
+    </h4>
+
+    
+
+
+
+    <div class="description">
+        <p>Leaves the current guild (bot should be the guild owner)</p>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="structures_Guild.js.html">structures/Guild.js</a>, <a href="structures_Guild.js.html#line102">line 102</a>
+            </li></ul></dd>
+        </div>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="method-member-container mt-20">
+    <strong>Returns:</strong>
+        
+            
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;(Error|<a href="Guild.html">Guild</a>)></span>
+
+
+    </dd>
+</dl>
+
+            
+    </div>
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="displayBannerURL">
+        <a href="#displayBannerURL">#</a>
+        <span class="type-signature"></span>displayBannerURL<span class="signature">(options)</span><span class="type-signature"> &rarr; {string|null}</span>
+    </h4>
+
+    
+
+
+
+    <div class="description">
+        <p>The URL to this guild's banner</p>
+    </div>
 
 
 
@@ -193,7 +499,7 @@
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#ClientOptions">ClientOptions</a></span>
+<span class="param-type"><a href="global.html#ImageOptions">ImageOptions</a></span>
 
 
             
@@ -203,7 +509,7 @@
 
             
 
-            <td class="description last"><p>Additional client options</p></td>
+            <td class="description last"><p>Options for the Image URL</p></td>
         </tr>
 
     
@@ -248,7 +554,7 @@
         <div class="details-item-container">
             <dt class="tag-source">Source:</dt>
             <dd class="tag-source"><ul class="dummy"><li>
-                <a href="client_Client.js.html">client/Client.js</a>, <a href="client_Client.js.html#line16">line 16</a>
+                <a href="structures_Guild.js.html">structures/Guild.js</a>, <a href="structures_Guild.js.html#line65">line 65</a>
             </li></ul></dd>
         </div>
     
@@ -274,272 +580,41 @@
 
 
 
-
-
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
+    <div class="method-member-container mt-20">
+    <strong>Returns:</strong>
         
             
 
-    
 
-    <h4 class="name" id="disconnect">
-        <a href="#disconnect">#</a>
-        <span class="type-signature"></span>disconnect<span class="signature">()</span><span class="type-signature"></span>
-    </h4>
-
-    
-
-
-
-    <div class="description">
-        <p>Logs out, terminates the connection to Discord, and destroys the client.</p>
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <div class="details-item-container">
-            <dt class="tag-source">Source:</dt>
-            <dd class="tag-source"><ul class="dummy"><li>
-                <a href="client_Client.js.html">client/Client.js</a>, <a href="client_Client.js.html#line111">line 111</a>
-            </li></ul></dd>
-        </div>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
         
-            
-
-    
-
-    <h4 class="name" id="login">
-        <a href="#login">#</a>
-        <span class="type-signature"></span>login<span class="signature">(token)</span><span class="type-signature"></span>
-    </h4>
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
-        <strong>Parameters:</strong>
-        
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>token</code></td>
-            
-
-            <td class="type">
-            
-                
 <span class="param-type">string</span>
+|
 
+<span class="param-type">null</span>
+
+
+    </dd>
+</dl>
 
             
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Logs the client in, establishing a websocket connection to Discord</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     </div>
 
 
 
 
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <div class="details-item-container">
-            <dt class="tag-source">Source:</dt>
-            <dd class="tag-source"><ul class="dummy"><li>
-                <a href="client_Client.js.html">client/Client.js</a>, <a href="client_Client.js.html#line93">line 93</a>
-            </li></ul></dd>
-        </div>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-    
-
-    
-
-    
-        <h3 class="subsection-title">Events</h3>
-
         
             
 
     
 
-    <h4 class="name" id="event:debug">
-        <a href="#event:debug">#</a>
-        debug
+    <h4 class="name" id="displayDiscoverySplashURL">
+        <a href="#displayDiscoverySplashURL">#</a>
+        <span class="type-signature"></span>displayDiscoverySplashURL<span class="signature">(options)</span><span class="type-signature"> &rarr; {string|null}</span>
     </h4>
 
     
@@ -547,7 +622,7 @@
 
 
     <div class="description">
-        <p>Emitted for general debugging information</p>
+        <p>The URL to this guild's discovery icon</p>
     </div>
 
 
@@ -584,13 +659,13 @@
 
         <tr>
             
-                <td class="name"><code>info</code></td>
+                <td class="name"><code>options</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type"><a href="global.html#ImageOptions">ImageOptions</a></span>
 
 
             
@@ -600,7 +675,7 @@
 
             
 
-            <td class="description last"><p>The debug information</p></td>
+            <td class="description last"><p>Options for the Image URL</p></td>
         </tr>
 
     
@@ -645,7 +720,7 @@
         <div class="details-item-container">
             <dt class="tag-source">Source:</dt>
             <dd class="tag-source"><ul class="dummy"><li>
-                <a href="client_Client.js.html">client/Client.js</a>, <a href="client_Client.js.html#line99">line 99</a>
+                <a href="structures_Guild.js.html">structures/Guild.js</a>, <a href="structures_Guild.js.html#line54">line 54</a>
             </li></ul></dd>
         </div>
     
@@ -671,10 +746,1032 @@
 
 
 
+    <div class="method-member-container mt-20">
+    <strong>Returns:</strong>
+        
+            
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+|
+
+<span class="param-type">null</span>
+
+
+    </dd>
+</dl>
+
+            
+    </div>
+
 
 
 
         
+            
+
+    
+
+    <h4 class="name" id="displayIconURL">
+        <a href="#displayIconURL">#</a>
+        <span class="type-signature"></span>displayIconURL<span class="signature">(options)</span><span class="type-signature"> &rarr; {string|null}</span>
+    </h4>
+
+    
+
+
+
+    <div class="description">
+        <p>The URL to this guild's icon</p>
+    </div>
+
+
+
+
+
+
+
+
+
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#ImageOptions">ImageOptions</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Options for the Image URL</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="structures_Guild.js.html">structures/Guild.js</a>, <a href="structures_Guild.js.html#line36">line 36</a>
+            </li></ul></dd>
+        </div>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="method-member-container mt-20">
+    <strong>Returns:</strong>
+        
+            
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+|
+
+<span class="param-type">null</span>
+
+
+    </dd>
+</dl>
+
+            
+    </div>
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="displaySplashURL">
+        <a href="#displaySplashURL">#</a>
+        <span class="type-signature"></span>displaySplashURL<span class="signature">(options)</span><span class="type-signature"> &rarr; {string|null}</span>
+    </h4>
+
+    
+
+
+
+    <div class="description">
+        <p>The URL to this guild's splash</p>
+    </div>
+
+
+
+
+
+
+
+
+
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#ImageOptions">ImageOptions</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Options for the Image URL</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="structures_Guild.js.html">structures/Guild.js</a>, <a href="structures_Guild.js.html#line45">line 45</a>
+            </li></ul></dd>
+        </div>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="method-member-container mt-20">
+    <strong>Returns:</strong>
+        
+            
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+|
+
+<span class="param-type">null</span>
+
+
+    </dd>
+</dl>
+
+            
+    </div>
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="fetch">
+        <a href="#fetch">#</a>
+        <span class="type-signature">(async) </span>fetch<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;(Error|<a href="Guild.html">Guild</a>)>}</span>
+    </h4>
+
+    
+
+
+
+    <div class="description">
+        <p>Fetches the current guild</p>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="structures_Guild.js.html">structures/Guild.js</a>, <a href="structures_Guild.js.html#line110">line 110</a>
+            </li></ul></dd>
+        </div>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="method-member-container mt-20">
+    <strong>Returns:</strong>
+        
+            
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;(Error|<a href="Guild.html">Guild</a>)></span>
+
+
+    </dd>
+</dl>
+
+            
+    </div>
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="leave">
+        <a href="#leave">#</a>
+        <span class="type-signature"></span>leave<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;(Error|<a href="Guild.html">Guild</a>)>}</span>
+    </h4>
+
+    
+
+
+
+    <div class="description">
+        <p>Leaves the current guild</p>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="structures_Guild.js.html">structures/Guild.js</a>, <a href="structures_Guild.js.html#line93">line 93</a>
+            </li></ul></dd>
+        </div>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="method-member-container mt-20">
+    <strong>Returns:</strong>
+        
+            
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;(Error|<a href="Guild.html">Guild</a>)></span>
+
+
+    </dd>
+</dl>
+
+            
+    </div>
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="setName">
+        <a href="#setName">#</a>
+        <span class="type-signature">(async) </span>setName<span class="signature">(name)</span><span class="type-signature"> &rarr; {Promise.&lt;(Error|<a href="Guild.html">Guild</a>)>}</span>
+    </h4>
+
+    
+
+
+
+    <div class="description">
+        <p>Edits the name of the guild (requires MANAGE_GUILD permission)</p>
+    </div>
+
+
+
+
+
+
+
+
+
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The new Guild name</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="structures_Guild.js.html">structures/Guild.js</a>, <a href="structures_Guild.js.html#line74">line 74</a>
+            </li></ul></dd>
+        </div>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="method-member-container mt-20">
+    <strong>Returns:</strong>
+        
+            
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;(Error|<a href="Guild.html">Guild</a>)></span>
+
+
+    </dd>
+</dl>
+
+            
+    </div>
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="setOwner">
+        <a href="#setOwner">#</a>
+        <span class="type-signature">(async) </span>setOwner<span class="signature">(id)</span><span class="type-signature"> &rarr; {Promise.&lt;(Error|<a href="Guild.html">Guild</a>)>}</span>
+    </h4>
+
+    
+
+
+
+    <div class="description">
+        <p>Sets a new owner of the guild (bot should be the guild owner)</p>
+    </div>
+
+
+
+
+
+
+
+
+
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>ID of new guild owner</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="structures_Guild.js.html">structures/Guild.js</a>, <a href="structures_Guild.js.html#line84">line 84</a>
+            </li></ul></dd>
+        </div>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="method-member-container mt-20">
+    <strong>Returns:</strong>
+        
+            
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;(Error|<a href="Guild.html">Guild</a>)></span>
+
+
+    </dd>
+</dl>
+
+            
+    </div>
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="toString">
+        <a href="#toString">#</a>
+        <span class="type-signature"></span>toString<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span>
+    </h4>
+
+    
+
+
+
+    <div class="description">
+        <p>Returns the guild name</p>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="structures_Guild.js.html">structures/Guild.js</a>, <a href="structures_Guild.js.html#line119">line 119</a>
+            </li></ul></dd>
+        </div>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="method-member-container mt-20">
+    <strong>Returns:</strong>
+        
+            
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+            
+    </div>
+
+
+
+
+        
+    
+
+    
+
     
 </article>
 

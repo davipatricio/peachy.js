@@ -11,31 +11,7 @@ const Intents = require('../utils/Intents');
 
 /**
  * Represents the main peachy.js Client, used for interacting with the Discord API
- * @param {Object} options - Additional client options
- * @param {boolean} [options.autoReconnect=true] - If the client should try to reconnect automatically
- * @param {Array<string>} [options.disabledEvents=[]] - Which events will be disabled and not processed
- * {@link https://github.com/denkylabs/peachy.js/tree/main/src/actions|List of supported events }
- * @param {number} [options.shardId=0] - Shard ID of the client
- * @param {number} [options.shardCount=1] - The total amount of shards used by this client
- * @param {number} [options.apiVersion=9] - The Discord API version to use
- * @param {(Array<string>|number)} [options.intents=['GUILDS']] - The intents to use for the client
- * @param {number} [options.large_threshold=50] - Number of members in a guild after which offline users will no
- * longer be sent in the initial guild member list, must be between 50 and 250
- * @param {boolean} [options.failIfNotExists=false] - Whether to error if the replied message doesn't exists
- * @param {Object} [options.cache] - What will be cached
- * @param {number} options.cache.ChannelManager - How many channels will be cached
- * @param {number} options.cache.ChannelMessageManager - How many messages will be cached
- * @param {number} options.cache.EmojiManager - How many emojis will be cached
- * @param {number} options.cache.GuildChannelManager - How many guild channels will be cached
- * @param {number} options.cache.GuildManager - How many guilds will be cached
- * @param {number} options.cache.GuildMemberManager - How many members will be cached
- * @param {number} options.cache.RoleManager - How many roles will be cached
- * @param {number} options.cache.UserManager - How many users will be cached.
- * @param {Object} [options.allowedMentions] - Default allowed mentions configuration used in messages and interactions
- * @param {Array} options.allowedMentions.parse - Types of mentions to be parsed
- * @param {Array} options.allowedMentions.users - Snowflakes of Users to be parsed as mentions
- * @param {Array} options.allowedMentions.roles - Snowflakes of Roles to be parsed as mentions
- * @param {boolean} options.allowedMentions.replied_user - Whether the author of the Message being replied to should be pinged
+ * @param {ClientOptions} options - Additional client options
  */
 class Client extends EventEmitter {
   constructor(options = {}) {
@@ -45,6 +21,21 @@ class Client extends EventEmitter {
     this.user = null;
     this.api = {};
 
+    /**
+     * @typedef {Object} ClientOptions - Default client options
+     * @property {boolean} [autoReconnect=true] - If the client should try to reconnect automatically
+     * @property {Array<string>} [disabledEvents=[]] - Which events will be disabled and not processed
+     * {@link https://github.com/denkylabs/peachy.js/tree/main/src/actions|List of supported events }
+     * @property {number} [shardId=0] - Shard ID of the client
+     * @property {number} [shardCount=1] - The total amount of shards used by this client
+     * @property {number} [apiVersion=9] - The Discord API version to use
+     * @property {(Array<string>|number)} [intents=['GUILDS']] - The intents to use for the client
+     * @property {number} [large_threshold=50] - Number of members in a guild after which offline users will no
+     * longer be sent in the initial guild member list, must be between 50 and 250
+     * @property {boolean} [failIfNotExists=false] - Whether to error if the replied message doesn't exists
+     * @property {CacheFactory} [cache={@link CacheFactory}] - What will be cached
+     * @property {AllowedMentions} [allowedMentions] - Default allowed mentions configuration used in messages and interactions
+     */
     // This will either create the default options or set options that are missing
     this.options = Object.assign(
       {
