@@ -40,7 +40,7 @@
 
 
     <title>
-      utils/PermissionParser.js
+      structures/ClientUser.js
     </title>
 
     <!--[if lt IE 9]>
@@ -107,7 +107,7 @@
     <div id="main" class="main-content">
       
       <h1 id='page-title' class="page-title">
-        utils/PermissionParser.js
+        structures/ClientUser.js
       </h1>
       
 
@@ -120,28 +120,65 @@
         <article>
             <pre class="prettyprint source linenums"><code>'use strict';
 
-const PermissionsBitfield = require('../constants/Permissions');
+const User = require('./User');
 
-/** */
-class Permissions extends null {
+/**
+ * Represents the logged in client's Discord user
+ * @extends User
+ * @param {Client} client The instantiating client
+ * @param {Object} data The raw data for the guild
+ */
+class ClientUser extends User {
+  constructor(client, data) {
+    super(client, data);
+    super.parseData(data);
+  }
+
   /**
-   * @param {number} [bitfield=0] - Bitfield of permissions to parse
-   * @returns {Array&lt;string>} - Array of permission names
+   * Sets/removes the AFK flag for the client user
+   * @param {boolean} afk=true - Whether or not the user is AFK
    */
-  static parse(bitfield = 0) {
-    const final = [];
+  setAFK(afk = true) {
+    this.setPresence({ afk });
+  }
 
-    for (const permission in PermissionsBitfield) {
-      if ((PermissionsBitfield[permission] &amp; bitfield) === PermissionsBitfield[permission]) {
-        final.push(permission);
-      }
-    }
+  /**
+   * Sets the activity the client user is playing
+   * @param {string} name Activity being played, or options for setting the activity
+   * @param {number} [type=0] Options for setting the activity
+   * @see https://discord.com/developers/docs/game-sdk/activities#data-models-activitytype-enum
+   */
+  setActivity(name, type = 0) {
+    this.setPresence({
+      activities: [
+        {
+          type,
+          name,
+        },
+      ],
+    });
+  }
 
-    return final;
+  /**
+   * Sets the full presence of the client user.
+   * @param {Object} [data={ activities = [], status = 'online', afk = false }] - Data for the presence
+   * @see https://discord.com/developers/docs/topics/gateway#update-presence-gateway-presence-update-structure
+   */
+  setPresence({ activities = [], status = 'online', afk = false }) {
+    const data = {
+      op: 3,
+      d: {
+        activities,
+        status,
+        afk,
+        since: null,
+      },
+    };
+    this.client.ws.connection?.send(JSON.stringify(data));
   }
 }
 
-module.exports = Permissions;
+module.exports = ClientUser;
 </code></pre>
         </article>
     </section>

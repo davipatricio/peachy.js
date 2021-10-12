@@ -34,7 +34,7 @@ class Client extends EventEmitter {
      * longer be sent in the initial guild member list, must be between 50 and 250
      * @property {boolean} [failIfNotExists=false] - Whether to error if the replied message doesn't exists
      * @property {CacheFactory} [cache={@link CacheFactory}] - What will be cached
-     * @property {AllowedMentions} [allowedMentions] - Default allowed mentions configuration used in messages and interactions
+     * @property {AllowedMentions} [allowedMentions={@link AllowedMentions}] - Default allowed mentions configuration used in messages and interactions
      */
     // This will either create the default options or set options that are missing
     this.options = Object.assign(
