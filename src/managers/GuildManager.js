@@ -12,9 +12,7 @@ class GuildManager {
   async fetch(id) {
     if (this.cache.has(id)) return this.cache.get(id);
     const data = await Requester.create(this.client, `/guilds/${id}`, 'GET', true);
-
-    // We don't want to change the old member data so we clone the old member and update it's data
-    const guild = this.cache.get(id)?._update(data) ?? new Guild(this.client, data);
+    const guild = new Guild(this.client, data);
     this.cache.set(guild.id, guild);
     return guild;
   }

@@ -15,13 +15,9 @@ class GuildChannelManager {
 
     const data = await Requester.create(this.client, `/channels/${id}`, 'GET', true);
     let channel = null;
-    const cachedChannel = this.cache.get(id);
     switch (data.type) {
       case 0:
-        // We don't want to change the old channel data so we clone the old channel and update it's data
-        channel =
-          cachedChannel?._update(data, cachedChannel.guild) ??
-          new TextChannel(this.client, data, this.client.guilds.cache.get(data.guild_id));
+        channel = new TextChannel(this.client, data, this.client.guilds.cache.get(data.guild_id));
         break;
     }
 
