@@ -77,10 +77,22 @@ class User {
     return Requester.create(this.client, '/users/@me/channels', 'POST', true, { recipient_id: this.id });
   }
 
+  /**
+   * Returns the user mention
+   * @example
+   * <@12345678901234567>
+   * @returns {string}
+   */
   toString() {
     return `<@!${this.id}>`;
   }
 
+  /**
+   * Returns the user tag
+   * @example
+   * User#0001
+   * @returns {string}
+   */
   get tag() {
     return `${this.username}#${this.discriminator}`;
   }
