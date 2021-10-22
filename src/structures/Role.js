@@ -29,6 +29,11 @@ class Role extends DataManager {
     return this.parseData(data);
   }
 
+  /**
+   * Sets whether or not the role should be hoisted.
+   * @param {boolean} [hoist=true] - Whether or not to hoist the role
+   * @param {string} [reason] - Reason for whether or not to hoist the role
+   */
   async setHoist(hoist = true, reason) {
     const data = await Requester.create(
       this.client,
@@ -43,6 +48,11 @@ class Role extends DataManager {
     return this.parseData(data);
   }
 
+  /**
+   * Sets whether or not the role should be mentionable.
+   * @param {boolean} [hoist=true] - Whether this role should be mentionable
+   * @param {string} [reason] - Reason for setting whether or not this role should be mentionable
+   */
   async setMentionable(mentionable = true, reason) {
     const data = await Requester.create(
       this.client,
@@ -68,10 +78,20 @@ class Role extends DataManager {
     });
   }
 
+  /**
+   * Returns the {@link Guild} object of this role.
+   * @returns {Guild|null}
+   */
   get guild() {
     return this.guildId ? this.client.guilds.cache.get(this.guildId) : null;
   }
 
+  /**
+   * Returns the role mention
+   * @example
+   * <@&12345678901234567>
+   * @returns {string}
+   */
   toString() {
     return `<@&${this.id}>`;
   }

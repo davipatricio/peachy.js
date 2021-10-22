@@ -131,7 +131,13 @@ class TextChannel extends DataManager {
     );
     return new TextChannel(this.client, data, this.guild);
   }
-
+  
+  /**
+   * Sets the default auto archive duration for all newly created threads in this channel.
+   * @param {number} [minutes=60] - default duration that the clients (not the API) will use for newly created threads, in minutes, to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080
+   * @param {*} [reason] - Reason for changing the channel's default auto archive duration
+   * @returns 
+   */
   async setDefaultAutoArchiveDuration(minutes = 60, reason) {
     const data = await Requester.create(
       this.client,
@@ -199,10 +205,20 @@ class TextChannel extends DataManager {
     return channel;
   }
 
+  /**
+   * Returns the {@link Guild} object of this channel.
+   * @returns {Guild|null}
+   */
   get guild() {
     return this.guildId ? this.client.guilds.cache.get(this.guildId) : null;
   }
 
+  /**
+   * Returns the channel mention
+   * @example
+   * <@#12345678901234567>
+   * @returns {string}
+   */
   toString() {
     return `<#${this.id}>`;
   }

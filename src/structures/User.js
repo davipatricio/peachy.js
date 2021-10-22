@@ -80,7 +80,7 @@ class User {
   /**
    * Returns the user mention
    * @example
-   * <@12345678901234567>
+   * <@!12345678901234567>
    * @returns {string}
    */
   toString() {
