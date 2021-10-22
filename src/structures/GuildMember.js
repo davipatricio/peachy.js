@@ -8,10 +8,19 @@ class GuildMember extends DataManager {
   constructor(client, data, user, guild) {
     super(client);
 
+    /**
+     * @type {User} - The user that this guild member instance represents
+     */
     this.user = user instanceof User ? user : new User(client, user);
     this.parseData(data, guild);
   }
 
+  /**
+   * Returns the member mention
+   * @example
+   * <@!12345678901234567>
+   * @returns {string}
+   */
   toString() {
     return `<@!${this.user.id}>`;
   }
