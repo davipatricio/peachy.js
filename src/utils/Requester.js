@@ -51,3 +51,5 @@ class Requester extends null {
     return json;
   }
 }
+
+module.exports = Requester;
