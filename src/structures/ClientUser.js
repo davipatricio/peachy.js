@@ -16,7 +16,7 @@ class ClientUser extends User {
 
   /**
    * Sets/removes the AFK flag for the client user
-   * @param {boolean} afk=true - Whether or not the user is AFK
+   * @param {boolean} [afk=true] - Whether or not the user is AFK
    */
   setAFK(afk = true) {
     this.setPresence({ afk });
@@ -24,8 +24,8 @@ class ClientUser extends User {
 
   /**
    * Sets the activity the client user is playing
-   * @param {string} name Activity being played, or options for setting the activity
-   * @param {number} [type=0] Options for setting the activity
+   * @param {string} name Name of the activity being played
+   * @param {number} [type=0] {@link https://discord.com/developers/docs/topics/gateway#activity-object-activity-types|activity type}
    * @see https://discord.com/developers/docs/game-sdk/activities#data-models-activitytype-enum
    */
   setActivity(name, type = 0) {
@@ -41,7 +41,7 @@ class ClientUser extends User {
 
   /**
    * Sets the full presence of the client user.
-   * @param {Object} [data={ activities = [], status = 'online', afk = false }] - Data for the presence
+   * @param {PresenceData} [data={ activities = [], status = 'online', afk = false }] - Data for the presence
    * @see https://discord.com/developers/docs/topics/gateway#update-presence-gateway-presence-update-structure
    */
   setPresence({ activities = [], status = 'online', afk = false }) {

@@ -10,6 +10,11 @@ class Role extends DataManager {
     this.parseData(data, guild);
   }
 
+  /**
+   * Changes the role name.
+   * @param {string} name - New role name
+   * @param {string} [reason] - Reason for changing the role name
+   */
   async setName(name, reason) {
     const data = await Requester.create(
       this.client,
@@ -52,6 +57,11 @@ class Role extends DataManager {
     return this.parseData(data);
   }
 
+  /**
+   * Deletes the role.
+   * @param {string} [reason] - Reason for deleting the channel
+   * @returns {Promise<null>}
+   */
   delete(reason) {
     return Requester.create(this.client, `/guilds/${this.guild.id}/roles/${this.id}`, 'DELETE', true, undefined, {
       'X-Audit-Log-Reason': reason,

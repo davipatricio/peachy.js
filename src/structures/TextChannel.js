@@ -14,6 +14,14 @@ class TextChannel extends DataManager {
     this.parseData(data, guild);
   }
 
+  /**
+   * Sends a message to the channel.
+   * @param {Object|string} content - Message text or message options
+   * @param {string} [content.content=''] - The message text
+   * @param {Array<MessageEmbed>} [content.embeds=[]] - Array of {@link MessageEmbed} or raw embed data
+   * @param {boolean} [content.tts=false] - Whether or not the message should be spoken aloud
+   * @param {AllowedMentions} [content.allowedMentions={@link ClientOptions}#allowedMentions] - Allowed mentions object
+   */
   async send(content) {
     if (typeof content === 'string') {
       const data = await Requester.create(this.client, `/channels/${this.id}/messages`, 'POST', true, {
@@ -46,6 +54,11 @@ class TextChannel extends DataManager {
     return new Invite(this.client, data);
   }
 
+  /**
+   * Changes the channel name.
+   * @param {string} name - New channel name
+   * @param {string} [reason] - Reason for changing the channel name
+   */
   async setName(name, reason) {
     const data = await Requester.create(
       this.client,
@@ -60,6 +73,11 @@ class TextChannel extends DataManager {
     return new TextChannel(this.client, data, this.guild);
   }
 
+  /**
+   * Changes the channel position.
+   * @param {number} [position=0] - New channel position
+   * @param {string} [reason] - Reason for changing the channel position
+   */
   async setPosition(position = 0, reason) {
     const data = await Requester.create(
       this.client,
@@ -74,6 +92,11 @@ class TextChannel extends DataManager {
     return new TextChannel(this.client, data, this.guild);
   }
 
+  /**
+   * Changes the channel topic.
+   * @param {string} [topic=null] - New channel topic
+   * @param {string} [reason] - Reason for changing the channel topic
+   */
   async setTopic(topic = null, reason) {
     const data = await Requester.create(
       this.client,
@@ -88,6 +111,11 @@ class TextChannel extends DataManager {
     return new TextChannel(this.client, data, this.guild);
   }
 
+  /**
+   * Changes the channel slowmode.
+   * @param {number} [seconds=0] - New slowmode duration
+   * @param {string} [reason] - Reason for changing the channel slowmode
+   */
   async setRateLimitPerUser(seconds = 0, reason) {
     const data = await Requester.create(
       this.client,
@@ -151,6 +179,11 @@ class TextChannel extends DataManager {
     return new TextChannel(this.client, data, this.guild);
   }
 
+  /**
+   * Deletes the channel.
+   * @param {string} [reason] - Reason for deleting the channel
+   * @returns {Promise<TextChannel>}
+   */
   async delete(reason) {
     const data = await Requester.create(this.client, `/channels/${this.id}`, 'DELETE', true, undefined, {
       'X-Audit-Log-Reason': reason,

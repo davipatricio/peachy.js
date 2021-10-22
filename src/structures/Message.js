@@ -103,7 +103,7 @@ class Message extends DataManager {
    * Edits the content of the message
    * @param {Object|string} content - Message text or message options
    * @param {string} [content.content=''] - The message text
-   * @param {Array} [content.embeds=[]] - Array of {@link MessageEmbed} or raw embed data
+   * @param {Array<MessageEmbed>} [content.embeds=[]] - Array of {@link MessageEmbed} or raw embed data
    * @param {AllowedMentions} [content.allowedMentions={@link ClientOptions}#allowedMentions] - Allowed mentions object
    * @example
    * // Edit the message

@@ -41,7 +41,7 @@ class User {
    * Sends a message to the user.
    * @param {Object|string} content - Message text or message options
    * @param {string} [content.content=''] - The message text
-   * @param {Array} [content.embeds=[]] - Array of {@link MessageEmbed} or raw embed data
+   * @param {Array<MessageEmbed>} [content.embeds=[]] - Array of {@link MessageEmbed} or raw embed data
    * @param {boolean} [content.tts=false] - Whether or not the message should be spoken aloud
    * @param {AllowedMentions} [content.allowedMentions={@link ClientOptions}#allowedMentions] - Allowed mentions object
    */
