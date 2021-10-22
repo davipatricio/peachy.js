@@ -103,6 +103,7 @@ dist
 # TernJS port file
 .tern-port
 
-# Others
+# Other
 .npmrc
 **/test.js
+docs/
