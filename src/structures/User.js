@@ -44,6 +44,7 @@ class User {
    * @param {Array<MessageEmbed>} [content.embeds=[]] - Array of {@link MessageEmbed} or raw embed data
    * @param {boolean} [content.tts=false] - Whether or not the message should be spoken aloud
    * @param {AllowedMentions} [content.allowedMentions={@link ClientOptions}#allowedMentions] - Allowed mentions object
+   * @returns {Promise<Message>}
    */
   async send(content) {
     const dmChannelId = await this.createDM();

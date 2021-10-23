@@ -14,6 +14,7 @@ class Role extends DataManager {
    * Changes the role name.
    * @param {string} name - New role name
    * @param {string} [reason] - Reason for changing the role name
+   * @returns {Promise<Role>}
    */
   async setName(name, reason) {
     const data = await Requester.create(
@@ -33,6 +34,7 @@ class Role extends DataManager {
    * Sets whether or not the role should be hoisted.
    * @param {boolean} [hoist=true] - Whether or not to hoist the role
    * @param {string} [reason] - Reason for whether or not to hoist the role
+   * @returns {Promise<Role>}
    */
   async setHoist(hoist = true, reason) {
     const data = await Requester.create(
@@ -50,8 +52,9 @@ class Role extends DataManager {
 
   /**
    * Sets whether or not the role should be mentionable.
-   * @param {boolean} [hoist=true] - Whether this role should be mentionable
+   * @param {boolean} [mentionable=true] - Whether this role should be mentionable
    * @param {string} [reason] - Reason for setting whether or not this role should be mentionable
+   * @returns {Promise<Role>}
    */
   async setMentionable(mentionable = true, reason) {
     const data = await Requester.create(
@@ -79,7 +82,7 @@ class Role extends DataManager {
   }
 
   /**
-   * Returns the {@link Guild} object of this role.
+   * Returns the {@link Guild} object of this role, if the guild is cached.
    * @returns {Guild|null}
    */
   get guild() {

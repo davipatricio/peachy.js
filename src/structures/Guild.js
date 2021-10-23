@@ -25,12 +25,12 @@ class Guild extends DataManager {
      * @type {LimitedMap} - Collection of Guild Channels
      */
     this.channels = new GuildChannelManager(this.client, this.client.options.cache.GuildChannelManager);
-    
+
     /**
      * @type {LimitedMap} - Collection of {@link GuildMember}
      */
     this.members = new GuildMemberManager(this.client, this, this.client.options.cache.GuildMemberManager);
-    
+
     /**
      * @type {LimitedMap} - Collection of {@link Role}
      */

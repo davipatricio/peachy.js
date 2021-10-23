@@ -17,7 +17,6 @@ class Requester extends null {
    * @param {Object} [headers={}] - Additional headers
    */
   static async create(client, endpoint, method = 'GET', parseHeaders = true, data = undefined, headers = {}) {
-
     let parsedHeaders = headers;
     if (parseHeaders) {
       parsedHeaders = {

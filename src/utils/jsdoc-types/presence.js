@@ -1,4 +1,3 @@
-
 /**
  * @typedef {Object} PresenceData
  * @property {?number} [since] - unix time (in milliseconds) of when the client went idle, or null if the client is not idle
