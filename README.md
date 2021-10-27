@@ -1,9 +1,8 @@
-# peachy.js
-A minimalist and perfomance-focused library in development designed to interact with Discord API.
+![rkswrites](https://socialify.git.ci/denkylabs/peachy.js/image?description=1&descriptionEditable=A+minimalist+and+perfomance-focused+library+in+development+designed+to+interact+with+Discord+API.&font=Inter&forks=1&issues=1&language=1&owner=1&pattern=Floating%20Cogs&pulls=1&stargazers=1&theme=Dark)
 
-With a focus on simplicity and performance. So that anyone without much knowledge can create a decent bot for Discord.
+---
 
-# Installation
+## Installation
 
 ##### Node.js 16.0.0 or newer is required.
 
@@ -19,7 +18,7 @@ pnpm add peachy.js
 
 ---
 
-# Simple example
+## Simple example
 ```js
 const Peachy = require('peachy.js');
 const client = new Peachy.Client();
