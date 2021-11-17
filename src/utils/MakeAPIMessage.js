@@ -9,15 +9,7 @@ class APIMessage extends null {
    */
   static transform(data) {
     if (!data) throw new Error('Data should not be empty.');
-    if (data.embeds) {
-      data.embeds?.map(embed => {
-        if (embed instanceof MessageEmbed) {
-          return embed.toJSON();
-        }
-        return embed;
-      });
-    }
-
+    data.embeds?.map(embed => (embed instanceof MessageEmbed ? embed.toJSON() : embed));
     data.content ??= '';
     data.tts ??= false;
 

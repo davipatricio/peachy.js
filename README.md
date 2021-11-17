@@ -1,5 +1,7 @@
 ![rkswrites](https://socialify.git.ci/denkylabs/peachy.js/image?description=1&descriptionEditable=A+minimalist+and+perfomance-focused+library+in+development+designed+to+interact+with+Discord+API.&font=Inter&forks=1&issues=1&language=1&owner=1&pattern=Floating%20Cogs&pulls=1&stargazers=1&theme=Dark)
 
+:warning: The code here is outdated! New commits will be made on [davipatricio/peachy.js](https://github.com/davipatricio/peachy.js)
+
 ---
 
 ## Installation

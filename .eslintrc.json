@@ -25,7 +25,7 @@
         "singleQuote": true,
         "quoteProps": "as-needed",
         "trailingComma": "all",
-        "endOfLine": "lf",
+        "endOfLine": "auto",
         "arrowParens": "avoid"
       }
     ],

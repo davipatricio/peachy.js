@@ -4,8 +4,6 @@ const fetch = (...args) => import('node-fetch').then(({ default: nodefetch }) =>
 const { verifyForStatusCode, verifyForJSONStatusCode } = require('./CheckAPIError');
 const { apiUrl } = require('../constants/DiscordEndpoints');
 
-// "data" defaults to undefined because GET requests don't have a body
-
 /** **/
 class Requester extends null {
   /**
@@ -16,6 +14,8 @@ class Requester extends null {
    * @param {string|Object} [data] - JSON parameters to use in the request
    * @param {Object} [headers={}] - Additional headers
    */
+
+  // "data" defaults to undefined because GET requests don't have a body
   static async create(client, endpoint, method = 'GET', parseHeaders = true, data = undefined, headers = {}) {
     let parsedHeaders = headers;
     if (parseHeaders) {
@@ -41,6 +41,7 @@ class Requester extends null {
       verifyForStatusCode(`${apiUrl(client.options.apiVersion)}${endpoint}`, data, fetchData.status);
       return fetchData;
     }
+    json ??= {};
 
     // Verify if an error code was returned from Discord API
     // If there was an error, one of the following methods will throw an error
